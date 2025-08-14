@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Chris Blog</title><link>https://gameol.site/posts/</link><description>Recent content in Posts on Chris Blog</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Thu, 14 Aug 2025 11:06:18 +0800</lastBuildDate><atom:link href="https://gameol.site/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Rust开发环境初始化</title><link>https://gameol.site/posts/dev/rust-env-init/</link><pubDate>Thu, 14 Aug 2025 11:06:18 +0800</pubDate><guid>https://gameol.site/posts/dev/rust-env-init/</guid><description>&lt;h1 id="开发环境配置指南zsh--rust">开发环境配置指南（Zsh + Rust）&lt;/h1>
+&lt;h2 id="目录">目录&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="#%E4%B8%80zsh-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE">一、Zsh 环境配置&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="#1-%E5%AE%89%E8%A3%85-zsh">1. 安装 Zsh&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="#2-%E8%AE%BE%E7%BD%AE-zsh-%E4%B8%BA%E9%BB%98%E8%AE%A4-shell">2. 设置 Zsh 为默认 shell&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="#3-%E5%AE%89%E8%A3%85-oh-my-zsh">3. 安装 Oh My Zsh&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="#4-%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6">4. 常用插件&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#41-zsh-autosuggestions">4.1 zsh-autosuggestions&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#42-zsh-syntax-highlighting">4.2 zsh-syntax-highlighting&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#43-alias-finder">4.3 alias-finder&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#44-z">4.4 z&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="#5-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE">5. 常用设置&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="#%E4%BA%8Crust-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83">二、Rust 开发环境&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#1-%E5%AE%89%E8%A3%85-rust">1. 安装 Rust&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85">2. 验证安装&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-%E9%85%8D%E7%BD%AE-cargo-%E9%95%9C%E5%83%8F">3. 配置 Cargo 镜像&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-%E5%8F%AF%E9%80%89%E5%88%87%E6%8D%A2-rust-%E7%89%88%E6%9C%AC">4. 可选：切换 Rust 版本&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="一zsh-环境配置">一、Zsh 环境配置&lt;/h2>
+&lt;h3 id="1-安装-zsh">1. 安装 Zsh&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo apt update
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt install zsh -y
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="2-设置-zsh-为默认-shell">2. 设置 Zsh 为默认 shell&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>chsh -s &lt;span style="color:#66d9ef">$(&lt;/span>which zsh&lt;span style="color:#66d9ef">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>注：执行后注销或重启终端即可生效。&lt;/p>&lt;/blockquote>
+&lt;h3 id="3-安装-oh-my-zsh">3. 安装 Oh My Zsh&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sh -c &lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#66d9ef">$(&lt;/span>curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh&lt;span style="color:#66d9ef">)&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>Oh My Zsh 帮助管理主题和插件，安装后会自动切换到 Zsh。&lt;/p></description></item></channel></rss>
