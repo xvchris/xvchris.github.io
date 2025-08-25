@@ -1,0 +1,628 @@
+<!doctype html><html itemscope itemtype=http://schema.org/WebPage lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=2"><meta name=robots content="noodp"><title>加密货币基础知识：从比特币到DeFi - Chris Blog</title><meta name=author content="Chris"><meta name=description content="加密货币基础知识：从比特币到DeFi 一、为什么关注加密货币 1.1 市场背景 那年的币圈真的太疯狂了。
+"><meta name=keywords content='技术分享,加密货币,区块链,DeFi,学习笔记'><meta itemprop=name content="加密货币基础知识：从比特币到DeFi"><meta itemprop=description content="加密货币基础知识：从比特币到DeFi 一、为什么关注加密货币 1.1 市场背景 那年的币圈真的太疯狂了。"><meta itemprop=datePublished content="2021-06-20T14:15:00+08:00"><meta itemprop=dateModified content="2025-08-25T10:59:56+08:00"><meta itemprop=wordCount content="2689"><meta itemprop=keywords content="技术分享,加密货币,区块链,DeFi,学习笔记"><meta property="og:url" content="https://www.gameol.site/posts/20210620-crypto-basics/"><meta property="og:site_name" content="Chris Blog"><meta property="og:title" content="加密货币基础知识：从比特币到DeFi"><meta property="og:description" content="加密货币基础知识：从比特币到DeFi 一、为什么关注加密货币 1.1 市场背景 那年的币圈真的太疯狂了。"><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-06-20T14:15:00+08:00"><meta property="article:modified_time" content="2025-08-25T10:59:56+08:00"><meta property="article:tag" content="技术分享"><meta property="article:tag" content="加密货币"><meta property="article:tag" content="区块链"><meta property="article:tag" content="DeFi"><meta property="article:tag" content="学习笔记"><meta name=twitter:card content="summary"><meta name=twitter:title content="加密货币基础知识：从比特币到DeFi"><meta name=twitter:description content="加密货币基础知识：从比特币到DeFi 一、为什么关注加密货币 1.1 市场背景 那年的币圈真的太疯狂了。"><meta name=application-name content="Chris Blog"><meta name=apple-mobile-web-app-title content="Chris Blog"><meta name=theme-color data-light=#f8f8f8 data-dark=#252627 content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel=icon href=favicons/ghost.ico><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical type=text/html href=https://www.gameol.site/posts/20210620-crypto-basics/ title="加密货币基础知识：从比特币到DeFi - Chris Blog"><link rel=prev type=text/html href=https://www.gameol.site/posts/20210315-rust-basics-learning/ title=Rust语言入门：从零开始的学习笔记><link rel=next type=text/html href=https://www.gameol.site/posts/20220210-rust-async-learning/ title=Rust异步编程学习：从Future到async/await><link rel=alternate type=text/markdown href=https://www.gameol.site/posts/20210620-crypto-basics/index.md title="加密货币基础知识：从比特币到DeFi - Chris Blog"><link rel=stylesheet href=/css/style.min.css><link rel=preload href=/lib/fontawesome-free/all.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload href=/lib/animate/animate.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"加密货币基础知识：从比特币到DeFi","inLanguage":"zh-cn","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/www.gameol.site\/posts\/20210620-crypto-basics\/"},"genre":"posts","keywords":"技术分享, 加密货币, 区块链, DeFi, 学习笔记","wordcount":2689,"url":"https:\/\/www.gameol.site\/posts\/20210620-crypto-basics\/","datePublished":"2021-06-20T14:15:00+08:00","dateModified":"2025-08-25T10:59:56+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Chris"},"description":""}</script><script src=/js/head/color-scheme.min.js></script></head><body data-header-desktop=sticky data-header-mobile=auto><div class=wrapper data-page-style=normal><header class="desktop animate__faster" id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Chris Blog"><img class=logo src=/images/fixit.min.svg alt="Chris Blog" height=32 width=32><span class=header-title-text>Chris Blog</span></a><span class=header-subtitle></span></div><nav><ul class=menu><li class=menu-item><a class=menu-link href=/archives/><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden=true></i> Archives</a></li><li class=menu-item><a class=menu-link href=/categories/><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden=true></i> Categories</a></li><li class=menu-item><a class=menu-link href=/tags/><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden=true></i> Tags</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id=search-desktop><input type=text placeholder=搜索文章标题或内容…… id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fa-solid fa-search fa-fw" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fa-solid fa-times-circle fa-fw" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-desktop><i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></li><li class="menu-item theme-switch" title=切换主题><i class="fa-solid fa-adjust fa-fw" aria-hidden=true></i></li></ul></nav></div></header><header class="mobile animate__faster" id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Chris Blog"><img class=logo src=/images/fixit.min.svg alt="Chris Blog" height=26 width=26><span class=header-title-text>Chris Blog</span></a><span class=header-subtitle></span></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><nav><ul class=menu id=menu-mobile><li class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容…… id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fa-solid fa-search fa-fw" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fa-solid fa-times-circle fa-fw" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-mobile><i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></li><li class=menu-item><a class=menu-link href=/archives/><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden=true></i> Archives</a></li><li class=menu-item><a class=menu-link href=/categories/><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden=true></i> Categories</a></li><li class=menu-item><a class=menu-link href=/tags/><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden=true></i> Tags</a></li><li class="menu-item menu-system"><span class="menu-system-item theme-switch" title=切换主题><i class="fa-solid fa-adjust fa-fw" aria-hidden=true></i></span></li></ul></nav></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=container><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label=合集></aside><article class="page single"><div class=header><h1 class="single-title animate__animated animate__flipInX"><span>加密货币基础知识：从比特币到DeFi</span></h1></div><div class=post-meta><div class=post-meta-line><span class=post-author><a href=[author%20link] title=作者 rel=author class=author><img class=avatar src='https://www.gravatar.com/avatar/216ea1279cda21730005ef401968992d?s=32&d=' alt=Chris height=16 width=16>&nbsp;Chris</a></span></div><div class=post-meta-line><span title="发布于 2021-06-20 14:15:00"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden=true></i><time datetime=20200-08-08>20200-08-08</time></span>&nbsp;<span title="更新于 2025-08-25 10:59:56"><i class="fa-regular fa-calendar-check fa-fw me-1" aria-hidden=true></i><time datetime=252556-08-08>252556-08-08</time></span>&nbsp;<span title="2689 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden=true></i>约 2700 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden=true></i>预计阅读 6 分钟</span>&nbsp;</div></div><div class=content id=content><h2 class=heading-element id=加密货币基础知识从比特币到defi><span>加密货币基础知识：从比特币到DeFi</span>
+<a href=#%e5%8a%a0%e5%af%86%e8%b4%a7%e5%b8%81%e5%9f%ba%e7%a1%80%e7%9f%a5%e8%af%86%e4%bb%8e%e6%af%94%e7%89%b9%e5%b8%81%e5%88%b0defi class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h2 class=heading-element id=一为什么关注加密货币><span>一、为什么关注加密货币</span>
+<a href=#%e4%b8%80%e4%b8%ba%e4%bb%80%e4%b9%88%e5%85%b3%e6%b3%a8%e5%8a%a0%e5%af%86%e8%b4%a7%e5%b8%81 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=11-市场背景><span>1.1 市场背景</span>
+<a href=#11-%e5%b8%82%e5%9c%ba%e8%83%8c%e6%99%af class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>那年的币圈真的太疯狂了。</p><p>比特币从年初的3万刀涨到6万刀，以太坊从1000刀涨到4000刀。朋友圈里天天有人晒收益，各种"财富自由"的帖子刷屏。</p><p>说实话，一开始我是拒绝的。觉得这就是泡沫，迟早要崩。</p><p>但看着身边的朋友一个个赚得盆满钵满，我也开始心动了。</p><h3 class=heading-element id=12-个人兴趣><span>1.2 个人兴趣</span>
+<a href=#12-%e4%b8%aa%e4%ba%ba%e5%85%b4%e8%b6%a3 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>后来深入了解后，发现加密货币确实很有意思：</p><ul><li><strong>技术创新</strong>：区块链技术确实很酷，去中心化的概念很吸引人</li><li><strong>投资机会</strong>：虽然风险很大，但机会也很多</li><li><strong>编程实践</strong>：智能合约开发是个很好的编程练习</li><li><strong>量化交易</strong>：24/7交易，没有涨跌停，很适合量化策略</li></ul><p>最重要的是，我想试试能不能用技术来赚钱。</p><hr><h2 class=heading-element id=二比特币数字黄金><span>二、比特币：数字黄金</span>
+<a href=#%e4%ba%8c%e6%af%94%e7%89%b9%e5%b8%81%e6%95%b0%e5%ad%97%e9%bb%84%e9%87%91 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=21-比特币基础><span>2.1 比特币基础</span>
+<a href=#21-%e6%af%94%e7%89%b9%e5%b8%81%e5%9f%ba%e7%a1%80 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>比特币是第一个去中心化的数字货币，由中本聪在2008年提出。</p><p><strong>核心特点：</strong></p><ul><li>去中心化：没有中央机构控制</li><li>有限供应：总量2100万个</li><li>不可篡改：基于密码学保证安全</li><li>全球流通：无国界限制</li></ul><h3 class=heading-element id=22-技术原理><span>2.2 技术原理</span>
+<a href=#22-%e6%8a%80%e6%9c%af%e5%8e%9f%e7%90%86 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># 简化的比特币地址生成示例</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>hashlib</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>base58</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>generate_bitcoin_address</span><span class=p>(</span><span class=n>public_key</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;生成比特币地址&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=c1># SHA256哈希</span>
+</span></span><span class=line><span class=cl>    <span class=n>sha256_hash</span> <span class=o>=</span> <span class=n>hashlib</span><span class=o>.</span><span class=n>sha256</span><span class=p>(</span><span class=n>public_key</span><span class=o>.</span><span class=n>encode</span><span class=p>())</span><span class=o>.</span><span class=n>hexdigest</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># RIPEMD160哈希</span>
+</span></span><span class=line><span class=cl>    <span class=n>ripemd160_hash</span> <span class=o>=</span> <span class=n>hashlib</span><span class=o>.</span><span class=n>new</span><span class=p>(</span><span class=s1>&#39;ripemd160&#39;</span><span class=p>,</span> <span class=n>sha256_hash</span><span class=o>.</span><span class=n>encode</span><span class=p>())</span><span class=o>.</span><span class=n>hexdigest</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># 添加版本号</span>
+</span></span><span class=line><span class=cl>    <span class=n>versioned_hash</span> <span class=o>=</span> <span class=s2>&#34;00&#34;</span> <span class=o>+</span> <span class=n>ripemd160_hash</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># 双重SHA256校验</span>
+</span></span><span class=line><span class=cl>    <span class=n>checksum</span> <span class=o>=</span> <span class=n>hashlib</span><span class=o>.</span><span class=n>sha256</span><span class=p>(</span><span class=n>hashlib</span><span class=o>.</span><span class=n>sha256</span><span class=p>(</span><span class=n>versioned_hash</span><span class=o>.</span><span class=n>encode</span><span class=p>())</span><span class=o>.</span><span class=n>digest</span><span class=p>())</span><span class=o>.</span><span class=n>hexdigest</span><span class=p>()[:</span><span class=mi>8</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># 组合并Base58编码</span>
+</span></span><span class=line><span class=cl>    <span class=n>final_hash</span> <span class=o>=</span> <span class=n>versioned_hash</span> <span class=o>+</span> <span class=n>checksum</span>
+</span></span><span class=line><span class=cl>    <span class=n>address</span> <span class=o>=</span> <span class=n>base58</span><span class=o>.</span><span class=n>b58encode</span><span class=p>(</span><span class=nb>bytes</span><span class=o>.</span><span class=n>fromhex</span><span class=p>(</span><span class=n>final_hash</span><span class=p>))</span><span class=o>.</span><span class=n>decode</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>address</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 使用示例</span>
+</span></span><span class=line><span class=cl><span class=n>public_key</span> <span class=o>=</span> <span class=s2>&#34;04a0434d9e47f3c86235477c7b1ae6ae5d3442d49b1943c2b752a68e2a47e247c7&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>address</span> <span class=o>=</span> <span class=n>generate_bitcoin_address</span><span class=p>(</span><span class=n>public_key</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;比特币地址: </span><span class=si>{</span><span class=n>address</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span></span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=23-挖矿原理><span>2.3 挖矿原理</span>
+<a href=#23-%e6%8c%96%e7%9f%bf%e5%8e%9f%e7%90%86 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>hashlib</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>time</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>mine_block</span><span class=p>(</span><span class=n>block_data</span><span class=p>,</span> <span class=n>target_difficulty</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;简单的挖矿模拟&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>nonce</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>    <span class=n>target</span> <span class=o>=</span> <span class=s2>&#34;0&#34;</span> <span class=o>*</span> <span class=n>target_difficulty</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=kc>True</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=c1># 组合区块数据</span>
+</span></span><span class=line><span class=cl>        <span class=n>block_string</span> <span class=o>=</span> <span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=n>block_data</span><span class=si>}{</span><span class=n>nonce</span><span class=si>}</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=c1># 计算哈希</span>
+</span></span><span class=line><span class=cl>        <span class=n>block_hash</span> <span class=o>=</span> <span class=n>hashlib</span><span class=o>.</span><span class=n>sha256</span><span class=p>(</span><span class=n>block_string</span><span class=o>.</span><span class=n>encode</span><span class=p>())</span><span class=o>.</span><span class=n>hexdigest</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=c1># 检查是否满足难度要求</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>block_hash</span><span class=p>[:</span><span class=n>target_difficulty</span><span class=p>]</span> <span class=o>==</span> <span class=n>target</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=n>nonce</span><span class=p>,</span> <span class=n>block_hash</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=n>nonce</span> <span class=o>+=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 挖矿示例</span>
+</span></span><span class=line><span class=cl><span class=n>block_data</span> <span class=o>=</span> <span class=s2>&#34;Hello, Bitcoin!&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>difficulty</span> <span class=o>=</span> <span class=mi>4</span>
+</span></span><span class=line><span class=cl><span class=n>start_time</span> <span class=o>=</span> <span class=n>time</span><span class=o>.</span><span class=n>time</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>nonce</span><span class=p>,</span> <span class=n>block_hash</span> <span class=o>=</span> <span class=n>mine_block</span><span class=p>(</span><span class=n>block_data</span><span class=p>,</span> <span class=n>difficulty</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>end_time</span> <span class=o>=</span> <span class=n>time</span><span class=o>.</span><span class=n>time</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;找到有效nonce: </span><span class=si>{</span><span class=n>nonce</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;区块哈希: </span><span class=si>{</span><span class=n>block_hash</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;耗时: </span><span class=si>{</span><span class=n>end_time</span> <span class=o>-</span> <span class=n>start_time</span><span class=si>:</span><span class=s2>.2f</span><span class=si>}</span><span class=s2>秒&#34;</span><span class=p>)</span></span></span></code></pre></td></tr></table></div></div><hr><h2 class=heading-element id=三以太坊智能合约平台><span>三、以太坊：智能合约平台</span>
+<a href=#%e4%b8%89%e4%bb%a5%e5%a4%aa%e5%9d%8a%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6%e5%b9%b3%e5%8f%b0 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=31-以太坊基础><span>3.1 以太坊基础</span>
+<a href=#31-%e4%bb%a5%e5%a4%aa%e5%9d%8a%e5%9f%ba%e7%a1%80 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>以太坊不仅是一个数字货币，更是一个去中心化的计算平台。</p><p><strong>核心特点：</strong></p><ul><li>智能合约：可编程的区块链</li><li>图灵完备：支持复杂的计算逻辑</li><li>去中心化应用（DApp）：构建在以太坊上的应用</li></ul><h3 class=heading-element id=32-智能合约示例><span>3.2 智能合约示例</span>
+<a href=#32-%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6%e7%a4%ba%e4%be%8b class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-solidity data-lang=solidity><span class=line><span class=cl><span class=c1>// SPDX-License-Identifier: MIT
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>pragma solidity</span> <span class=o>^</span><span class=mi>0</span><span class=p>.</span><span class=mi>8</span><span class=p>.</span><span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>contract</span> <span class=nc>SimpleToken</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>string</span> <span class=k>public</span> <span class=nb>name</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>string</span> <span class=k>public</span> <span class=n>symbol</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>uint8</span> <span class=k>public</span> <span class=n>decimals</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>uint256</span> <span class=k>public</span> <span class=n>totalSupply</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>mapping</span><span class=p>(</span><span class=kt>address</span> <span class=o>=&gt;</span> <span class=kt>uint256</span><span class=p>)</span> <span class=k>public</span> <span class=n>balanceOf</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kd>mapping</span><span class=p>(</span><span class=kt>address</span> <span class=o>=&gt;</span> <span class=kd>mapping</span><span class=p>(</span><span class=kt>address</span> <span class=o>=&gt;</span> <span class=kt>uint256</span><span class=p>))</span> <span class=k>public</span> <span class=n>allowance</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>event</span> <span class=nc>Transfer</span><span class=p>(</span><span class=kt>address</span> <span class=k>indexed</span> <span class=k>from</span><span class=p>,</span> <span class=kt>address</span> <span class=k>indexed</span> <span class=n>to</span><span class=p>,</span> <span class=kt>uint256</span> <span class=nb>value</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=kd>event</span> <span class=nc>Approval</span><span class=p>(</span><span class=kt>address</span> <span class=k>indexed</span> <span class=n>owner</span><span class=p>,</span> <span class=kt>address</span> <span class=k>indexed</span> <span class=n>spender</span><span class=p>,</span> <span class=kt>uint256</span> <span class=nb>value</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>constructor</span><span class=p>(</span><span class=kt>string</span> <span class=k>memory</span> <span class=n>_name</span><span class=p>,</span> <span class=kt>string</span> <span class=k>memory</span> <span class=n>_symbol</span><span class=p>,</span> <span class=kt>uint8</span> <span class=n>_decimals</span><span class=p>,</span> <span class=kt>uint256</span> <span class=n>_totalSupply</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nb>name</span> <span class=o>=</span> <span class=n>_name</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>symbol</span> <span class=o>=</span> <span class=n>_symbol</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>decimals</span> <span class=o>=</span> <span class=n>_decimals</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>totalSupply</span> <span class=o>=</span> <span class=n>_totalSupply</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>balanceOf</span><span class=p>[</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>]</span> <span class=o>=</span> <span class=n>_totalSupply</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nf>transfer</span><span class=p>(</span><span class=kt>address</span> <span class=n>to</span><span class=p>,</span> <span class=kt>uint256</span> <span class=n>amount</span><span class=p>)</span> <span class=k>public</span> <span class=k>returns</span> <span class=p>(</span><span class=kt>bool</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nb>require</span><span class=p>(</span><span class=n>balanceOf</span><span class=p>[</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>]</span> <span class=o>&gt;=</span> <span class=n>amount</span><span class=p>,</span> <span class=s>&#34;Insufficient balance&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=n>balanceOf</span><span class=p>[</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>]</span> <span class=o>-=</span> <span class=n>amount</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>balanceOf</span><span class=p>[</span><span class=n>to</span><span class=p>]</span> <span class=o>+=</span> <span class=n>amount</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=n>emit</span> <span class=n>Transfer</span><span class=p>(</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>,</span> <span class=n>to</span><span class=p>,</span> <span class=n>amount</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>true</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nf>approve</span><span class=p>(</span><span class=kt>address</span> <span class=n>spender</span><span class=p>,</span> <span class=kt>uint256</span> <span class=n>amount</span><span class=p>)</span> <span class=k>public</span> <span class=k>returns</span> <span class=p>(</span><span class=kt>bool</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>allowance</span><span class=p>[</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>][</span><span class=n>spender</span><span class=p>]</span> <span class=o>=</span> <span class=n>amount</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>emit</span> <span class=n>Approval</span><span class=p>(</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>,</span> <span class=n>spender</span><span class=p>,</span> <span class=n>amount</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>true</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nf>transferFrom</span><span class=p>(</span><span class=kt>address</span> <span class=k>from</span><span class=p>,</span> <span class=kt>address</span> <span class=n>to</span><span class=p>,</span> <span class=kt>uint256</span> <span class=n>amount</span><span class=p>)</span> <span class=k>public</span> <span class=k>returns</span> <span class=p>(</span><span class=kt>bool</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nb>require</span><span class=p>(</span><span class=n>balanceOf</span><span class=p>[</span><span class=k>from</span><span class=p>]</span> <span class=o>&gt;=</span> <span class=n>amount</span><span class=p>,</span> <span class=s>&#34;Insufficient balance&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=nb>require</span><span class=p>(</span><span class=n>allowance</span><span class=p>[</span><span class=k>from</span><span class=p>][</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>]</span> <span class=o>&gt;=</span> <span class=n>amount</span><span class=p>,</span> <span class=s>&#34;Insufficient allowance&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=n>balanceOf</span><span class=p>[</span><span class=k>from</span><span class=p>]</span> <span class=o>-=</span> <span class=n>amount</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>balanceOf</span><span class=p>[</span><span class=n>to</span><span class=p>]</span> <span class=o>+=</span> <span class=n>amount</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>allowance</span><span class=p>[</span><span class=k>from</span><span class=p>][</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>]</span> <span class=o>-=</span> <span class=n>amount</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=n>emit</span> <span class=n>Transfer</span><span class=p>(</span><span class=k>from</span><span class=p>,</span> <span class=n>to</span><span class=p>,</span> <span class=n>amount</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>true</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div></div><hr><h2 class=heading-element id=四defi去中心化金融><span>四、DeFi：去中心化金融</span>
+<a href=#%e5%9b%9bdefi%e5%8e%bb%e4%b8%ad%e5%bf%83%e5%8c%96%e9%87%91%e8%9e%8d class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=41-defi概念><span>4.1 DeFi概念</span>
+<a href=#41-defi%e6%a6%82%e5%bf%b5 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>DeFi（去中心化金融）是建立在区块链上的金融服务，无需传统金融机构中介。</p><p><strong>主要应用：</strong></p><ul><li>去中心化交易所（DEX）</li><li>借贷平台</li><li>流动性挖矿</li><li>稳定币</li></ul><h3 class=heading-element id=42-流动性挖矿示例><span>4.2 流动性挖矿示例</span>
+<a href=#42-%e6%b5%81%e5%8a%a8%e6%80%a7%e6%8c%96%e7%9f%bf%e7%a4%ba%e4%be%8b class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span><span class=lnt>82
+</span><span class=lnt>83
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-solidity data-lang=solidity><span class=line><span class=cl><span class=c1>// 简化的流动性挖矿合约
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>contract</span> <span class=nc>LiquidityMining</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>IERC20</span> <span class=k>public</span> <span class=n>rewardToken</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>IERC20</span> <span class=k>public</span> <span class=n>lpToken</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kt>uint256</span> <span class=k>public</span> <span class=n>rewardPerBlock</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>uint256</span> <span class=k>public</span> <span class=n>lastUpdateBlock</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>uint256</span> <span class=k>public</span> <span class=n>rewardPerTokenStored</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>mapping</span><span class=p>(</span><span class=kt>address</span> <span class=o>=&gt;</span> <span class=kt>uint256</span><span class=p>)</span> <span class=k>public</span> <span class=n>userRewardPerTokenPaid</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kd>mapping</span><span class=p>(</span><span class=kt>address</span> <span class=o>=&gt;</span> <span class=kt>uint256</span><span class=p>)</span> <span class=k>public</span> <span class=n>rewards</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kd>mapping</span><span class=p>(</span><span class=kt>address</span> <span class=o>=&gt;</span> <span class=kt>uint256</span><span class=p>)</span> <span class=k>public</span> <span class=n>balanceOf</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kt>uint256</span> <span class=k>public</span> <span class=n>totalSupply</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>event</span> <span class=nc>Staked</span><span class=p>(</span><span class=kt>address</span> <span class=k>indexed</span> <span class=n>user</span><span class=p>,</span> <span class=kt>uint256</span> <span class=n>amount</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=kd>event</span> <span class=nc>Withdrawn</span><span class=p>(</span><span class=kt>address</span> <span class=k>indexed</span> <span class=n>user</span><span class=p>,</span> <span class=kt>uint256</span> <span class=n>amount</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=kd>event</span> <span class=nc>RewardPaid</span><span class=p>(</span><span class=kt>address</span> <span class=k>indexed</span> <span class=n>user</span><span class=p>,</span> <span class=kt>uint256</span> <span class=n>reward</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>constructor</span><span class=p>(</span><span class=kt>address</span> <span class=n>_rewardToken</span><span class=p>,</span> <span class=kt>address</span> <span class=n>_lpToken</span><span class=p>,</span> <span class=kt>uint256</span> <span class=n>_rewardPerBlock</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>rewardToken</span> <span class=o>=</span> <span class=n>IERC20</span><span class=p>(</span><span class=n>_rewardToken</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=n>lpToken</span> <span class=o>=</span> <span class=n>IERC20</span><span class=p>(</span><span class=n>_lpToken</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=n>rewardPerBlock</span> <span class=o>=</span> <span class=n>_rewardPerBlock</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nf>stake</span><span class=p>(</span><span class=kt>uint256</span> <span class=n>amount</span><span class=p>)</span> <span class=k>external</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nb>require</span><span class=p>(</span><span class=n>amount</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>,</span> <span class=s>&#34;Cannot stake 0&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=n>totalSupply</span> <span class=o>+=</span> <span class=n>amount</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>balanceOf</span><span class=p>[</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>]</span> <span class=o>+=</span> <span class=n>amount</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=n>updateReward</span><span class=p>(</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=n>lpToken</span><span class=p>.</span><span class=n>transferFrom</span><span class=p>(</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>,</span> <span class=kt>address</span><span class=p>(</span><span class=nb>this</span><span class=p>),</span> <span class=n>amount</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=n>emit</span> <span class=n>Staked</span><span class=p>(</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>,</span> <span class=n>amount</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nf>withdraw</span><span class=p>(</span><span class=kt>uint256</span> <span class=n>amount</span><span class=p>)</span> <span class=k>external</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nb>require</span><span class=p>(</span><span class=n>amount</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>,</span> <span class=s>&#34;Cannot withdraw 0&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=nb>require</span><span class=p>(</span><span class=n>balanceOf</span><span class=p>[</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>]</span> <span class=o>&gt;=</span> <span class=n>amount</span><span class=p>,</span> <span class=s>&#34;Insufficient balance&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=n>totalSupply</span> <span class=o>-=</span> <span class=n>amount</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>balanceOf</span><span class=p>[</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>]</span> <span class=o>-=</span> <span class=n>amount</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=n>updateReward</span><span class=p>(</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=n>lpToken</span><span class=p>.</span><span class=nb>transfer</span><span class=p>(</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>,</span> <span class=n>amount</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=n>emit</span> <span class=n>Withdrawn</span><span class=p>(</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>,</span> <span class=n>amount</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nf>getReward</span><span class=p>()</span> <span class=k>external</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>updateReward</span><span class=p>(</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=kt>uint256</span> <span class=n>reward</span> <span class=o>=</span> <span class=n>rewards</span><span class=p>[</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=n>reward</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>rewards</span><span class=p>[</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>]</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=n>rewardToken</span><span class=p>.</span><span class=nb>transfer</span><span class=p>(</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>,</span> <span class=n>reward</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=n>emit</span> <span class=n>RewardPaid</span><span class=p>(</span><span class=nb>msg</span><span class=p>.</span><span class=nb>sender</span><span class=p>,</span> <span class=n>reward</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nf>updateReward</span><span class=p>(</span><span class=kt>address</span> <span class=n>account</span><span class=p>)</span> <span class=k>internal</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>rewardPerTokenStored</span> <span class=o>=</span> <span class=n>rewardPerToken</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>        <span class=n>lastUpdateBlock</span> <span class=o>=</span> <span class=nb>block</span><span class=p>.</span><span class=nb>number</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=n>account</span> <span class=o>!=</span> <span class=kt>address</span><span class=p>(</span><span class=mi>0</span><span class=p>))</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>rewards</span><span class=p>[</span><span class=n>account</span><span class=p>]</span> <span class=o>=</span> <span class=n>earned</span><span class=p>(</span><span class=n>account</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=n>userRewardPerTokenPaid</span><span class=p>[</span><span class=n>account</span><span class=p>]</span> <span class=o>=</span> <span class=n>rewardPerTokenStored</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nf>rewardPerToken</span><span class=p>()</span> <span class=k>public</span> <span class=k>view</span> <span class=k>returns</span> <span class=p>(</span><span class=kt>uint256</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=n>totalSupply</span> <span class=o>==</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=n>rewardPerTokenStored</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>rewardPerTokenStored</span> <span class=o>+</span> 
+</span></span><span class=line><span class=cl>               <span class=p>(((</span><span class=nb>block</span><span class=p>.</span><span class=nb>number</span> <span class=o>-</span> <span class=n>lastUpdateBlock</span><span class=p>)</span> <span class=o>*</span> <span class=n>rewardPerBlock</span> <span class=o>*</span> <span class=mi>1</span><span class=n>e18</span><span class=p>)</span> <span class=o>/</span> <span class=n>totalSupply</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nf>earned</span><span class=p>(</span><span class=kt>address</span> <span class=n>account</span><span class=p>)</span> <span class=k>public</span> <span class=k>view</span> <span class=k>returns</span> <span class=p>(</span><span class=kt>uint256</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=p>(</span><span class=n>balanceOf</span><span class=p>[</span><span class=n>account</span><span class=p>]</span> <span class=o>*</span> <span class=p>(</span><span class=n>rewardPerToken</span><span class=p>()</span> <span class=o>-</span> <span class=n>userRewardPerTokenPaid</span><span class=p>[</span><span class=n>account</span><span class=p>]))</span> <span class=o>/</span> <span class=mi>1</span><span class=n>e18</span> <span class=o>+</span> 
+</span></span><span class=line><span class=cl>               <span class=n>rewards</span><span class=p>[</span><span class=n>account</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div></div><hr><h2 class=heading-element id=五技术分析基础><span>五、技术分析基础</span>
+<a href=#%e4%ba%94%e6%8a%80%e6%9c%af%e5%88%86%e6%9e%90%e5%9f%ba%e7%a1%80 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=51-基本指标><span>5.1 基本指标</span>
+<a href=#51-%e5%9f%ba%e6%9c%ac%e6%8c%87%e6%a0%87 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>pandas</span> <span class=k>as</span> <span class=nn>pd</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>numpy</span> <span class=k>as</span> <span class=nn>np</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>matplotlib.pyplot</span> <span class=k>as</span> <span class=nn>plt</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>calculate_sma</span><span class=p>(</span><span class=n>prices</span><span class=p>,</span> <span class=n>window</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;计算简单移动平均线&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>prices</span><span class=o>.</span><span class=n>rolling</span><span class=p>(</span><span class=n>window</span><span class=o>=</span><span class=n>window</span><span class=p>)</span><span class=o>.</span><span class=n>mean</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>calculate_ema</span><span class=p>(</span><span class=n>prices</span><span class=p>,</span> <span class=n>window</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;计算指数移动平均线&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>prices</span><span class=o>.</span><span class=n>ewm</span><span class=p>(</span><span class=n>span</span><span class=o>=</span><span class=n>window</span><span class=p>)</span><span class=o>.</span><span class=n>mean</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>calculate_rsi</span><span class=p>(</span><span class=n>prices</span><span class=p>,</span> <span class=n>window</span><span class=o>=</span><span class=mi>14</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;计算RSI指标&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>delta</span> <span class=o>=</span> <span class=n>prices</span><span class=o>.</span><span class=n>diff</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>gain</span> <span class=o>=</span> <span class=p>(</span><span class=n>delta</span><span class=o>.</span><span class=n>where</span><span class=p>(</span><span class=n>delta</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>))</span><span class=o>.</span><span class=n>rolling</span><span class=p>(</span><span class=n>window</span><span class=o>=</span><span class=n>window</span><span class=p>)</span><span class=o>.</span><span class=n>mean</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>loss</span> <span class=o>=</span> <span class=p>(</span><span class=o>-</span><span class=n>delta</span><span class=o>.</span><span class=n>where</span><span class=p>(</span><span class=n>delta</span> <span class=o>&lt;</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>))</span><span class=o>.</span><span class=n>rolling</span><span class=p>(</span><span class=n>window</span><span class=o>=</span><span class=n>window</span><span class=p>)</span><span class=o>.</span><span class=n>mean</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=n>rs</span> <span class=o>=</span> <span class=n>gain</span> <span class=o>/</span> <span class=n>loss</span>
+</span></span><span class=line><span class=cl>    <span class=n>rsi</span> <span class=o>=</span> <span class=mi>100</span> <span class=o>-</span> <span class=p>(</span><span class=mi>100</span> <span class=o>/</span> <span class=p>(</span><span class=mi>1</span> <span class=o>+</span> <span class=n>rs</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>rsi</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>calculate_bollinger_bands</span><span class=p>(</span><span class=n>prices</span><span class=p>,</span> <span class=n>window</span><span class=o>=</span><span class=mi>20</span><span class=p>,</span> <span class=n>std_dev</span><span class=o>=</span><span class=mi>2</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;计算布林带&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>sma</span> <span class=o>=</span> <span class=n>prices</span><span class=o>.</span><span class=n>rolling</span><span class=p>(</span><span class=n>window</span><span class=o>=</span><span class=n>window</span><span class=p>)</span><span class=o>.</span><span class=n>mean</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>std</span> <span class=o>=</span> <span class=n>prices</span><span class=o>.</span><span class=n>rolling</span><span class=p>(</span><span class=n>window</span><span class=o>=</span><span class=n>window</span><span class=p>)</span><span class=o>.</span><span class=n>std</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=n>upper_band</span> <span class=o>=</span> <span class=n>sma</span> <span class=o>+</span> <span class=p>(</span><span class=n>std</span> <span class=o>*</span> <span class=n>std_dev</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>lower_band</span> <span class=o>=</span> <span class=n>sma</span> <span class=o>-</span> <span class=p>(</span><span class=n>std</span> <span class=o>*</span> <span class=n>std_dev</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>upper_band</span><span class=p>,</span> <span class=n>sma</span><span class=p>,</span> <span class=n>lower_band</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 使用示例</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>analyze_crypto_data</span><span class=p>(</span><span class=n>prices</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;分析加密货币数据&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 计算技术指标</span>
+</span></span><span class=line><span class=cl>    <span class=n>sma_20</span> <span class=o>=</span> <span class=n>calculate_sma</span><span class=p>(</span><span class=n>prices</span><span class=p>,</span> <span class=mi>20</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>sma_50</span> <span class=o>=</span> <span class=n>calculate_sma</span><span class=p>(</span><span class=n>prices</span><span class=p>,</span> <span class=mi>50</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>rsi</span> <span class=o>=</span> <span class=n>calculate_rsi</span><span class=p>(</span><span class=n>prices</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>bb_upper</span><span class=p>,</span> <span class=n>bb_middle</span><span class=p>,</span> <span class=n>bb_lower</span> <span class=o>=</span> <span class=n>calculate_bollinger_bands</span><span class=p>(</span><span class=n>prices</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># 创建图表</span>
+</span></span><span class=line><span class=cl>    <span class=n>fig</span><span class=p>,</span> <span class=p>(</span><span class=n>ax1</span><span class=p>,</span> <span class=n>ax2</span><span class=p>)</span> <span class=o>=</span> <span class=n>plt</span><span class=o>.</span><span class=n>subplots</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=n>figsize</span><span class=o>=</span><span class=p>(</span><span class=mi>12</span><span class=p>,</span> <span class=mi>8</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># 价格和移动平均线</span>
+</span></span><span class=line><span class=cl>    <span class=n>ax1</span><span class=o>.</span><span class=n>plot</span><span class=p>(</span><span class=n>prices</span><span class=o>.</span><span class=n>index</span><span class=p>,</span> <span class=n>prices</span><span class=p>,</span> <span class=n>label</span><span class=o>=</span><span class=s1>&#39;Price&#39;</span><span class=p>,</span> <span class=n>alpha</span><span class=o>=</span><span class=mf>0.7</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>ax1</span><span class=o>.</span><span class=n>plot</span><span class=p>(</span><span class=n>prices</span><span class=o>.</span><span class=n>index</span><span class=p>,</span> <span class=n>sma_20</span><span class=p>,</span> <span class=n>label</span><span class=o>=</span><span class=s1>&#39;SMA 20&#39;</span><span class=p>,</span> <span class=n>alpha</span><span class=o>=</span><span class=mf>0.7</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>ax1</span><span class=o>.</span><span class=n>plot</span><span class=p>(</span><span class=n>prices</span><span class=o>.</span><span class=n>index</span><span class=p>,</span> <span class=n>sma_50</span><span class=p>,</span> <span class=n>label</span><span class=o>=</span><span class=s1>&#39;SMA 50&#39;</span><span class=p>,</span> <span class=n>alpha</span><span class=o>=</span><span class=mf>0.7</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>ax1</span><span class=o>.</span><span class=n>fill_between</span><span class=p>(</span><span class=n>prices</span><span class=o>.</span><span class=n>index</span><span class=p>,</span> <span class=n>bb_upper</span><span class=p>,</span> <span class=n>bb_lower</span><span class=p>,</span> <span class=n>alpha</span><span class=o>=</span><span class=mf>0.1</span><span class=p>,</span> <span class=n>label</span><span class=o>=</span><span class=s1>&#39;Bollinger Bands&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>ax1</span><span class=o>.</span><span class=n>set_title</span><span class=p>(</span><span class=s1>&#39;Crypto Price Analysis&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>ax1</span><span class=o>.</span><span class=n>legend</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>ax1</span><span class=o>.</span><span class=n>grid</span><span class=p>(</span><span class=kc>True</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># RSI指标</span>
+</span></span><span class=line><span class=cl>    <span class=n>ax2</span><span class=o>.</span><span class=n>plot</span><span class=p>(</span><span class=n>prices</span><span class=o>.</span><span class=n>index</span><span class=p>,</span> <span class=n>rsi</span><span class=p>,</span> <span class=n>label</span><span class=o>=</span><span class=s1>&#39;RSI&#39;</span><span class=p>,</span> <span class=n>color</span><span class=o>=</span><span class=s1>&#39;purple&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>ax2</span><span class=o>.</span><span class=n>axhline</span><span class=p>(</span><span class=n>y</span><span class=o>=</span><span class=mi>70</span><span class=p>,</span> <span class=n>color</span><span class=o>=</span><span class=s1>&#39;r&#39;</span><span class=p>,</span> <span class=n>linestyle</span><span class=o>=</span><span class=s1>&#39;--&#39;</span><span class=p>,</span> <span class=n>alpha</span><span class=o>=</span><span class=mf>0.7</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>ax2</span><span class=o>.</span><span class=n>axhline</span><span class=p>(</span><span class=n>y</span><span class=o>=</span><span class=mi>30</span><span class=p>,</span> <span class=n>color</span><span class=o>=</span><span class=s1>&#39;g&#39;</span><span class=p>,</span> <span class=n>linestyle</span><span class=o>=</span><span class=s1>&#39;--&#39;</span><span class=p>,</span> <span class=n>alpha</span><span class=o>=</span><span class=mf>0.7</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>ax2</span><span class=o>.</span><span class=n>set_title</span><span class=p>(</span><span class=s1>&#39;RSI Indicator&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>ax2</span><span class=o>.</span><span class=n>legend</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>ax2</span><span class=o>.</span><span class=n>grid</span><span class=p>(</span><span class=kc>True</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=n>plt</span><span class=o>.</span><span class=n>tight_layout</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>plt</span><span class=o>.</span><span class=n>show</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;sma_20&#39;</span><span class=p>:</span> <span class=n>sma_20</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;sma_50&#39;</span><span class=p>:</span> <span class=n>sma_50</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;rsi&#39;</span><span class=p>:</span> <span class=n>rsi</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;bb_upper&#39;</span><span class=p>:</span> <span class=n>bb_upper</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;bb_lower&#39;</span><span class=p>:</span> <span class=n>bb_lower</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span></span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=52-交易信号><span>5.2 交易信号</span>
+<a href=#52-%e4%ba%a4%e6%98%93%e4%bf%a1%e5%8f%b7 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>generate_signals</span><span class=p>(</span><span class=n>prices</span><span class=p>,</span> <span class=n>sma_20</span><span class=p>,</span> <span class=n>sma_50</span><span class=p>,</span> <span class=n>rsi</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;生成交易信号&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>signals</span> <span class=o>=</span> <span class=n>pd</span><span class=o>.</span><span class=n>Series</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>index</span><span class=o>=</span><span class=n>prices</span><span class=o>.</span><span class=n>index</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># 金叉买入信号</span>
+</span></span><span class=line><span class=cl>    <span class=n>signals</span><span class=p>[(</span><span class=n>sma_20</span> <span class=o>&gt;</span> <span class=n>sma_50</span><span class=p>)</span> <span class=o>&amp;</span> <span class=p>(</span><span class=n>sma_20</span><span class=o>.</span><span class=n>shift</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span> <span class=o>&lt;=</span> <span class=n>sma_50</span><span class=o>.</span><span class=n>shift</span><span class=p>(</span><span class=mi>1</span><span class=p>))]</span> <span class=o>=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># 死叉卖出信号</span>
+</span></span><span class=line><span class=cl>    <span class=n>signals</span><span class=p>[(</span><span class=n>sma_20</span> <span class=o>&lt;</span> <span class=n>sma_50</span><span class=p>)</span> <span class=o>&amp;</span> <span class=p>(</span><span class=n>sma_20</span><span class=o>.</span><span class=n>shift</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span> <span class=o>&gt;=</span> <span class=n>sma_50</span><span class=o>.</span><span class=n>shift</span><span class=p>(</span><span class=mi>1</span><span class=p>))]</span> <span class=o>=</span> <span class=o>-</span><span class=mi>1</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># RSI超买超卖信号</span>
+</span></span><span class=line><span class=cl>    <span class=n>signals</span><span class=p>[</span><span class=n>rsi</span> <span class=o>&gt;</span> <span class=mi>70</span><span class=p>]</span> <span class=o>=</span> <span class=o>-</span><span class=mi>1</span>  <span class=c1># 超买</span>
+</span></span><span class=line><span class=cl>    <span class=n>signals</span><span class=p>[</span><span class=n>rsi</span> <span class=o>&lt;</span> <span class=mi>30</span><span class=p>]</span> <span class=o>=</span> <span class=mi>1</span>   <span class=c1># 超卖</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>signals</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>backtest_strategy</span><span class=p>(</span><span class=n>prices</span><span class=p>,</span> <span class=n>signals</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;回测策略&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>position</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>    <span class=n>cash</span> <span class=o>=</span> <span class=mi>10000</span>  <span class=c1># 初始资金</span>
+</span></span><span class=line><span class=cl>    <span class=n>portfolio_value</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span><span class=p>,</span> <span class=p>(</span><span class=n>price</span><span class=p>,</span> <span class=n>signal</span><span class=p>)</span> <span class=ow>in</span> <span class=nb>enumerate</span><span class=p>(</span><span class=nb>zip</span><span class=p>(</span><span class=n>prices</span><span class=p>,</span> <span class=n>signals</span><span class=p>)):</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>signal</span> <span class=o>==</span> <span class=mi>1</span> <span class=ow>and</span> <span class=n>position</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span>  <span class=c1># 买入</span>
+</span></span><span class=line><span class=cl>            <span class=n>position</span> <span class=o>=</span> <span class=n>cash</span> <span class=o>/</span> <span class=n>price</span>
+</span></span><span class=line><span class=cl>            <span class=n>cash</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>        <span class=k>elif</span> <span class=n>signal</span> <span class=o>==</span> <span class=o>-</span><span class=mi>1</span> <span class=ow>and</span> <span class=n>position</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>:</span>  <span class=c1># 卖出</span>
+</span></span><span class=line><span class=cl>            <span class=n>cash</span> <span class=o>=</span> <span class=n>position</span> <span class=o>*</span> <span class=n>price</span>
+</span></span><span class=line><span class=cl>            <span class=n>position</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=c1># 计算组合价值</span>
+</span></span><span class=line><span class=cl>        <span class=n>current_value</span> <span class=o>=</span> <span class=n>cash</span> <span class=o>+</span> <span class=n>position</span> <span class=o>*</span> <span class=n>price</span>
+</span></span><span class=line><span class=cl>        <span class=n>portfolio_value</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>current_value</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>portfolio_value</span></span></span></code></pre></td></tr></table></div></div><hr><h2 class=heading-element id=六学习心得><span>六、学习心得</span>
+<a href=#%e5%85%ad%e5%ad%a6%e4%b9%a0%e5%bf%83%e5%be%97 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=61-市场观察><span>6.1 市场观察</span>
+<a href=#61-%e5%b8%82%e5%9c%ba%e8%a7%82%e5%af%9f class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>经过这段时间的学习，我发现币圈真的很特别：</p><p><strong>高波动性</strong>：一天涨跌20%很正常，心脏不好的真的不适合玩。</p><p><strong>24/7交易</strong>：没有休息日，随时可以交易，但也意味着随时可能亏钱。</p><p><strong>技术创新</strong>：新技术层出不穷，今天还是热点，明天可能就过时了。</p><h3 class=heading-element id=62-投资策略><span>6.2 投资策略</span>
+<a href=#62-%e6%8a%95%e8%b5%84%e7%ad%96%e7%95%a5 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>基于我的观察：</p><ol><li><strong>不要梭哈</strong>：再看好也不要all in，分散投资很重要</li><li><strong>长期思维</strong>：短期波动太大，要有长期持有的心态</li><li><strong>技术分析</strong>：虽然不能完全依赖，但比瞎买强</li></ol><h3 class=heading-element id=63-技术学习><span>6.3 技术学习</span>
+<a href=#63-%e6%8a%80%e6%9c%af%e5%ad%a6%e4%b9%a0 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>接下来想学的东西：</p><ol><li><strong>智能合约</strong>：Solidity语言，想自己写个简单的合约</li><li><strong>量化交易</strong>：用Rust写自动化交易策略</li><li><strong>区块链原理</strong>：深入理解底层技术</li></ol><hr><h2 class=heading-element id=总结><span>总结</span>
+<a href=#%e6%80%bb%e7%bb%93 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>币圈确实很疯狂，但也很有趣。</p><p>虽然风险很大，但机会也很多。作为技术人，我觉得最重要的是理解背后的技术原理，而不是盲目跟风。</p><p>接下来继续学习，希望能在这个领域有所收获。</p><hr><p><em>本文记录了加密货币基础知识的学习过程，包括比特币、以太坊、DeFi等核心概念，以及技术分析的基础知识。</em></p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span title="更新于 2025-08-25 10:59:56">更新于 252556-08-08&nbsp;</span></div><div class=post-info-license><span><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc-sa/4.0/ target=_blank>CC BY-NC-SA 4.0</a></span></div></div><div class=post-info-line><div class=post-info-md><span><a href=/posts/20210620-crypto-basics/index.md title=阅读原始文档 class=link-to-markdown>阅读原始文档</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 X" data-sharer=twitter data-url=https://www.gameol.site/posts/20210620-crypto-basics/ data-title=加密货币基础知识：从比特币到DeFi data-hashtags=技术分享,加密货币,区块链,DeFi,学习笔记><i class="fa-brands fa-x-twitter fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://www.gameol.site/posts/20210620-crypto-basics/ data-hashtag=技术分享><i class="fa-brands fa-facebook-square fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://www.gameol.site/posts/20210620-crypto-basics/ data-title=加密货币基础知识：从比特币到DeFi><i class="fa-brands fa-weibo fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fa-solid fa-tags fa-fw me-1" aria-hidden=true></i><a href=/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/ class=post-tag title="标签 - 技术分享">技术分享</a><a href=/tags/%E5%8A%A0%E5%AF%86%E8%B4%A7%E5%B8%81/ class=post-tag title="标签 - 加密货币">加密货币</a><a href=/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/ class=post-tag title="标签 - 区块链">区块链</a><a href=/tags/defi/ class=post-tag title="标签 - DeFi">DeFi</a><a href=/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/ class=post-tag title="标签 - 学习笔记">学习笔记</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/posts/20210315-rust-basics-learning/ class=post-nav-item rel=prev title=Rust语言入门：从零开始的学习笔记><i class="fa-solid fa-angle-left fa-fw" aria-hidden=true></i>Rust语言入门：从零开始的学习笔记</a><a href=/posts/20220210-rust-async-learning/ class=post-nav-item rel=next title=Rust异步编程学习：从Future到async/Await>Rust异步编程学习：从Future到async/Await<i class="fa-solid fa-angle-right fa-fw" aria-hidden=true></i></a></div></div></article><aside class=toc id=toc-auto aria-label=目录></aside></main><footer class=footer><div class=footer-container><div class="footer-line powered">由 <a href=https://gohugo.io/ target=_blank rel="external nofollow noopener noreferrer" title="Hugo 0.148.2"><img class=hugo-icon src=/images/hugo.min.svg alt="Hugo logo"> Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/hugo-fixit/FixIt target=_blank rel=external title="FixIt v0.3.20"><img class=fixit-icon src=/images/fixit.min.svg alt="FixIt logo"> FixIt</a></div><div class="footer-line copyright" itemscope itemtype=http://schema.org/CreativeWork><i class="fa-regular fa-copyright fa-fw" aria-hidden=true></i>
+<span itemprop=copyrightYear>2025</span><span class=author itemprop=copyrightHolder>
+<a href=[author%20link]>Chris</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc-sa/4.0/ target=_blank>CC BY-NC-SA 4.0</a></span></div></div></footer></div><div class=widgets><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role=button aria-label=回到顶部><i class="fa-solid fa-arrow-up fa-fw" aria-hidden=true></i><span class="variant-numeric d-none">0%</span></div></div><div id=mask></div><noscript><div class=noscript-warning>该网站在启用 JavaScript 的情况下效果最佳。</div></noscript></div><link rel=preload href=/lib/katex/katex.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/katex/katex.min.css></noscript><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script src=/lib/autocomplete/autocomplete.min.js defer></script><script src=/lib/fuse/fuse.min.js defer></script><script src=/lib/sharer/sharer.min.js async defer></script><script src=/lib/katex/katex.min.js defer></script><script src=/lib/katex/auto-render.min.js defer></script><script src=/lib/katex/copy-tex.min.js defer></script><script src=/lib/katex/mhchem.min.js defer></script><script src=/lib/cookieconsent/cookieconsent.min.js defer></script><script>window.config={code:{copyTitle:"复制到剪贴板",editLockTitle:"锁定可编辑代码块",editUnLockTitle:"解锁可编辑代码块",editable:!0,maxShownLines:10},comment:{enable:!1},cookieconsent:{content:{dismiss:"同意",link:"了解更多",message:"本网站使用 Cookies 来改善您的浏览体验。"},enable:!0,palette:{button:{background:"#f0f0f0"},popup:{background:"#1aa3ff"}},theme:"edgeless"},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{distance:100,findAllMatches:!1,fuseIndexURL:"/search.json",highlightTag:"em",ignoreFieldNorm:!1,ignoreLocation:!1,isCaseSensitive:!1,location:0,maxResultLength:10,minMatchCharLength:2,noResultsFound:"没有找到结果",snippetLength:30,threshold:.3,type:"fuse",useExtendedSearch:!1},version:"v0.3.20"}</script><script src=/js/theme.min.js defer></script><script src=/js/custom.min.js defer></script></body></html>
