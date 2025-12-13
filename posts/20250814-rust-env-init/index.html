@@ -1,0 +1,1310 @@
+<!doctype html><html itemscope itemtype=http://schema.org/WebPage lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=2"><meta name=robots content="noodp"><title>Rust开发环境初始化 - Chris Blog</title><meta name=author content="Chris"><meta name=description content="开发环境配置指南（Zsh + Rust） 本文提供了一套完整的开发环境配置方案，涵盖 Zsh 终端配置和 Rust 开发环境的搭建，帮助快速打造高效的开发工作流。
+"><meta name=keywords content='技术分享,Rust,开发工具'><meta itemprop=name content="Rust开发环境初始化"><meta itemprop=description content="开发环境配置指南（Zsh + Rust） 本文提供了一套完整的开发环境配置方案，涵盖 Zsh 终端配置和 Rust 开发环境的搭建，帮助快速打造高效的开发工作流。"><meta itemprop=datePublished content="2025-08-14T11:06:18+08:00"><meta itemprop=dateModified content="2025-10-29T14:30:49+08:00"><meta itemprop=wordCount content="7061"><meta itemprop=keywords content="技术分享,Rust,开发工具"><meta property="og:url" content="https://www.gameol.site/posts/20250814-rust-env-init/"><meta property="og:site_name" content="Chris Blog"><meta property="og:title" content="Rust开发环境初始化"><meta property="og:description" content="开发环境配置指南（Zsh + Rust） 本文提供了一套完整的开发环境配置方案，涵盖 Zsh 终端配置和 Rust 开发环境的搭建，帮助快速打造高效的开发工作流。"><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2025-08-14T11:06:18+08:00"><meta property="article:modified_time" content="2025-10-29T14:30:49+08:00"><meta property="article:tag" content="技术分享"><meta property="article:tag" content="Rust"><meta property="article:tag" content="开发工具"><meta name=twitter:card content="summary"><meta name=twitter:title content="Rust开发环境初始化"><meta name=twitter:description content="开发环境配置指南（Zsh + Rust） 本文提供了一套完整的开发环境配置方案，涵盖 Zsh 终端配置和 Rust 开发环境的搭建，帮助快速打造高效的开发工作流。"><meta name=application-name content="Chris Blog"><meta name=apple-mobile-web-app-title content="Chris Blog"><meta name=theme-color data-light=#f8f8f8 data-dark=#252627 content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel=icon href=favicons/ghost.ico><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical type=text/html href=https://www.gameol.site/posts/20250814-rust-env-init/ title="Rust开发环境初始化 - Chris Blog"><link rel=next type=text/html href=https://www.gameol.site/posts/20250822-zellij-ubuntu-deployment/ title=Zellij终端复用器Ubuntu部署指南><link rel=alternate type=text/markdown href=https://www.gameol.site/posts/20250814-rust-env-init/index.md title="Rust开发环境初始化 - Chris Blog"><link rel=stylesheet href=/css/style.min.css><link rel=preload href=/lib/fontawesome-free/all.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload href=/lib/animate/animate.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Rust开发环境初始化","inLanguage":"zh-cn","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/www.gameol.site\/posts\/20250814-rust-env-init\/"},"image":["https:\/\/www.gameol.site\/images\/og-image.png"],"genre":"posts","keywords":"技术分享, Rust, 开发工具","wordcount":7061,"url":"https:\/\/www.gameol.site\/posts\/20250814-rust-env-init\/","datePublished":"2025-08-14T11:06:18+08:00","dateModified":"2025-10-29T14:30:49+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Chris"},"description":""}</script><script src=/js/head/color-scheme.min.js></script></head><body data-header-desktop=sticky data-header-mobile=auto><div class=wrapper data-page-style=normal><header class="desktop animate__faster" id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Chris Blog"><img class=logo src=/images/fixit.min.svg alt="Chris Blog" height=32 width=32><span class=header-title-text>Chris Blog</span></a><span class=header-subtitle></span></div><nav><ul class=menu><li class=menu-item><a class=menu-link href=/archives/><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden=true></i> Archives</a></li><li class=menu-item><a class=menu-link href=/categories/><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden=true></i> Categories</a></li><li class=menu-item><a class=menu-link href=/tags/><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden=true></i> Tags</a></li><li class=menu-item><a class=menu-link href=/downloads/ title=资源下载><i class="fa-solid fa-download fa-fw fa-sm" aria-hidden=true></i> Downloads</a></li><li class=menu-item><a class=menu-link href=/friends/ title=友情链接><i class="fa-solid fa-link fa-fw fa-sm" aria-hidden=true></i> Friends</a></li><li class=menu-item><a class=menu-link href=/about/ title=关于><i class="fa-solid fa-user-circle fa-fw fa-sm" aria-hidden=true></i> About</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id=search-desktop><input type=text placeholder=搜索文章标题或内容…… id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fa-solid fa-search fa-fw" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fa-solid fa-times-circle fa-fw" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-desktop><i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></li><li class="menu-item theme-switch" title=切换主题><i class="fa-solid fa-adjust fa-fw" aria-hidden=true></i></li></ul></nav></div></header><header class="mobile animate__faster" id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Chris Blog"><img class=logo src=/images/fixit.min.svg alt="Chris Blog" height=26 width=26><span class=header-title-text>Chris Blog</span></a><span class=header-subtitle></span></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><nav><ul class=menu id=menu-mobile><li class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容…… id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fa-solid fa-search fa-fw" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fa-solid fa-times-circle fa-fw" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-mobile><i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></li><li class=menu-item><a class=menu-link href=/archives/><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden=true></i> Archives</a></li><li class=menu-item><a class=menu-link href=/categories/><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden=true></i> Categories</a></li><li class=menu-item><a class=menu-link href=/tags/><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden=true></i> Tags</a></li><li class=menu-item><a class=menu-link href=/downloads/ title=资源下载><i class="fa-solid fa-download fa-fw fa-sm" aria-hidden=true></i> Downloads</a></li><li class=menu-item><a class=menu-link href=/friends/ title=友情链接><i class="fa-solid fa-link fa-fw fa-sm" aria-hidden=true></i> Friends</a></li><li class=menu-item><a class=menu-link href=/about/ title=关于><i class="fa-solid fa-user-circle fa-fw fa-sm" aria-hidden=true></i> About</a></li><li class="menu-item menu-system"><span class="menu-system-item theme-switch" title=切换主题><i class="fa-solid fa-adjust fa-fw" aria-hidden=true></i></span></li></ul></nav></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=container><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label=合集></aside><article class="page single"><div class=header><h1 class="single-title animate__animated animate__flipInX"><span>Rust开发环境初始化</span></h1></div><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://www.gameol.site title=作者 target=_blank rel="external nofollow noopener noreferrer author" class=author><img class=avatar src='https://www.gravatar.com/avatar/216ea1279cda21730005ef401968992d?s=32&d=' alt=Chris height=16 width=16>&nbsp;Chris</a></span></div><div class=post-meta-line><span title="发布于 2025-08-14 11:06:18"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden=true></i><time datetime=2025-08-14>2025-08-14</time></span>&nbsp;<span title="更新于 2025-10-29 14:30:49"><i class="fa-regular fa-calendar-check fa-fw me-1" aria-hidden=true></i><time datetime=2025-10-29>2025-10-29</time></span>&nbsp;<span title="7061 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden=true></i>约 7100 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden=true></i>预计阅读 15 分钟</span>&nbsp;<span id=busuanzi_container_page_pv class="busuanzi_visitors comment-visitors" data-flag-title=Rust开发环境初始化><i class="fa-regular fa-eye fa-fw me-1" aria-hidden=true></i><span id=busuanzi_value_page_pv>-</span>&nbsp;次阅读
+</span>&nbsp;</div></div><div class="details toc" id=toc-static data-kept=false><div class="details-summary toc-title"><span>目录</span>
+<span><i class="details-icon fa-solid fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#开发环境配置指南zsh--rust>开发环境配置指南（Zsh + Rust）</a></li><li><a href=#一zsh-环境配置>一、Zsh 环境配置</a><ul><li><a href=#1-安装-zsh>1. 安装 Zsh</a></li><li><a href=#2-设置-zsh-为默认-shell>2. 设置 Zsh 为默认 shell</a></li><li><a href=#3-安装-oh-my-zsh>3. 安装 Oh My Zsh</a></li><li><a href=#4-安装常用插件>4. 安装常用插件</a><ul><li><a href=#41-zsh-autosuggestions自动补全>4.1 zsh-autosuggestions（自动补全）</a></li><li><a href=#42-zsh-syntax-highlighting语法高亮>4.2 zsh-syntax-highlighting（语法高亮）</a></li></ul></li><li><a href=#5-完整的-zshrc-配置文件>5. 完整的 .zshrc 配置文件</a></li><li><a href=#6-应用配置>6. 应用配置</a></li><li><a href=#7-配置说明>7. 配置说明</a></li></ul></li><li><a href=#二rust-开发环境>二、Rust 开发环境</a><ul><li><a href=#1-安装-c-编译器和开发依赖>1. 安装 C 编译器和开发依赖</a></li><li><a href=#2-安装-rust>2. 安装 Rust</a></li><li><a href=#3-验证安装>3. 验证安装</a></li><li><a href=#4-配置-cargo-镜像>4. 配置 Cargo 镜像</a></li><li><a href=#5-可选切换-rust-版本>5. 可选：切换 Rust 版本</a></li></ul></li><li><a href=#三一键管理脚本>三、一键管理脚本</a><ul><li><a href=#使用方法>使用方法</a></li><li><a href=#脚本特性>脚本特性</a></li><li><a href=#脚本功能说明>脚本功能说明</a></li><li><a href=#获取脚本>获取脚本</a></li><li><a href=#故障排除>故障排除</a></li></ul></li><li><a href=#四macos-系统适配>四、macOS 系统适配</a><ul><li><a href=#1-安装-homebrew如果还没有>1. 安装 Homebrew（如果还没有）</a></li><li><a href=#2-安装-zshmacos-通常已预装>2. 安装 Zsh（macOS 通常已预装）</a></li><li><a href=#3-安装其他工具>3. 安装其他工具</a></li><li><a href=#4-macos-专用别名调整>4. macOS 专用别名调整</a></li><li><a href=#5-macos-下的脚本修改>5. macOS 下的脚本修改</a></li></ul></li><li><a href=#五常用-rust-工具链>五、常用 Rust 工具链</a><ul><li><a href=#1-代码格式化和检查工具>1. 代码格式化和检查工具</a></li><li><a href=#2-cargo-edit管理依赖>2. cargo-edit（管理依赖）</a></li><li><a href=#3-cargo-watch自动重新编译>3. cargo-watch（自动重新编译）</a></li><li><a href=#4-cargo-tree依赖树>4. cargo-tree（依赖树）</a></li><li><a href=#5-bacon快速后台编译检查>5. bacon（快速后台编译检查）</a></li><li><a href=#6-cargo-expand宏展开>6. cargo-expand（宏展开）</a></li><li><a href=#7-sccache编译缓存加速>7. sccache（编译缓存加速）</a></li><li><a href=#8-其他实用工具>8. 其他实用工具</a></li><li><a href=#9-一键安装常用工具>9. 一键安装常用工具</a></li></ul></li><li><a href=#六进阶主题配置>六、进阶主题配置</a><ul><li><a href=#1-安装-powerlevel10k>1. 安装 Powerlevel10k</a></li><li><a href=#2-修改-zshrc>2. 修改 .zshrc</a></li><li><a href=#3-安装-nerd-font必需>3. 安装 Nerd Font（必需）</a></li><li><a href=#4-配置终端字体>4. 配置终端字体</a></li><li><a href=#5-运行配置向导>5. 运行配置向导</a></li><li><a href=#6-powerlevel10k-推荐配置>6. Powerlevel10k 推荐配置</a></li></ul></li><li><a href=#七性能优化建议>七、性能优化建议</a><ul><li><a href=#1-减少启动时间>1. 减少启动时间</a></li><li><a href=#2-延迟加载-nvmpyenv-等工具>2. 延迟加载 nvm/pyenv 等工具</a></li><li><a href=#3-使用-zinit-替代-oh-my-zsh进阶>3. 使用 zinit 替代 Oh My Zsh（进阶）</a></li><li><a href=#4-rust-编译优化>4. Rust 编译优化</a></li></ul></li><li><a href=#八快速参考>八、快速参考</a><ul><li><a href=#常用-zsh-快捷键>常用 Zsh 快捷键</a></li><li><a href=#常用-rust-命令>常用 Rust 命令</a></li><li><a href=#常用-git-别名>常用 Git 别名</a></li></ul></li><li><a href=#九常见问题扩展>九、常见问题扩展</a><ul><li><a href=#q1-如何在多台机器间同步配置>Q1: 如何在多台机器间同步配置？</a></li><li><a href=#q2-插件太多导致启动慢怎么办>Q2: 插件太多导致启动慢怎么办？</a></li><li><a href=#q3-rust-编译太慢怎么办>Q3: Rust 编译太慢怎么办？</a></li><li><a href=#q4-如何卸载并重新安装>Q4: 如何卸载并重新安装？</a></li><li><a href=#q5-如何更新所有工具>Q5: 如何更新所有工具？</a></li><li><a href=#q6-在服务器上如何配置无需-sudo-的环境>Q6: 在服务器上如何配置无需 sudo 的环境？</a></li></ul></li><li><a href=#十环境验证脚本>十、环境验证脚本</a></li><li><a href=#十一统一脚本说明>十一、统一脚本说明</a><ul><li><a href=#-脚本信息>📦 脚本信息</a></li><li><a href=#-主要功能>🎯 主要功能</a></li><li><a href=#-推荐使用流程>🚀 推荐使用流程</a></li><li><a href=#-获取脚本>📥 获取脚本</a></li></ul></li><li><a href=#总结>总结</a><ul><li><a href=#-已完成配置>✅ 已完成配置</a></li><li><a href=#-核心特性>🎯 核心特性</a></li><li><a href=#-学习路径建议>📚 学习路径建议</a></li><li><a href=#-最佳实践>💡 最佳实践</a></li><li><a href=#-参考资源>🔗 参考资源</a></li></ul></li></ul></nav></div></div><div class=content id=content><h2 class=heading-element id=开发环境配置指南zsh--rust><span>开发环境配置指南（Zsh + Rust）</span>
+<a href=#%e5%bc%80%e5%8f%91%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae%e6%8c%87%e5%8d%97zsh--rust class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>本文提供了一套完整的开发环境配置方案，涵盖 Zsh 终端配置和 Rust 开发环境的搭建，帮助快速打造高效的开发工作流。</p><h2 class=heading-element id=一zsh-环境配置><span>一、Zsh 环境配置</span>
+<a href=#%e4%b8%80zsh-%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=1-安装-zsh><span>1. 安装 Zsh</span>
+<a href=#1-%e5%ae%89%e8%a3%85-zsh class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo apt update
+</span></span><span class=line><span class=cl>sudo apt install zsh -y</span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=2-设置-zsh-为默认-shell><span>2. 设置 Zsh 为默认 shell</span>
+<a href=#2-%e8%ae%be%e7%bd%ae-zsh-%e4%b8%ba%e9%bb%98%e8%ae%a4-shell class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>chsh -s <span class=k>$(</span>which zsh<span class=k>)</span></span></span></code></pre></td></tr></table></div></div><blockquote><p>注：执行后需要注销或重启终端才能生效。</p></blockquote><h3 class=heading-element id=3-安装-oh-my-zsh><span>3. 安装 Oh My Zsh</span>
+<a href=#3-%e5%ae%89%e8%a3%85-oh-my-zsh class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sh -c <span class=s2>&#34;</span><span class=k>$(</span>curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh<span class=k>)</span><span class=s2>&#34;</span></span></span></code></pre></td></tr></table></div></div><blockquote><p>Oh My Zsh 是一个开源的 Zsh 配置管理框架，提供了丰富的主题和插件系统。</p></blockquote><h3 class=heading-element id=4-安装常用插件><span>4. 安装常用插件</span>
+<a href=#4-%e5%ae%89%e8%a3%85%e5%b8%b8%e7%94%a8%e6%8f%92%e4%bb%b6 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><h4 class=heading-element id=41-zsh-autosuggestions自动补全><span>4.1 zsh-autosuggestions（自动补全）</span>
+<a href=#41-zsh-autosuggestions%e8%87%aa%e5%8a%a8%e8%a1%a5%e5%85%a8 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h4><p>根据历史命令自动提示：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git clone https://github.com/zsh-users/zsh-autosuggestions <span class=si>${</span><span class=nv>ZSH_CUSTOM</span><span class=k>:-</span><span class=p>~/.oh-my-zsh/custom</span><span class=si>}</span>/plugins/zsh-autosuggestions</span></span></code></pre></td></tr></table></div></div><h4 class=heading-element id=42-zsh-syntax-highlighting语法高亮><span>4.2 zsh-syntax-highlighting（语法高亮）</span>
+<a href=#42-zsh-syntax-highlighting%e8%af%ad%e6%b3%95%e9%ab%98%e4%ba%ae class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h4><p>为命令提供语法高亮：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git clone https://github.com/zsh-users/zsh-syntax-highlighting.git <span class=si>${</span><span class=nv>ZSH_CUSTOM</span><span class=k>:-</span><span class=p>~/.oh-my-zsh/custom</span><span class=si>}</span>/plugins/zsh-syntax-highlighting</span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=5-完整的-zshrc-配置文件><span>5. 完整的 .zshrc 配置文件</span>
+<a href=#5-%e5%ae%8c%e6%95%b4%e7%9a%84-zshrc-%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>下面是一个经过优化的完整配置示例，你可以直接复制使用或根据需求修改：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span><span class=lnt>163
+</span><span class=lnt>164
+</span><span class=lnt>165
+</span><span class=lnt>166
+</span><span class=lnt>167
+</span><span class=lnt>168
+</span><span class=lnt>169
+</span><span class=lnt>170
+</span><span class=lnt>171
+</span><span class=lnt>172
+</span><span class=lnt>173
+</span><span class=lnt>174
+</span><span class=lnt>175
+</span><span class=lnt>176
+</span><span class=lnt>177
+</span><span class=lnt>178
+</span><span class=lnt>179
+</span><span class=lnt>180
+</span><span class=lnt>181
+</span><span class=lnt>182
+</span><span class=lnt>183
+</span><span class=lnt>184
+</span><span class=lnt>185
+</span><span class=lnt>186
+</span><span class=lnt>187
+</span><span class=lnt>188
+</span><span class=lnt>189
+</span><span class=lnt>190
+</span><span class=lnt>191
+</span><span class=lnt>192
+</span><span class=lnt>193
+</span><span class=lnt>194
+</span><span class=lnt>195
+</span><span class=lnt>196
+</span><span class=lnt>197
+</span><span class=lnt>198
+</span><span class=lnt>199
+</span><span class=lnt>200
+</span><span class=lnt>201
+</span><span class=lnt>202
+</span><span class=lnt>203
+</span><span class=lnt>204
+</span><span class=lnt>205
+</span><span class=lnt>206
+</span><span class=lnt>207
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># ============================================</span>
+</span></span><span class=line><span class=cl><span class=c1># Oh My Zsh 基础配置</span>
+</span></span><span class=line><span class=cl><span class=c1># ============================================</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 设置 Oh My Zsh 安装路径</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>ZSH</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$HOME</span><span class=s2>/.oh-my-zsh&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 主题设置</span>
+</span></span><span class=line><span class=cl><span class=c1># 推荐主题: robbyrussell (默认)、agnoster、powerlevel10k、random</span>
+</span></span><span class=line><span class=cl><span class=nv>ZSH_THEME</span><span class=o>=</span><span class=s2>&#34;robbyrussell&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># ============================================</span>
+</span></span><span class=line><span class=cl><span class=c1># 插件配置</span>
+</span></span><span class=line><span class=cl><span class=c1># ============================================</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 启用的插件列表</span>
+</span></span><span class=line><span class=cl><span class=c1># 注意：插件太多会影响终端启动速度</span>
+</span></span><span class=line><span class=cl><span class=nv>plugins</span><span class=o>=(</span>
+</span></span><span class=line><span class=cl>    git                      <span class=c1># Git 命令别名和提示</span>
+</span></span><span class=line><span class=cl>    z                        <span class=c1># 快速目录跳转</span>
+</span></span><span class=line><span class=cl>    zsh-autosuggestions      <span class=c1># 自动补全建议</span>
+</span></span><span class=line><span class=cl>    zsh-syntax-highlighting  <span class=c1># 语法高亮（必须放在最后）</span>
+</span></span><span class=line><span class=cl>    sudo                     <span class=c1># 按两次 ESC 在命令前添加 sudo</span>
+</span></span><span class=line><span class=cl>    extract                  <span class=c1># 一键解压各种格式</span>
+</span></span><span class=line><span class=cl>    colored-man-pages        <span class=c1># 彩色 man 手册</span>
+</span></span><span class=line><span class=cl>    command-not-found        <span class=c1># 命令未找到时提供安装建议</span>
+</span></span><span class=line><span class=cl>    history-substring-search <span class=c1># 历史命令搜索</span>
+</span></span><span class=line><span class=cl><span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 加载 Oh My Zsh</span>
+</span></span><span class=line><span class=cl><span class=nb>source</span> <span class=nv>$ZSH</span>/oh-my-zsh.sh
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># ============================================</span>
+</span></span><span class=line><span class=cl><span class=c1># 个人环境变量配置</span>
+</span></span><span class=line><span class=cl><span class=c1># ============================================</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 设置默认编辑器</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>EDITOR</span><span class=o>=</span><span class=s1>&#39;vim&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>VISUAL</span><span class=o>=</span><span class=s1>&#39;vim&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 设置语言环境</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>LANG</span><span class=o>=</span>en_US.UTF-8
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>LC_ALL</span><span class=o>=</span>en_US.UTF-8
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 历史命令配置</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>HISTSIZE</span><span class=o>=</span><span class=m>10000</span>                <span class=c1># 内存中保存的历史命令数量</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>SAVEHIST</span><span class=o>=</span><span class=m>10000</span>                <span class=c1># 文件中保存的历史命令数量</span>
+</span></span><span class=line><span class=cl>setopt HIST_IGNORE_ALL_DUPS          <span class=c1># 删除重复的历史记录</span>
+</span></span><span class=line><span class=cl>setopt HIST_FIND_NO_DUPS             <span class=c1># 查找时忽略重复</span>
+</span></span><span class=line><span class=cl>setopt HIST_REDUCE_BLANKS            <span class=c1># 删除多余空格</span>
+</span></span><span class=line><span class=cl>setopt INC_APPEND_HISTORY            <span class=c1># 立即追加到历史文件</span>
+</span></span><span class=line><span class=cl>setopt SHARE_HISTORY                 <span class=c1># 多个终端共享历史</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># ============================================</span>
+</span></span><span class=line><span class=cl><span class=c1># Rust 开发环境</span>
+</span></span><span class=line><span class=cl><span class=c1># ============================================</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Cargo 环境变量</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -f <span class=s2>&#34;</span><span class=nv>$HOME</span><span class=s2>/.cargo/env&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nb>source</span> <span class=s2>&#34;</span><span class=nv>$HOME</span><span class=s2>/.cargo/env&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Rust 工具链路径</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>PATH</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$HOME</span><span class=s2>/.cargo/bin:</span><span class=nv>$PATH</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Rust 编译优化选项（可选）</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>RUSTFLAGS</span><span class=o>=</span><span class=s2>&#34;-C target-cpu=native&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># ============================================</span>
+</span></span><span class=line><span class=cl><span class=c1># 自定义别名</span>
+</span></span><span class=line><span class=cl><span class=c1># ============================================</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 系统操作</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>cls</span><span class=o>=</span><span class=s1>&#39;clear&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>c</span><span class=o>=</span><span class=s1>&#39;clear&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>h</span><span class=o>=</span><span class=s1>&#39;history&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>q</span><span class=o>=</span><span class=s1>&#39;exit&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> ..<span class=o>=</span><span class=s1>&#39;cd ..&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> ...<span class=o>=</span><span class=s1>&#39;cd ../..&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> ....<span class=o>=</span><span class=s1>&#39;cd ../../..&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># ls 增强</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>ls</span><span class=o>=</span><span class=s1>&#39;ls --color=auto&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>ll</span><span class=o>=</span><span class=s1>&#39;ls -lh&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>la</span><span class=o>=</span><span class=s1>&#39;ls -lAh&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>l</span><span class=o>=</span><span class=s1>&#39;ls -CF&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 安全操作</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>rm</span><span class=o>=</span><span class=s1>&#39;rm -i&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>cp</span><span class=o>=</span><span class=s1>&#39;cp -i&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>mv</span><span class=o>=</span><span class=s1>&#39;mv -i&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Git 快捷命令</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>gs</span><span class=o>=</span><span class=s1>&#39;git status&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>ga</span><span class=o>=</span><span class=s1>&#39;git add&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>gc</span><span class=o>=</span><span class=s1>&#39;git commit&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>gp</span><span class=o>=</span><span class=s1>&#39;git push&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>gl</span><span class=o>=</span><span class=s1>&#39;git pull&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>gd</span><span class=o>=</span><span class=s1>&#39;git diff&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>gco</span><span class=o>=</span><span class=s1>&#39;git checkout&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>gb</span><span class=o>=</span><span class=s1>&#39;git branch&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>glog</span><span class=o>=</span><span class=s1>&#39;git log --oneline --graph --decorate&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Rust 开发</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>cb</span><span class=o>=</span><span class=s1>&#39;cargo build&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>cr</span><span class=o>=</span><span class=s1>&#39;cargo run&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>ct</span><span class=o>=</span><span class=s1>&#39;cargo test&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>cc</span><span class=o>=</span><span class=s1>&#39;cargo check&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>cclean</span><span class=o>=</span><span class=s1>&#39;cargo clean&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>cupdate</span><span class=o>=</span><span class=s1>&#39;cargo update&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>cfmt</span><span class=o>=</span><span class=s1>&#39;cargo fmt&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>clippy</span><span class=o>=</span><span class=s1>&#39;cargo clippy&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 系统信息</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>ports</span><span class=o>=</span><span class=s1>&#39;netstat -tulanp&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>meminfo</span><span class=o>=</span><span class=s1>&#39;free -m -l -t&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>cpuinfo</span><span class=o>=</span><span class=s1>&#39;lscpu&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>diskinfo</span><span class=o>=</span><span class=s1>&#39;df -h&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 网络工具</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>myip</span><span class=o>=</span><span class=s1>&#39;curl ifconfig.me&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>ping</span><span class=o>=</span><span class=s1>&#39;ping -c 5&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>fastping</span><span class=o>=</span><span class=s1>&#39;ping -c 100 -s.2&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># ============================================</span>
+</span></span><span class=line><span class=cl><span class=c1># 自定义函数</span>
+</span></span><span class=line><span class=cl><span class=c1># ============================================</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 创建并进入目录</span>
+</span></span><span class=line><span class=cl>mkcd<span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    mkdir -p <span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span> <span class=o>&amp;&amp;</span> <span class=nb>cd</span> <span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 快速搜索文件</span>
+</span></span><span class=line><span class=cl>ff<span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    find . -type f -name <span class=s2>&#34;*</span><span class=nv>$1</span><span class=s2>*&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 快速搜索目录</span>
+</span></span><span class=line><span class=cl>fd<span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    find . -type d -name <span class=s2>&#34;*</span><span class=nv>$1</span><span class=s2>*&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 解压所有常见格式</span>
+</span></span><span class=line><span class=cl>extract<span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=o>[</span> -f <span class=nv>$1</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>        <span class=k>case</span> <span class=nv>$1</span> in
+</span></span><span class=line><span class=cl>            *.tar.bz2<span class=o>)</span>   tar xjf <span class=nv>$1</span>     <span class=p>;;</span>
+</span></span><span class=line><span class=cl>            *.tar.gz<span class=o>)</span>    tar xzf <span class=nv>$1</span>     <span class=p>;;</span>
+</span></span><span class=line><span class=cl>            *.bz2<span class=o>)</span>       bunzip2 <span class=nv>$1</span>     <span class=p>;;</span>
+</span></span><span class=line><span class=cl>            *.rar<span class=o>)</span>       unrar e <span class=nv>$1</span>     <span class=p>;;</span>
+</span></span><span class=line><span class=cl>            *.gz<span class=o>)</span>        gunzip <span class=nv>$1</span>      <span class=p>;;</span>
+</span></span><span class=line><span class=cl>            *.tar<span class=o>)</span>       tar xf <span class=nv>$1</span>      <span class=p>;;</span>
+</span></span><span class=line><span class=cl>            *.tbz2<span class=o>)</span>      tar xjf <span class=nv>$1</span>     <span class=p>;;</span>
+</span></span><span class=line><span class=cl>            *.tgz<span class=o>)</span>       tar xzf <span class=nv>$1</span>     <span class=p>;;</span>
+</span></span><span class=line><span class=cl>            *.zip<span class=o>)</span>       unzip <span class=nv>$1</span>       <span class=p>;;</span>
+</span></span><span class=line><span class=cl>            *.Z<span class=o>)</span>         uncompress <span class=nv>$1</span>  <span class=p>;;</span>
+</span></span><span class=line><span class=cl>            *.7z<span class=o>)</span>        7z x <span class=nv>$1</span>        <span class=p>;;</span>
+</span></span><span class=line><span class=cl>            *<span class=o>)</span>           <span class=nb>echo</span> <span class=s2>&#34;&#39;</span><span class=nv>$1</span><span class=s2>&#39; 无法被解压&#34;</span> <span class=p>;;</span>
+</span></span><span class=line><span class=cl>        <span class=k>esac</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span>
+</span></span><span class=line><span class=cl>        <span class=nb>echo</span> <span class=s2>&#34;&#39;</span><span class=nv>$1</span><span class=s2>&#39; 不是有效的文件&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 创建新的 Rust 项目并进入</span>
+</span></span><span class=line><span class=cl>newrust<span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    cargo new <span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span> <span class=o>&amp;&amp;</span> <span class=nb>cd</span> <span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># ============================================</span>
+</span></span><span class=line><span class=cl><span class=c1># PATH 扩展（根据需要添加）</span>
+</span></span><span class=line><span class=cl><span class=c1># ============================================</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 示例：添加本地 bin 目录</span>
+</span></span><span class=line><span class=cl><span class=c1># export PATH=&#34;$HOME/.local/bin:$PATH&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 示例：添加自定义脚本目录</span>
+</span></span><span class=line><span class=cl><span class=c1># export PATH=&#34;$HOME/scripts:$PATH&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># ============================================</span>
+</span></span><span class=line><span class=cl><span class=c1># 终端优化</span>
+</span></span><span class=line><span class=cl><span class=c1># ============================================</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 禁用终端控制流（Ctrl+S / Ctrl+Q）</span>
+</span></span><span class=line><span class=cl>stty -ixon
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 启用命令行颜色支持</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -x /usr/bin/dircolors <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nb>test</span> -r ~/.dircolors <span class=o>&amp;&amp;</span> <span class=nb>eval</span> <span class=s2>&#34;</span><span class=k>$(</span>dircolors -b ~/.dircolors<span class=k>)</span><span class=s2>&#34;</span> <span class=o>||</span> <span class=nb>eval</span> <span class=s2>&#34;</span><span class=k>$(</span>dircolors -b<span class=k>)</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># ============================================</span>
+</span></span><span class=line><span class=cl><span class=c1># 欢迎信息（可选）</span>
+</span></span><span class=line><span class=cl><span class=c1># ============================================</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 显示系统信息</span>
+</span></span><span class=line><span class=cl><span class=c1># echo &#34;欢迎回来！当前系统: $(uname -s)&#34;</span>
+</span></span><span class=line><span class=cl><span class=c1># echo &#34;今天是: $(date &#39;+%Y年%m月%d日 %A&#39;)&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># ============================================</span>
+</span></span><span class=line><span class=cl><span class=c1># 加载本地私有配置（如果存在）</span>
+</span></span><span class=line><span class=cl><span class=c1># ============================================</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -f ~/.zshrc.local <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nb>source</span> ~/.zshrc.local
+</span></span><span class=line><span class=cl><span class=k>fi</span></span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=6-应用配置><span>6. 应用配置</span>
+<a href=#6-%e5%ba%94%e7%94%a8%e9%85%8d%e7%bd%ae class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>编辑配置文件：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>vim ~/.zshrc</span></span></code></pre></td></tr></table></div></div><p>复制上面的配置内容，然后重新加载：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>source</span> ~/.zshrc</span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=7-配置说明><span>7. 配置说明</span>
+<a href=#7-%e9%85%8d%e7%bd%ae%e8%af%b4%e6%98%8e class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p><strong>主题选择：</strong></p><ul><li><code>robbyrussell</code>：简洁快速（推荐新手）</li><li><code>agnoster</code>：美观但需要 Powerline 字体</li><li><code>powerlevel10k</code>：功能强大，需要单独安装</li></ul><p><strong>插件说明：</strong></p><ul><li>插件加载会影响终端启动速度，根据实际需求启用</li><li><code>zsh-syntax-highlighting</code> 必须放在插件列表最后</li><li>可以用 <code>time zsh -i -c exit</code> 测试启动时间</li></ul><p><strong>个性化定制：</strong></p><ul><li>所有别名和函数都可以根据个人习惯修改</li><li>建议将敏感配置（如密钥）放在 <code>~/.zshrc.local</code> 中</li><li>该文件不会被 Git 跟踪，更加安全</li></ul><hr><h2 class=heading-element id=二rust-开发环境><span>二、Rust 开发环境</span>
+<a href=#%e4%ba%8crust-%e5%bc%80%e5%8f%91%e7%8e%af%e5%a2%83 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=1-安装-c-编译器和开发依赖><span>1. 安装 C 编译器和开发依赖</span>
+<a href=#1-%e5%ae%89%e8%a3%85-c-%e7%bc%96%e8%af%91%e5%99%a8%e5%92%8c%e5%bc%80%e5%8f%91%e4%be%9d%e8%b5%96 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>Rust 需要 C 编译器来编译一些依赖包，首先安装必要的开发工具：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo apt update
+</span></span><span class=line><span class=cl>sudo apt install build-essential libssl-dev pkg-config -y</span></span></code></pre></td></tr></table></div></div><p><strong>说明：</strong></p><ul><li><code>build-essential</code>：包含 gcc、g++、make 等编译工具</li><li><code>libssl-dev</code>：OpenSSL 开发库，用于网络加密和 HTTPS 连接</li><li><code>pkg-config</code>：帮助编译器找到库文件的工具</li></ul><h3 class=heading-element id=2-安装-rust><span>2. 安装 Rust</span>
+<a href=#2-%e5%ae%89%e8%a3%85-rust class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>curl --proto <span class=s1>&#39;=https&#39;</span> --tlsv1.2 -sSf https://sh.rustup.rs <span class=p>|</span> sh
+</span></span><span class=line><span class=cl>. <span class=s2>&#34;</span><span class=nv>$HOME</span><span class=s2>/.cargo/env&#34;</span></span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=3-验证安装><span>3. 验证安装</span>
+<a href=#3-%e9%aa%8c%e8%af%81%e5%ae%89%e8%a3%85 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>rustc --version
+</span></span><span class=line><span class=cl>cargo --version</span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=4-配置-cargo-镜像><span>4. 配置 Cargo 镜像</span>
+<a href=#4-%e9%85%8d%e7%bd%ae-cargo-%e9%95%9c%e5%83%8f class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>编辑 <code>~/.cargo/config.toml</code>：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-toml data-lang=toml><span class=line><span class=cl><span class=p>[</span><span class=nx>source</span><span class=p>.</span><span class=nx>crates-io</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=nx>replace-with</span> <span class=p>=</span> <span class=s1>&#39;ustc&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>source</span><span class=p>.</span><span class=nx>ustc</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=nx>registry</span> <span class=p>=</span> <span class=s2>&#34;git://mirrors.ustc.edu.cn/crates.io-index&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>net</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=nx>git-fetch-with-cli</span> <span class=p>=</span> <span class=kc>true</span></span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=5-可选切换-rust-版本><span>5. 可选：切换 Rust 版本</span>
+<a href=#5-%e5%8f%af%e9%80%89%e5%88%87%e6%8d%a2-rust-%e7%89%88%e6%9c%ac class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>rustup default nightly</span></span></code></pre></td></tr></table></div></div><hr><h2 class=heading-element id=三一键管理脚本><span>三、一键管理脚本</span>
+<a href=#%e4%b8%89%e4%b8%80%e9%94%ae%e7%ae%a1%e7%90%86%e8%84%9a%e6%9c%ac class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>如果你想跳过手动配置的步骤，可以使用统一的管理脚本来完成所有操作。</p><h3 class=heading-element id=使用方法><span>使用方法</span>
+<a href=#%e4%bd%bf%e7%94%a8%e6%96%b9%e6%b3%95 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p><strong>方式一：交互式菜单（推荐新手）</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 下载并运行脚本</span>
+</span></span><span class=line><span class=cl>chmod +x dev-env.sh
+</span></span><span class=line><span class=cl>./dev-env.sh
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 会显示交互式菜单，选择相应的操作即可</span></span></span></code></pre></td></tr></table></div></div><p><strong>方式二：命令行参数（推荐熟练用户）</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 安装完整开发环境</span>
+</span></span><span class=line><span class=cl>./dev-env.sh install
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 安装 Rust 工具</span>
+</span></span><span class=line><span class=cl>./dev-env.sh tools
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 更新环境</span>
+</span></span><span class=line><span class=cl>./dev-env.sh update
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 验证环境</span>
+</span></span><span class=line><span class=cl>./dev-env.sh verify
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 查看帮助</span>
+</span></span><span class=line><span class=cl>./dev-env.sh help</span></span></code></pre></td></tr></table></div></div><p><strong>推荐使用流程：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 1. 首次安装</span>
+</span></span><span class=line><span class=cl>./dev-env.sh install
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 2. 重新加载配置</span>
+</span></span><span class=line><span class=cl><span class=nb>exec</span> zsh
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 3. 安装 Rust 工具（可选）</span>
+</span></span><span class=line><span class=cl>./dev-env.sh tools
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 4. 验证环境</span>
+</span></span><span class=line><span class=cl>./dev-env.sh verify</span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=脚本特性><span>脚本特性</span>
+<a href=#%e8%84%9a%e6%9c%ac%e7%89%b9%e6%80%a7 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>这个统一脚本包含以下特性：</p><ul><li>✅ <strong>多功能合一</strong>：安装、更新、验证一个脚本搞定</li><li>✅ <strong>交互式菜单</strong>：无参数运行时显示友好的菜单界面</li><li>✅ <strong>命令行模式</strong>：支持直接命令行参数调用</li><li>✅ <strong>跨平台支持</strong>：自动检测 Ubuntu/Debian 和 macOS</li><li>✅ <strong>智能配置</strong>：根据操作系统自动调整配置</li><li>✅ <strong>彩色输出</strong>：清晰的日志和状态提示</li><li>✅ <strong>错误处理</strong>：完善的错误检查和提示</li><li>✅ <strong>幂等设计</strong>：可重复运行，不会重复安装</li></ul><h3 class=heading-element id=脚本功能说明><span>脚本功能说明</span>
+<a href=#%e8%84%9a%e6%9c%ac%e5%8a%9f%e8%83%bd%e8%af%b4%e6%98%8e class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><table><thead><tr><th>命令</th><th>功能描述</th></tr></thead><tbody><tr><td><code>./dev-env.sh</code></td><td>显示交互式菜单</td></tr><tr><td><code>./dev-env.sh install</code></td><td>安装完整开发环境</td></tr><tr><td><code>./dev-env.sh tools</code></td><td>安装 Rust 开发工具</td></tr><tr><td><code>./dev-env.sh update</code></td><td>更新所有工具</td></tr><tr><td><code>./dev-env.sh verify</code></td><td>验证环境状态</td></tr><tr><td><code>./dev-env.sh help</code></td><td>显示帮助信息</td></tr></tbody></table><h3 class=heading-element id=获取脚本><span>获取脚本</span>
+<a href=#%e8%8e%b7%e5%8f%96%e8%84%9a%e6%9c%ac class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>脚本文件位于本博客的 <code>static/dev-env.sh</code>，共 640+ 行代码，包含完整的功能实现。</p><p><strong>下载方式：</strong></p><ol><li><strong>从博客下载</strong>：访问博客后直接下载 <code>/dev-env.sh</code></li><li><strong>从源码获取</strong>：在博客源码的 <code>static/</code> 目录下</li><li><strong>手动创建</strong>：复制以下核心代码结构</li></ol><p><strong>脚本核心结构：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=cp>#!/usr/bin/env bash
+</span></span></span><span class=line><span class=cl><span class=cp></span><span class=c1># Zsh + Rust 开发环境管理脚本</span>
+</span></span><span class=line><span class=cl><span class=c1># 功能：安装、更新、验证开发环境</span>
+</span></span><span class=line><span class=cl><span class=c1># 适用：Ubuntu/Debian/macOS</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 功能模块：</span>
+</span></span><span class=line><span class=cl><span class=c1># - install_env()    : 安装完整开发环境</span>
+</span></span><span class=line><span class=cl><span class=c1># - install_tools()  : 安装 Rust 开发工具</span>
+</span></span><span class=line><span class=cl><span class=c1># - update_env()     : 更新所有工具</span>
+</span></span><span class=line><span class=cl><span class=c1># - verify_env()     : 验证环境状态  </span>
+</span></span><span class=line><span class=cl><span class=c1># - show_menu()      : 交互式菜单</span>
+</span></span><span class=line><span class=cl><span class=c1># - show_help()      : 帮助信息</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 详细实现请查看 static/dev-env.sh 文件</span>
+</span></span><span class=line><span class=cl><span class=c1># 完整代码约 640 行，包含以下主要功能：</span>
+</span></span><span class=line><span class=cl><span class=c1># </span>
+</span></span><span class=line><span class=cl><span class=c1># 1. 系统检测和环境准备</span>
+</span></span><span class=line><span class=cl><span class=c1># 2. Zsh 和 Oh My Zsh 安装</span>
+</span></span><span class=line><span class=cl><span class=c1># 3. 插件安装和配置  </span>
+</span></span><span class=line><span class=cl><span class=c1># 4. Rust 工具链安装</span>
+</span></span><span class=line><span class=cl><span class=c1># 5. Cargo 镜像配置</span>
+</span></span><span class=line><span class=cl><span class=c1># 6. 环境验证</span>
+</span></span><span class=line><span class=cl><span class=c1># 7. 交互式菜单</span>
+</span></span><span class=line><span class=cl><span class=c1># 8. 帮助系统</span></span></span></code></pre></td></tr></table></div></div><blockquote><p>💡 <strong>提示</strong>：完整的脚本代码可以从博客 <code>static/dev-env.sh</code> 文件获取，也可以访问博客源码仓库查看。</p></blockquote><h3 class=heading-element id=故障排除><span>故障排除</span>
+<a href=#%e6%95%85%e9%9a%9c%e6%8e%92%e9%99%a4 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p><strong>常见问题：</strong></p><ol><li><p><strong>脚本执行失败</strong></p><ul><li>检查网络连接（需要访问 GitHub）</li><li>查看详细错误：<code>bash -x ./dev-env.sh install</code></li><li>确保有足够的磁盘空间</li></ul></li><li><p><strong>Oh My Zsh 安装失败</strong></p><ul><li>网络问题，可以使用 GitHub 镜像</li><li>或者手动下载安装包</li></ul></li><li><p><strong>Rust 安装慢</strong></p><ul><li>脚本已配置国内镜像加速</li><li>可以尝试其他镜像源（tuna、sjtu 等）</li></ul></li><li><p><strong>权限问题</strong></p><ul><li>确保脚本有执行权限：<code>chmod +x dev-env.sh</code></li><li>某些操作需要 sudo 权限</li></ul></li><li><p><strong>恢复原配置</strong></p><ul><li>所有配置都有自动备份</li><li>恢复命令：<code>cp ~/.zshrc.backup.* ~/.zshrc</code></li></ul></li></ol><hr><h2 class=heading-element id=四macos-系统适配><span>四、macOS 系统适配</span>
+<a href=#%e5%9b%9bmacos-%e7%b3%bb%e7%bb%9f%e9%80%82%e9%85%8d class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>上述配置主要针对 Ubuntu/Debian 系统，如果你使用 macOS，需要做以下调整：</p><h3 class=heading-element id=1-安装-homebrew如果还没有><span>1. 安装 Homebrew（如果还没有）</span>
+<a href=#1-%e5%ae%89%e8%a3%85-homebrew%e5%a6%82%e6%9e%9c%e8%bf%98%e6%b2%a1%e6%9c%89 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>/bin/bash -c <span class=s2>&#34;</span><span class=k>$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span class=k>)</span><span class=s2>&#34;</span></span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=2-安装-zshmacos-通常已预装><span>2. 安装 Zsh（macOS 通常已预装）</span>
+<a href=#2-%e5%ae%89%e8%a3%85-zshmacos-%e9%80%9a%e5%b8%b8%e5%b7%b2%e9%a2%84%e8%a3%85 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># macOS 通常已经安装了 Zsh</span>
+</span></span><span class=line><span class=cl><span class=c1># 如果需要最新版本：</span>
+</span></span><span class=line><span class=cl>brew install zsh</span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=3-安装其他工具><span>3. 安装其他工具</span>
+<a href=#3-%e5%ae%89%e8%a3%85%e5%85%b6%e4%bb%96%e5%b7%a5%e5%85%b7 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># macOS 不需要 build-essential，改用 Xcode Command Line Tools</span>
+</span></span><span class=line><span class=cl>xcode-select --install
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 其他依赖</span>
+</span></span><span class=line><span class=cl>brew install openssl pkg-config</span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=4-macos-专用别名调整><span>4. macOS 专用别名调整</span>
+<a href=#4-macos-%e4%b8%93%e7%94%a8%e5%88%ab%e5%90%8d%e8%b0%83%e6%95%b4 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>在 <code>.zshrc</code> 中添加或修改这些别名：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># macOS 特定别名</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>ls</span><span class=o>=</span><span class=s1>&#39;ls -G&#39;</span>  <span class=c1># macOS 使用 -G 而不是 --color=auto</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>ll</span><span class=o>=</span><span class=s1>&#39;ls -lhG&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>la</span><span class=o>=</span><span class=s1>&#39;ls -lAhG&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 或者安装 GNU coreutils 使用 Linux 风格命令</span>
+</span></span><span class=line><span class=cl><span class=c1># brew install coreutils</span>
+</span></span><span class=line><span class=cl><span class=c1># alias ls=&#39;gls --color=auto&#39;</span></span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=5-macos-下的脚本修改><span>5. macOS 下的脚本修改</span>
+<a href=#5-macos-%e4%b8%8b%e7%9a%84%e8%84%9a%e6%9c%ac%e4%bf%ae%e6%94%b9 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>如果你在 macOS 上使用初始化脚本，需要修改以下部分：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 检测系统类型</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[[</span> <span class=s2>&#34;</span><span class=nv>$OSTYPE</span><span class=s2>&#34;</span> <span class=o>==</span> <span class=s2>&#34;darwin&#34;</span>* <span class=o>]]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=c1># macOS</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> ! <span class=nb>command</span> -v brew <span class=p>&amp;</span>&gt; /dev/null<span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>        log_error <span class=s2>&#34;请先安装 Homebrew&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=nb>exit</span> <span class=m>1</span>
+</span></span><span class=line><span class=cl>    <span class=k>fi</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 使用 brew 安装依赖</span>
+</span></span><span class=line><span class=cl>    brew install zsh git curl wget
+</span></span><span class=line><span class=cl>    xcode-select --install 2&gt;/dev/null <span class=o>||</span> <span class=nb>true</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>    <span class=c1># Linux</span>
+</span></span><span class=line><span class=cl>    sudo apt update
+</span></span><span class=line><span class=cl>    sudo apt install -y zsh git curl wget build-essential
+</span></span><span class=line><span class=cl><span class=k>fi</span></span></span></code></pre></td></tr></table></div></div><hr><h2 class=heading-element id=五常用-rust-工具链><span>五、常用 Rust 工具链</span>
+<a href=#%e4%ba%94%e5%b8%b8%e7%94%a8-rust-%e5%b7%a5%e5%85%b7%e9%93%be class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>安装完 Rust 后，建议安装这些常用工具来提升开发效率：</p><h3 class=heading-element id=1-代码格式化和检查工具><span>1. 代码格式化和检查工具</span>
+<a href=#1-%e4%bb%a3%e7%a0%81%e6%a0%bc%e5%bc%8f%e5%8c%96%e5%92%8c%e6%a3%80%e6%9f%a5%e5%b7%a5%e5%85%b7 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># rustfmt - 代码格式化（通常已包含在 rustup 中）</span>
+</span></span><span class=line><span class=cl>rustup component add rustfmt
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># clippy - 代码静态分析工具</span>
+</span></span><span class=line><span class=cl>rustup component add clippy
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 使用示例</span>
+</span></span><span class=line><span class=cl>cargo fmt        <span class=c1># 格式化代码</span>
+</span></span><span class=line><span class=cl>cargo clippy     <span class=c1># 运行 lint 检查</span></span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=2-cargo-edit管理依赖><span>2. cargo-edit（管理依赖）</span>
+<a href=#2-cargo-edit%e7%ae%a1%e7%90%86%e4%be%9d%e8%b5%96 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cargo install cargo-edit
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 使用示例</span>
+</span></span><span class=line><span class=cl>cargo add tokio         <span class=c1># 添加依赖</span>
+</span></span><span class=line><span class=cl>cargo rm serde          <span class=c1># 移除依赖</span>
+</span></span><span class=line><span class=cl>cargo upgrade           <span class=c1># 升级所有依赖</span></span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=3-cargo-watch自动重新编译><span>3. cargo-watch（自动重新编译）</span>
+<a href=#3-cargo-watch%e8%87%aa%e5%8a%a8%e9%87%8d%e6%96%b0%e7%bc%96%e8%af%91 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cargo install cargo-watch
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 使用示例</span>
+</span></span><span class=line><span class=cl>cargo watch -x run      <span class=c1># 文件变化时自动运行</span>
+</span></span><span class=line><span class=cl>cargo watch -x <span class=nb>test</span>     <span class=c1># 文件变化时自动测试</span>
+</span></span><span class=line><span class=cl>cargo watch -x check    <span class=c1># 文件变化时自动检查</span></span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=4-cargo-tree依赖树><span>4. cargo-tree（依赖树）</span>
+<a href=#4-cargo-tree%e4%be%9d%e8%b5%96%e6%a0%91 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 查看依赖树（Rust 1.44+ 已内置）</span>
+</span></span><span class=line><span class=cl>cargo tree
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 查看重复的依赖</span>
+</span></span><span class=line><span class=cl>cargo tree --duplicates</span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=5-bacon快速后台编译检查><span>5. bacon（快速后台编译检查）</span>
+<a href=#5-bacon%e5%bf%ab%e9%80%9f%e5%90%8e%e5%8f%b0%e7%bc%96%e8%af%91%e6%a3%80%e6%9f%a5 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cargo install bacon
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 使用示例</span>
+</span></span><span class=line><span class=cl>bacon           <span class=c1># 启动后台检查</span>
+</span></span><span class=line><span class=cl>bacon <span class=nb>test</span>      <span class=c1># 后台运行测试</span>
+</span></span><span class=line><span class=cl>bacon clippy    <span class=c1># 后台运行 clippy</span></span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=6-cargo-expand宏展开><span>6. cargo-expand（宏展开）</span>
+<a href=#6-cargo-expand%e5%ae%8f%e5%b1%95%e5%bc%80 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cargo install cargo-expand
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 使用示例</span>
+</span></span><span class=line><span class=cl>cargo expand                    <span class=c1># 展开所有宏</span>
+</span></span><span class=line><span class=cl>cargo expand module::function   <span class=c1># 展开特定函数的宏</span></span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=7-sccache编译缓存加速><span>7. sccache（编译缓存加速）</span>
+<a href=#7-sccache%e7%bc%96%e8%af%91%e7%bc%93%e5%ad%98%e5%8a%a0%e9%80%9f class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cargo install sccache
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 配置环境变量</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>RUSTC_WRAPPER</span><span class=o>=</span>sccache
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 添加到 .zshrc</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s1>&#39;export RUSTC_WRAPPER=sccache&#39;</span> &gt;&gt; ~/.zshrc</span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=8-其他实用工具><span>8. 其他实用工具</span>
+<a href=#8-%e5%85%b6%e4%bb%96%e5%ae%9e%e7%94%a8%e5%b7%a5%e5%85%b7 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># cargo-audit - 检查安全漏洞</span>
+</span></span><span class=line><span class=cl>cargo install cargo-audit
+</span></span><span class=line><span class=cl>cargo audit
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># cargo-outdated - 检查过期依赖</span>
+</span></span><span class=line><span class=cl>cargo install cargo-outdated
+</span></span><span class=line><span class=cl>cargo outdated
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># cargo-bloat - 分析二进制文件大小</span>
+</span></span><span class=line><span class=cl>cargo install cargo-bloat
+</span></span><span class=line><span class=cl>cargo bloat --release
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># tokei - 代码行数统计</span>
+</span></span><span class=line><span class=cl>cargo install tokei
+</span></span><span class=line><span class=cl>tokei
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># hyperfine - 性能基准测试工具</span>
+</span></span><span class=line><span class=cl>cargo install hyperfine
+</span></span><span class=line><span class=cl>hyperfine <span class=s1>&#39;cargo run&#39;</span></span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=9-一键安装常用工具><span>9. 一键安装常用工具</span>
+<a href=#9-%e4%b8%80%e9%94%ae%e5%ae%89%e8%a3%85%e5%b8%b8%e7%94%a8%e5%b7%a5%e5%85%b7 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 将常用工具放到一个脚本中</span>
+</span></span><span class=line><span class=cl>cat &gt; install-rust-tools.sh <span class=s>&lt;&lt; &#39;EOF&#39;
+</span></span></span><span class=line><span class=cl><span class=s>#!/bin/bash
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;安装 Rust 常用工具...&#34;
+</span></span></span><span class=line><span class=cl><span class=s>cargo install cargo-edit cargo-watch bacon cargo-expand cargo-audit cargo-outdated tokei hyperfine
+</span></span></span><span class=line><span class=cl><span class=s>rustup component add rustfmt clippy
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;安装完成！&#34;
+</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>chmod +x install-rust-tools.sh
+</span></span><span class=line><span class=cl>./install-rust-tools.sh</span></span></code></pre></td></tr></table></div></div><hr><h2 class=heading-element id=六进阶主题配置><span>六、进阶主题配置</span>
+<a href=#%e5%85%ad%e8%bf%9b%e9%98%b6%e4%b8%bb%e9%a2%98%e9%85%8d%e7%bd%ae class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>如果你想要更美观强大的终端主题，推荐使用 Powerlevel10k。</p><h3 class=heading-element id=1-安装-powerlevel10k><span>1. 安装 Powerlevel10k</span>
+<a href=#1-%e5%ae%89%e8%a3%85-powerlevel10k class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git clone --depth<span class=o>=</span><span class=m>1</span> https://github.com/romkatv/powerlevel10k.git <span class=si>${</span><span class=nv>ZSH_CUSTOM</span><span class=k>:-</span><span class=nv>$HOME</span><span class=p>/.oh-my-zsh/custom</span><span class=si>}</span>/themes/powerlevel10k</span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=2-修改-zshrc><span>2. 修改 .zshrc</span>
+<a href=#2-%e4%bf%ae%e6%94%b9-zshrc class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 修改主题配置</span>
+</span></span><span class=line><span class=cl><span class=nv>ZSH_THEME</span><span class=o>=</span><span class=s2>&#34;powerlevel10k/powerlevel10k&#34;</span></span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=3-安装-nerd-font必需><span>3. 安装 Nerd Font（必需）</span>
+<a href=#3-%e5%ae%89%e8%a3%85-nerd-font%e5%bf%85%e9%9c%80 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>Powerlevel10k 需要特殊字体来显示图标：</p><p><strong>macOS：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>brew tap homebrew/cask-fonts
+</span></span><span class=line><span class=cl>brew install --cask font-meslo-lg-nerd-font</span></span></code></pre></td></tr></table></div></div><p><strong>Ubuntu/Debian：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mkdir -p ~/.local/share/fonts
+</span></span><span class=line><span class=cl><span class=nb>cd</span> ~/.local/share/fonts
+</span></span><span class=line><span class=cl>wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+</span></span><span class=line><span class=cl>wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+</span></span><span class=line><span class=cl>wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+</span></span><span class=line><span class=cl>wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+</span></span><span class=line><span class=cl>fc-cache -f -v</span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=4-配置终端字体><span>4. 配置终端字体</span>
+<a href=#4-%e9%85%8d%e7%bd%ae%e7%bb%88%e7%ab%af%e5%ad%97%e4%bd%93 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>在终端设置中将字体改为 <code>MesloLGS NF</code></p><h3 class=heading-element id=5-运行配置向导><span>5. 运行配置向导</span>
+<a href=#5-%e8%bf%90%e8%a1%8c%e9%85%8d%e7%bd%ae%e5%90%91%e5%af%bc class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 重新加载配置</span>
+</span></span><span class=line><span class=cl><span class=nb>source</span> ~/.zshrc
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 会自动启动配置向导</span>
+</span></span><span class=line><span class=cl><span class=c1># 或者手动运行</span>
+</span></span><span class=line><span class=cl>p10k configure</span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=6-powerlevel10k-推荐配置><span>6. Powerlevel10k 推荐配置</span>
+<a href=#6-powerlevel10k-%e6%8e%a8%e8%8d%90%e9%85%8d%e7%bd%ae class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>在配置向导中的推荐选项：</p><ul><li>Prompt Style: Rainbow</li><li>Character Set: Unicode</li><li>Show current time: 24-hour format</li><li>Prompt Separators: Angled</li><li>Prompt Heads: Sharp</li><li>Prompt Tails: Flat</li><li>Prompt Height: Two lines</li><li>Prompt Connection: Disconnected</li><li>Prompt Frame: No frame</li><li>Transient Prompt: Yes</li></ul><hr><h2 class=heading-element id=七性能优化建议><span>七、性能优化建议</span>
+<a href=#%e4%b8%83%e6%80%a7%e8%83%bd%e4%bc%98%e5%8c%96%e5%bb%ba%e8%ae%ae class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=1-减少启动时间><span>1. 减少启动时间</span>
+<a href=#1-%e5%87%8f%e5%b0%91%e5%90%af%e5%8a%a8%e6%97%b6%e9%97%b4 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p><strong>检测启动耗时：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 测试 zsh 启动时间</span>
+</span></span><span class=line><span class=cl><span class=nb>time</span> zsh -i -c <span class=nb>exit</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 分析启动过程</span>
+</span></span><span class=line><span class=cl>zsh -i -c <span class=s1>&#39;zmodload zsh/zprof &amp;&amp; zprof&#39;</span></span></span></code></pre></td></tr></table></div></div><p><strong>优化建议：</strong></p><ul><li>减少不必要的插件</li><li>使用延迟加载</li><li>避免在 <code>.zshrc</code> 中执行耗时操作</li></ul><h3 class=heading-element id=2-延迟加载-nvmpyenv-等工具><span>2. 延迟加载 nvm/pyenv 等工具</span>
+<a href=#2-%e5%bb%b6%e8%bf%9f%e5%8a%a0%e8%bd%bd-nvmpyenv-%e7%ad%89%e5%b7%a5%e5%85%b7 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>如果你使用 nvm、pyenv 等版本管理工具，可以延迟加载：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 在 .zshrc 中添加延迟加载函数</span>
+</span></span><span class=line><span class=cl><span class=c1># nvm 延迟加载</span>
+</span></span><span class=line><span class=cl>lazy_load_nvm<span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=nb>unset</span> -f node npm nvm
+</span></span><span class=line><span class=cl>    <span class=nb>export</span> <span class=nv>NVM_DIR</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$HOME</span><span class=s2>/.nvm&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=o>[</span> -s <span class=s2>&#34;</span><span class=nv>$NVM_DIR</span><span class=s2>/nvm.sh&#34;</span> <span class=o>]</span> <span class=o>&amp;&amp;</span> <span class=se>\.</span> <span class=s2>&#34;</span><span class=nv>$NVM_DIR</span><span class=s2>/nvm.sh&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>node<span class=o>()</span> <span class=o>{</span> lazy_load_nvm<span class=p>;</span> node <span class=s2>&#34;</span><span class=nv>$@</span><span class=s2>&#34;</span><span class=p>;</span> <span class=o>}</span>
+</span></span><span class=line><span class=cl>npm<span class=o>()</span> <span class=o>{</span> lazy_load_nvm<span class=p>;</span> npm <span class=s2>&#34;</span><span class=nv>$@</span><span class=s2>&#34;</span><span class=p>;</span> <span class=o>}</span>
+</span></span><span class=line><span class=cl>nvm<span class=o>()</span> <span class=o>{</span> lazy_load_nvm<span class=p>;</span> nvm <span class=s2>&#34;</span><span class=nv>$@</span><span class=s2>&#34;</span><span class=p>;</span> <span class=o>}</span></span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=3-使用-zinit-替代-oh-my-zsh进阶><span>3. 使用 zinit 替代 Oh My Zsh（进阶）</span>
+<a href=#3-%e4%bd%bf%e7%94%a8-zinit-%e6%9b%bf%e4%bb%a3-oh-my-zsh%e8%bf%9b%e9%98%b6 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>如果追求极致性能，可以考虑使用更轻量的 zinit：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 安装 zinit</span>
+</span></span><span class=line><span class=cl>bash -c <span class=s2>&#34;</span><span class=k>$(</span>curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh<span class=k>)</span><span class=s2>&#34;</span></span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=4-rust-编译优化><span>4. Rust 编译优化</span>
+<a href=#4-rust-%e7%bc%96%e8%af%91%e4%bc%98%e5%8c%96 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>在 <code>~/.cargo/config.toml</code> 中添加：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-toml data-lang=toml><span class=line><span class=cl><span class=p>[</span><span class=nx>build</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=c># 增加并行编译任务数</span>
+</span></span><span class=line><span class=cl><span class=nx>jobs</span> <span class=p>=</span> <span class=mi>8</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>target</span><span class=p>.</span><span class=nx>x86_64-unknown-linux-gnu</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=c># 使用更快的链接器（需要安装 lld 或 mold）</span>
+</span></span><span class=line><span class=cl><span class=nx>linker</span> <span class=p>=</span> <span class=s2>&#34;clang&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>rustflags</span> <span class=p>=</span> <span class=p>[</span><span class=s2>&#34;-C&#34;</span><span class=p>,</span> <span class=s2>&#34;link-arg=-fuse-ld=lld&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>profile</span><span class=p>.</span><span class=nx>dev</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=c># 开发模式优化：减少调试信息以加快编译</span>
+</span></span><span class=line><span class=cl><span class=nx>debug</span> <span class=p>=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=nx>profile</span><span class=p>.</span><span class=nx>release</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=c># 发布模式优化</span>
+</span></span><span class=line><span class=cl><span class=nx>lto</span> <span class=p>=</span> <span class=kc>true</span>          <span class=c># 启用链接时优化</span>
+</span></span><span class=line><span class=cl><span class=nx>codegen-units</span> <span class=p>=</span> <span class=mi>1</span>   <span class=c># 减少代码生成单元以提高优化效果</span></span></span></code></pre></td></tr></table></div></div><p>安装更快的链接器：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Ubuntu/Debian</span>
+</span></span><span class=line><span class=cl>sudo apt install lld clang
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># macOS</span>
+</span></span><span class=line><span class=cl>brew install llvm</span></span></code></pre></td></tr></table></div></div><hr><h2 class=heading-element id=八快速参考><span>八、快速参考</span>
+<a href=#%e5%85%ab%e5%bf%ab%e9%80%9f%e5%8f%82%e8%80%83 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=常用-zsh-快捷键><span>常用 Zsh 快捷键</span>
+<a href=#%e5%b8%b8%e7%94%a8-zsh-%e5%bf%ab%e6%8d%b7%e9%94%ae class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><table><thead><tr><th>快捷键</th><th>功能</th></tr></thead><tbody><tr><td><code>Ctrl + A</code></td><td>跳转到行首</td></tr><tr><td><code>Ctrl + E</code></td><td>跳转到行尾</td></tr><tr><td><code>Ctrl + U</code></td><td>删除光标前的所有内容</td></tr><tr><td><code>Ctrl + K</code></td><td>删除光标后的所有内容</td></tr><tr><td><code>Ctrl + W</code></td><td>删除光标前的一个单词</td></tr><tr><td><code>Ctrl + R</code></td><td>搜索历史命令</td></tr><tr><td><code>Ctrl + L</code></td><td>清屏</td></tr><tr><td><code>Alt + .</code></td><td>插入上一个命令的最后一个参数</td></tr><tr><td><code>!!</code></td><td>重复上一个命令</td></tr><tr><td><code>!$</code></td><td>上一个命令的最后一个参数</td></tr></tbody></table><h3 class=heading-element id=常用-rust-命令><span>常用 Rust 命令</span>
+<a href=#%e5%b8%b8%e7%94%a8-rust-%e5%91%bd%e4%bb%a4 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><table><thead><tr><th>命令</th><th>功能</th></tr></thead><tbody><tr><td><code>cargo new project</code></td><td>创建新项目</td></tr><tr><td><code>cargo init</code></td><td>在当前目录初始化项目</td></tr><tr><td><code>cargo build</code></td><td>编译项目</td></tr><tr><td><code>cargo build --release</code></td><td>发布编译</td></tr><tr><td><code>cargo run</code></td><td>编译并运行</td></tr><tr><td><code>cargo test</code></td><td>运行测试</td></tr><tr><td><code>cargo check</code></td><td>快速检查（不生成二进制）</td></tr><tr><td><code>cargo doc --open</code></td><td>生成并打开文档</td></tr><tr><td><code>rustup update</code></td><td>更新 Rust 工具链</td></tr><tr><td><code>rustup default stable</code></td><td>切换到稳定版</td></tr></tbody></table><h3 class=heading-element id=常用-git-别名><span>常用 Git 别名</span>
+<a href=#%e5%b8%b8%e7%94%a8-git-%e5%88%ab%e5%90%8d class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><table><thead><tr><th>别名</th><th>等价命令</th><th>功能</th></tr></thead><tbody><tr><td><code>gs</code></td><td><code>git status</code></td><td>查看状态</td></tr><tr><td><code>ga</code></td><td><code>git add</code></td><td>添加文件</td></tr><tr><td><code>gc</code></td><td><code>git commit</code></td><td>提交</td></tr><tr><td><code>gp</code></td><td><code>git push</code></td><td>推送</td></tr><tr><td><code>gl</code></td><td><code>git pull</code></td><td>拉取</td></tr><tr><td><code>gd</code></td><td><code>git diff</code></td><td>查看差异</td></tr><tr><td><code>gco</code></td><td><code>git checkout</code></td><td>切换分支</td></tr><tr><td><code>gb</code></td><td><code>git branch</code></td><td>查看分支</td></tr><tr><td><code>glog</code></td><td><code>git log --oneline --graph</code></td><td>图形化日志</td></tr></tbody></table><hr><h2 class=heading-element id=九常见问题扩展><span>九、常见问题扩展</span>
+<a href=#%e4%b9%9d%e5%b8%b8%e8%a7%81%e9%97%ae%e9%a2%98%e6%89%a9%e5%b1%95 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=q1-如何在多台机器间同步配置><span>Q1: 如何在多台机器间同步配置？</span>
+<a href=#q1-%e5%a6%82%e4%bd%95%e5%9c%a8%e5%a4%9a%e5%8f%b0%e6%9c%ba%e5%99%a8%e9%97%b4%e5%90%8c%e6%ad%a5%e9%85%8d%e7%bd%ae class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p><strong>方案一：使用 Git 仓库</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 创建配置仓库</span>
+</span></span><span class=line><span class=cl>mkdir ~/dotfiles
+</span></span><span class=line><span class=cl><span class=nb>cd</span> ~/dotfiles
+</span></span><span class=line><span class=cl>git init
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 移动配置文件</span>
+</span></span><span class=line><span class=cl>mv ~/.zshrc ~/dotfiles/zshrc
+</span></span><span class=line><span class=cl>ln -s ~/dotfiles/zshrc ~/.zshrc
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 提交并推送</span>
+</span></span><span class=line><span class=cl>git add .
+</span></span><span class=line><span class=cl>git commit -m <span class=s2>&#34;Initial dotfiles&#34;</span>
+</span></span><span class=line><span class=cl>git remote add origin YOUR_REPO_URL
+</span></span><span class=line><span class=cl>git push -u origin main
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 在其他机器上</span>
+</span></span><span class=line><span class=cl>git clone YOUR_REPO_URL ~/dotfiles
+</span></span><span class=line><span class=cl>ln -s ~/dotfiles/zshrc ~/.zshrc</span></span></code></pre></td></tr></table></div></div><p><strong>方案二：使用专门的 dotfiles 管理工具</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 使用 chezmoi</span>
+</span></span><span class=line><span class=cl>sh -c <span class=s2>&#34;</span><span class=k>$(</span>curl -fsLS get.chezmoi.io<span class=k>)</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>chezmoi init
+</span></span><span class=line><span class=cl>chezmoi add ~/.zshrc
+</span></span><span class=line><span class=cl>chezmoi cd</span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=q2-插件太多导致启动慢怎么办><span>Q2: 插件太多导致启动慢怎么办？</span>
+<a href=#q2-%e6%8f%92%e4%bb%b6%e5%a4%aa%e5%a4%9a%e5%af%bc%e8%87%b4%e5%90%af%e5%8a%a8%e6%85%a2%e6%80%8e%e4%b9%88%e5%8a%9e class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 1. 测量启动时间</span>
+</span></span><span class=line><span class=cl><span class=nb>time</span> zsh -i -c <span class=nb>exit</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 2. 禁用不常用的插件</span>
+</span></span><span class=line><span class=cl><span class=c1># 在 .zshrc 中只保留必要插件：</span>
+</span></span><span class=line><span class=cl><span class=nv>plugins</span><span class=o>=(</span>
+</span></span><span class=line><span class=cl>    git
+</span></span><span class=line><span class=cl>    zsh-autosuggestions
+</span></span><span class=line><span class=cl>    zsh-syntax-highlighting
+</span></span><span class=line><span class=cl><span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 3. 使用条件加载</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[[</span> -d <span class=s2>&#34;/path/to/heavy/plugin&#34;</span> <span class=o>]]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 仅在需要时加载</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span></span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=q3-rust-编译太慢怎么办><span>Q3: Rust 编译太慢怎么办？</span>
+<a href=#q3-rust-%e7%bc%96%e8%af%91%e5%a4%aa%e6%85%a2%e6%80%8e%e4%b9%88%e5%8a%9e class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 1. 使用 cargo check 代替 cargo build（快 10 倍）</span>
+</span></span><span class=line><span class=cl>cargo check
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 2. 使用 cargo-watch 自动检查</span>
+</span></span><span class=line><span class=cl>cargo install cargo-watch
+</span></span><span class=line><span class=cl>cargo watch -x check
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 3. 使用 sccache 缓存编译结果</span>
+</span></span><span class=line><span class=cl>cargo install sccache
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>RUSTC_WRAPPER</span><span class=o>=</span>sccache
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 4. 使用更快的链接器</span>
+</span></span><span class=line><span class=cl><span class=c1># 安装 mold（最快的链接器）</span>
+</span></span><span class=line><span class=cl>cargo install mold
+</span></span><span class=line><span class=cl><span class=c1># 配置使用 mold（在 .cargo/config.toml 中）</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 5. 开启增量编译（默认已开启）</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>CARGO_INCREMENTAL</span><span class=o>=</span><span class=m>1</span></span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=q4-如何卸载并重新安装><span>Q4: 如何卸载并重新安装？</span>
+<a href=#q4-%e5%a6%82%e4%bd%95%e5%8d%b8%e8%bd%bd%e5%b9%b6%e9%87%8d%e6%96%b0%e5%ae%89%e8%a3%85 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 卸载 Rust</span>
+</span></span><span class=line><span class=cl>rustup self uninstall
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 卸载 Oh My Zsh</span>
+</span></span><span class=line><span class=cl>rm -rf ~/.oh-my-zsh
+</span></span><span class=line><span class=cl>rm ~/.zshrc
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 恢复备份（如果有）</span>
+</span></span><span class=line><span class=cl>cp ~/.zshrc.backup.* ~/.zshrc
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 更改回默认 shell</span>
+</span></span><span class=line><span class=cl>chsh -s /bin/bash</span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=q5-如何更新所有工具><span>Q5: 如何更新所有工具？</span>
+<a href=#q5-%e5%a6%82%e4%bd%95%e6%9b%b4%e6%96%b0%e6%89%80%e6%9c%89%e5%b7%a5%e5%85%b7 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>创建一个更新脚本：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cat &gt; ~/update-dev-env.sh <span class=s>&lt;&lt; &#39;EOF&#39;
+</span></span></span><span class=line><span class=cl><span class=s>#!/bin/bash
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;更新 Rust...&#34;
+</span></span></span><span class=line><span class=cl><span class=s>rustup update
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;更新 Cargo 工具...&#34;
+</span></span></span><span class=line><span class=cl><span class=s>cargo install-update -a
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;更新 Oh My Zsh...&#34;
+</span></span></span><span class=line><span class=cl><span class=s>cd ~/.oh-my-zsh &amp;&amp; git pull
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;更新 Zsh 插件...&#34;
+</span></span></span><span class=line><span class=cl><span class=s>cd ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions &amp;&amp; git pull
+</span></span></span><span class=line><span class=cl><span class=s>cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting &amp;&amp; git pull
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;更新完成！&#34;
+</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>chmod +x ~/update-dev-env.sh</span></span></code></pre></td></tr></table></div></div><p>注意：需要先安装 <code>cargo-update</code>：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cargo install cargo-update</span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=q6-在服务器上如何配置无需-sudo-的环境><span>Q6: 在服务器上如何配置无需 sudo 的环境？</span>
+<a href=#q6-%e5%9c%a8%e6%9c%8d%e5%8a%a1%e5%99%a8%e4%b8%8a%e5%a6%82%e4%bd%95%e9%85%8d%e7%bd%ae%e6%97%a0%e9%9c%80-sudo-%e7%9a%84%e7%8e%af%e5%a2%83 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>所有工具都可以安装到用户目录：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Rust 默认就安装在 ~/.cargo</span>
+</span></span><span class=line><span class=cl><span class=c1># Oh My Zsh 默认就安装在 ~/.oh-my-zsh</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 如果无法 chsh，可以在 .bashrc 末尾添加</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s1>&#39;exec zsh&#39;</span> &gt;&gt; ~/.bashrc
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 或者使用别名</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s1>&#39;alias zsh=&#34;~/.local/bin/zsh&#34;&#39;</span> &gt;&gt; ~/.bashrc</span></span></code></pre></td></tr></table></div></div><hr><h2 class=heading-element id=十环境验证脚本><span>十、环境验证脚本</span>
+<a href=#%e5%8d%81%e7%8e%af%e5%a2%83%e9%aa%8c%e8%af%81%e8%84%9a%e6%9c%ac class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>创建一个快速验证环境的脚本：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cat &gt; ~/verify-dev-env.sh <span class=s>&lt;&lt; &#39;EOF&#39;
+</span></span></span><span class=line><span class=cl><span class=s>#!/bin/bash
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>GREEN=&#39;\033[0;32m&#39;
+</span></span></span><span class=line><span class=cl><span class=s>RED=&#39;\033[0;31m&#39;
+</span></span></span><span class=line><span class=cl><span class=s>NC=&#39;\033[0m&#39;
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>check_command() {
+</span></span></span><span class=line><span class=cl><span class=s>    if command -v $1 &amp;&gt; /dev/null; then
+</span></span></span><span class=line><span class=cl><span class=s>        echo -e &#34;${GREEN}✓${NC} $1: $(command -v $1)&#34;
+</span></span></span><span class=line><span class=cl><span class=s>        if [ ! -z &#34;$2&#34; ]; then
+</span></span></span><span class=line><span class=cl><span class=s>            echo &#34;  版本: $($1 $2 2&gt;&amp;1 | head -n1)&#34;
+</span></span></span><span class=line><span class=cl><span class=s>        fi
+</span></span></span><span class=line><span class=cl><span class=s>        return 0
+</span></span></span><span class=line><span class=cl><span class=s>    else
+</span></span></span><span class=line><span class=cl><span class=s>        echo -e &#34;${RED}✗${NC} $1: 未安装&#34;
+</span></span></span><span class=line><span class=cl><span class=s>        return 1
+</span></span></span><span class=line><span class=cl><span class=s>    fi
+</span></span></span><span class=line><span class=cl><span class=s>}
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;==========================================&#34;
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;开发环境验证&#34;
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;==========================================&#34;
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;Shell 环境：&#34;
+</span></span></span><span class=line><span class=cl><span class=s>check_command zsh --version
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;当前 Shell: $SHELL&#34;
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;Rust 工具链：&#34;
+</span></span></span><span class=line><span class=cl><span class=s>check_command rustc --version
+</span></span></span><span class=line><span class=cl><span class=s>check_command cargo --version
+</span></span></span><span class=line><span class=cl><span class=s>check_command rustup --version
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;Git：&#34;
+</span></span></span><span class=line><span class=cl><span class=s>check_command git --version
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;Cargo 工具：&#34;
+</span></span></span><span class=line><span class=cl><span class=s>check_command cargo-watch --version
+</span></span></span><span class=line><span class=cl><span class=s>check_command cargo-edit --version
+</span></span></span><span class=line><span class=cl><span class=s>check_command bacon --version
+</span></span></span><span class=line><span class=cl><span class=s>check_command sccache --version
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;配置文件：&#34;
+</span></span></span><span class=line><span class=cl><span class=s>if [ -f ~/.zshrc ]; then
+</span></span></span><span class=line><span class=cl><span class=s>    echo -e &#34;${GREEN}✓${NC} ~/.zshrc 存在&#34;
+</span></span></span><span class=line><span class=cl><span class=s>else
+</span></span></span><span class=line><span class=cl><span class=s>    echo -e &#34;${RED}✗${NC} ~/.zshrc 不存在&#34;
+</span></span></span><span class=line><span class=cl><span class=s>fi
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>if [ -d ~/.oh-my-zsh ]; then
+</span></span></span><span class=line><span class=cl><span class=s>    echo -e &#34;${GREEN}✓${NC} Oh My Zsh 已安装&#34;
+</span></span></span><span class=line><span class=cl><span class=s>else
+</span></span></span><span class=line><span class=cl><span class=s>    echo -e &#34;${RED}✗${NC} Oh My Zsh 未安装&#34;
+</span></span></span><span class=line><span class=cl><span class=s>fi
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>if [ -f ~/.cargo/config.toml ]; then
+</span></span></span><span class=line><span class=cl><span class=s>    echo -e &#34;${GREEN}✓${NC} Cargo 配置存在&#34;
+</span></span></span><span class=line><span class=cl><span class=s>else
+</span></span></span><span class=line><span class=cl><span class=s>    echo -e &#34;${RED}✗${NC} Cargo 配置不存在&#34;
+</span></span></span><span class=line><span class=cl><span class=s>fi
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s>echo &#34;==========================================&#34;
+</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>chmod +x ~/verify-dev-env.sh
+</span></span><span class=line><span class=cl>~/verify-dev-env.sh</span></span></code></pre></td></tr></table></div></div><hr><h2 class=heading-element id=十一统一脚本说明><span>十一、统一脚本说明</span>
+<a href=#%e5%8d%81%e4%b8%80%e7%bb%9f%e4%b8%80%e8%84%9a%e6%9c%ac%e8%af%b4%e6%98%8e class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>本文档配套一个统一的管理脚本，位于 <code>/static/dev-env.sh</code>，包含所有功能。</p><h3 class=heading-element id=-脚本信息><span>📦 脚本信息</span>
+<a href=#-%e8%84%9a%e6%9c%ac%e4%bf%a1%e6%81%af class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p><strong>文件名</strong>: <code>dev-env.sh</code><br><strong>行数</strong>: 640+ 行<br><strong>大小</strong>: 约 20KB</p><h3 class=heading-element id=-主要功能><span>🎯 主要功能</span>
+<a href=#-%e4%b8%bb%e8%a6%81%e5%8a%9f%e8%83%bd class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><table><thead><tr><th>命令</th><th>功能说明</th></tr></thead><tbody><tr><td>无参数/交互式</td><td>显示友好的菜单界面</td></tr><tr><td><code>install</code></td><td>一键安装完整开发环境</td></tr><tr><td><code>tools</code></td><td>安装 20+ 个 Rust 开发工具</td></tr><tr><td><code>update</code></td><td>更新所有已安装的工具</td></tr><tr><td><code>verify</code></td><td>验证环境配置状态</td></tr><tr><td><code>help</code></td><td>显示详细帮助信息</td></tr></tbody></table><h3 class=heading-element id=-推荐使用流程><span>🚀 推荐使用流程</span>
+<a href=#-%e6%8e%a8%e8%8d%90%e4%bd%bf%e7%94%a8%e6%b5%81%e7%a8%8b class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p><strong>初次安装：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 方式一：交互式菜单（推荐新手）</span>
+</span></span><span class=line><span class=cl>./dev-env.sh
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 方式二：命令行模式（推荐熟练用户）</span>
+</span></span><span class=line><span class=cl>./dev-env.sh install    <span class=c1># 安装基础环境</span>
+</span></span><span class=line><span class=cl><span class=nb>exec</span> zsh                <span class=c1># 重新加载</span>
+</span></span><span class=line><span class=cl>./dev-env.sh tools      <span class=c1># 安装工具（可选）</span>
+</span></span><span class=line><span class=cl>./dev-env.sh verify     <span class=c1># 验证环境</span></span></span></code></pre></td></tr></table></div></div><p><strong>定期维护：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 每月运行一次更新</span>
+</span></span><span class=line><span class=cl>./dev-env.sh update</span></span></code></pre></td></tr></table></div></div><h3 class=heading-element id=-获取脚本><span>📥 获取脚本</span>
+<a href=#-%e8%8e%b7%e5%8f%96%e8%84%9a%e6%9c%ac class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p><strong>方式一：直接下载（推荐）</strong></p><a href=/dev-env.sh download=dev-env.sh class=button><i class="fa-solid fa-download"></i> 下载 dev-env.sh</a><p>或使用命令行：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 从本博客下载</span>
+</span></span><span class=line><span class=cl>wget https://www.gameol.site/dev-env.sh
+</span></span><span class=line><span class=cl><span class=c1># 或使用 curl</span>
+</span></span><span class=line><span class=cl>curl -O https://www.gameol.site/dev-env.sh
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 赋予执行权限</span>
+</span></span><span class=line><span class=cl>chmod +x dev-env.sh
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 运行脚本</span>
+</span></span><span class=line><span class=cl>./dev-env.sh</span></span></code></pre></td></tr></table></div></div><p><strong>方式二：从源码获取</strong></p><ul><li>查看源码：<a href=https://github.com/xvchris/blog target=_blank rel="external nofollow noopener noreferrer">GitHub 仓库</a></li><li>文件路径：<code>static/dev-env.sh</code></li></ul><hr><h2 class=heading-element id=总结><span>总结</span>
+<a href=#%e6%80%bb%e7%bb%93 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>本文提供了一套完整的 Zsh + Rust 开发环境配置方案，涵盖以下内容：</p><h3 class=heading-element id=-已完成配置><span>✅ 已完成配置</span>
+<a href=#-%e5%b7%b2%e5%ae%8c%e6%88%90%e9%85%8d%e7%bd%ae class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p><strong>基础环境：</strong></p><ul><li>✓ Zsh 终端安装与配置</li><li>✓ Oh My Zsh 框架及插件</li><li>✓ 完整的 .zshrc 配置模板</li><li>✓ Rust 工具链安装</li><li>✓ Cargo 镜像加速配置</li></ul><p><strong>进阶配置：</strong></p><ul><li>✓ macOS 系统适配指南</li><li>✓ 20+ 个实用 Rust 工具</li><li>✓ Powerlevel10k 美化主题</li><li>✓ 性能优化建议</li><li>✓ 快速参考卡片</li></ul><p><strong>自动化脚本：</strong></p><ul><li>✓ 统一管理脚本（安装、更新、验证一体化）</li><li>✓ 交互式菜单和命令行双模式</li><li>✓ 跨平台支持（Ubuntu/Debian/macOS）</li></ul><h3 class=heading-element id=-核心特性><span>🎯 核心特性</span>
+<a href=#-%e6%a0%b8%e5%bf%83%e7%89%b9%e6%80%a7 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><ol><li><strong>开箱即用</strong>：所有配置和脚本都经过优化，可直接使用</li><li><strong>跨平台支持</strong>：同时支持 Ubuntu/Debian 和 macOS</li><li><strong>高度定制</strong>：所有配置都有详细注释，方便修改</li><li><strong>自动化程度高</strong>：从安装到维护都有对应脚本</li><li><strong>性能优化</strong>：包含启动速度优化和编译加速配置</li></ol><h3 class=heading-element id=-学习路径建议><span>📚 学习路径建议</span>
+<a href=#-%e5%ad%a6%e4%b9%a0%e8%b7%af%e5%be%84%e5%bb%ba%e8%ae%ae class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p><strong>初学者：</strong></p><ol><li>从一键脚本开始，快速搭建环境</li><li>逐步了解各个配置项的作用</li><li>根据需要调整别名和函数</li></ol><p><strong>进阶用户：</strong></p><ol><li>尝试 Powerlevel10k 主题美化</li><li>安装并使用 Rust 高级工具</li><li>优化编译速度和启动性能</li><li>搭建 dotfiles 仓库管理配置</li></ol><p><strong>专业开发者：</strong></p><ol><li>考虑使用 zinit 替代 Oh My Zsh</li><li>配置 sccache 和快速链接器</li><li>建立团队统一的开发环境配置</li><li>定制适合项目的工具链</li></ol><h3 class=heading-element id=-最佳实践><span>💡 最佳实践</span>
+<a href=#-%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><ol><li><strong>定期更新</strong>：每月运行一次更新脚本</li><li><strong>配置版本控制</strong>：使用 Git 管理 dotfiles</li><li><strong>性能监控</strong>：定期检查终端启动时间</li><li><strong>工具精简</strong>：只安装真正需要的工具</li><li><strong>备份配置</strong>：重要配置定期备份</li></ol><h3 class=heading-element id=-参考资源><span>🔗 参考资源</span>
+<a href=#-%e5%8f%82%e8%80%83%e8%b5%84%e6%ba%90 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><ul><li><a href=https://www.rust-lang.org/ target=_blank rel="external nofollow noopener noreferrer">Rust 官方文档</a></li><li><a href=https://github.com/ohmyzsh/ohmyzsh target=_blank rel="external nofollow noopener noreferrer">Oh My Zsh GitHub</a></li><li><a href=https://github.com/romkatv/powerlevel10k target=_blank rel="external nofollow noopener noreferrer">Powerlevel10k GitHub</a></li><li><a href=https://rust-lang-nursery.github.io/rust-cookbook/ target=_blank rel="external nofollow noopener noreferrer">Rust Cookbook</a></li></ul><hr><p>✅ 完成以上配置后，你将拥有一个完整、现代化、高性能的专业开发环境。这套配置经过实战验证，能够显著提升日常开发效率，让你专注于代码本身而不是环境配置。祝编码愉快！</p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span title="更新于 2025-10-29 14:30:49">更新于 2025-10-29&nbsp;<a class=git-hash href=https://github.com/xvchris/blog/commit/1c6f75c99f316fc37a5f8cdce577a31b32836da7 rel="external nofollow noopener noreferrer" target=_blank title="更新Hugo站点配置，新增“朋友”和“关于”菜单项，优化站点描述和关键词，调整社交链接和头像信息，启用阅读进度条和返回顶部功能，更新文档中的GitHub链接以指向新仓库。&#10&#10Commit: 1c6f75c99f316fc37a5f8cdce577a31b32836da7 [1c6f75c]&#10Author: xujunhui<2212442929@qq.com>&#10Date: 2025-10-29 14:30:49"><i class="fa-solid fa-hashtag fa-fw" aria-hidden=true></i>1c6f75c</a></span></div><div class=post-info-license><span><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc-sa/4.0/ target=_blank>CC BY-NC-SA 4.0</a></span></div></div><div class=post-info-line><div class=post-info-md><span><a href=/posts/20250814-rust-env-init/index.md title=阅读原始文档 class=link-to-markdown>阅读原始文档</a></span><span><a href="https://github.com/xvchris/blog/blob/main/content/posts/dev/20250814-rust-env-init.md?plain=1" title=查看源码 target=_blank rel="external nofollow noopener noreferrer" class=link-to-source>查看源码</a></span><span><a href=https://github.com/xvchris/blog/edit/main/content/posts/dev/20250814-rust-env-init.md title=编辑此页 target=_blank rel="external nofollow noopener noreferrer" class=link-to-edit>编辑此页</a></span><span><a href="https://github.com/xvchris/blog/issues/new?title=[BUG]%20Rust%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%88%9D%E5%A7%8B%E5%8C%96&amp;body=%7cField%7cValue%7c%0A%7c-%7c-%7c%0A%7cTitle%7cRust%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%88%9D%E5%A7%8B%E5%8C%96%7c%0A%7cURL%7chttps://www.gameol.site/posts/20250814-rust-env-init/%7c%0A%7cFilename%7chttps://github.com/xvchris/blog/blob/main/content/posts/dev/20250814-rust-env-init.md?plain=1%7c" title=报告问题 target=_blank rel="external nofollow noopener noreferrer" class=link-to-report>报告问题</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 X" data-sharer=twitter data-url=https://www.gameol.site/posts/20250814-rust-env-init/ data-title=Rust开发环境初始化 data-hashtags=技术分享,Rust,开发工具><i class="fa-brands fa-x-twitter fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); title="分享到 Linkedin" data-sharer=linkedin data-url=https://www.gameol.site/posts/20250814-rust-env-init/><i class="fa-brands fa-linkedin fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); title="分享到 Hacker News" data-sharer=hackernews data-url=https://www.gameol.site/posts/20250814-rust-env-init/ data-title=Rust开发环境初始化><i class="fa-brands fa-hacker-news fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); title="分享到 Reddit" data-sharer=reddit data-url=https://www.gameol.site/posts/20250814-rust-env-init/><i class="fa-brands fa-reddit fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); title="分享到 Pocket" data-sharer=pocket data-url=https://www.gameol.site/posts/20250814-rust-env-init/><i class="fa-brands fa-get-pocket fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://www.gameol.site/posts/20250814-rust-env-init/ data-title=Rust开发环境初始化><i class="fa-brands fa-weibo fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fa-solid fa-tags fa-fw me-1" aria-hidden=true></i><a href=/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/ class=post-tag title="标签 - 技术分享">技术分享</a><a href=/tags/rust/ class=post-tag title="标签 - Rust">Rust</a><a href=/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/ class=post-tag title="标签 - 开发工具">开发工具</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/posts/20250822-zellij-ubuntu-deployment/ class=post-nav-item rel=next title=Zellij终端复用器Ubuntu部署指南>Zellij终端复用器Ubuntu部署指南<i class="fa-solid fa-angle-right fa-fw" aria-hidden=true></i></a></div></div></article><aside class=toc id=toc-auto aria-label=目录><h2 class=toc-title>目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden=true></i></h2><div class=toc-content id=toc-content-auto></div></aside></main><footer class=footer><div class=footer-container><div class="footer-line powered">由 <a href=https://gohugo.io/ target=_blank rel="external nofollow noopener noreferrer" title="Hugo 0.152.2"><img class=hugo-icon src=/images/hugo.min.svg alt="Hugo logo"> Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/hugo-fixit/FixIt target=_blank rel=external title="FixIt v0.3.20"><img class=fixit-icon src=/images/fixit.min.svg alt="FixIt logo"> FixIt</a></div><div class="footer-line copyright" itemscope itemtype=http://schema.org/CreativeWork><i class="fa-regular fa-copyright fa-fw" aria-hidden=true></i>
+<span itemprop=copyrightYear>2025</span><span class=author itemprop=copyrightHolder>
+<a href=https://www.gameol.site target=_blank rel="external nofollow noopener noreferrer">Chris</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc-sa/4.0/ target=_blank>CC BY-NC-SA 4.0</a></span></div><div class="footer-line visitor"><span id=busuanzi_container_site_uv title=总访客数><i class="fa-regular fa-user fa-fw me-1" aria-hidden=true></i><span id=busuanzi_value_site_uv><i class="fa-solid fa-spinner fa-spin fa-fw" aria-hidden=true></i></span></span><span id=busuanzi_container_site_pv class=footer-divider title=总访问量><i class="fa-regular fa-eye fa-fw me-1" aria-hidden=true></i><span id=busuanzi_value_site_pv><i class="fa-solid fa-spinner fa-spin fa-fw" aria-hidden=true></i></span></span></div></div></footer></div><div class=widgets><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role=button aria-label=回到顶部><i class="fa-solid fa-arrow-up fa-fw" aria-hidden=true></i><span class=variant-numeric>0%</span></div></div><div id=mask></div><div class=reading-progress-bar style=left:0;top:0;--bg-progress:#667eea;--bg-progress-dark:#667eea></div><noscript><div class=noscript-warning>该网站在启用 JavaScript 的情况下效果最佳。</div></noscript></div><link rel=preload href=/lib/katex/katex.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/katex/katex.min.css></noscript><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script src=/lib/autocomplete/autocomplete.min.js defer></script><script src=/lib/fuse/fuse.min.js defer></script><script src=/lib/sharer/sharer.min.js async defer></script><script src=/lib/katex/katex.min.js defer></script><script src=/lib/katex/auto-render.min.js defer></script><script src=/lib/katex/copy-tex.min.js defer></script><script src=/lib/katex/mhchem.min.js defer></script><script src=/lib/cookieconsent/cookieconsent.min.js defer></script><script src=https://vercount.one/js async defer></script><script>window.config={code:{copyTitle:"复制到剪贴板",editLockTitle:"锁定可编辑代码块",editUnLockTitle:"解锁可编辑代码块",editable:!0,maxShownLines:50},comment:{enable:!1},cookieconsent:{content:{dismiss:"同意",link:"了解更多",message:"本网站使用 Cookies 来改善您的浏览体验。"},enable:!0,palette:{button:{background:"#f0f0f0"},popup:{background:"#1aa3ff"}},theme:"edgeless"},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{distance:100,findAllMatches:!1,fuseIndexURL:"/search.json",highlightTag:"em",ignoreFieldNorm:!1,ignoreLocation:!1,isCaseSensitive:!1,location:0,maxResultLength:10,minMatchCharLength:2,noResultsFound:"没有找到结果",snippetLength:30,threshold:.3,type:"fuse",useExtendedSearch:!1},version:"v0.3.20"}</script><script src=/js/theme.min.js defer></script><script src=/js/custom.min.js defer></script></body></html>
