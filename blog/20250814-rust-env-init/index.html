@@ -1,0 +1,1182 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="本文提供了一套完整的开发环境配置方案，涵盖 Zsh 终端配置和 Rust 开发环境的搭建，帮助快速打造高效的开发工作流。"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="canonical" href="https://www.gameol.site/blog/20250814-rust-env-init/"><link rel="alternate" type="application/rss+xml" title="Chris's Blog" href="/rss.xml"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:url" content="https://www.gameol.site/blog/20250814-rust-env-init/"><meta property="og:title" content="Rust开发环境初始化 — Chris's Blog"><meta property="og:description" content="本文提供了一套完整的开发环境配置方案，涵盖 Zsh 终端配置和 Rust 开发环境的搭建，帮助快速打造高效的开发工作流。"><meta name="twitter:card" content="summary_large_image"><!-- Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"><title>Rust开发环境初始化 — Chris&#39;s Blog</title><!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;e80c887cb6ff49a1a5a67b94ec60d367&quot;}"></script><!-- End Cloudflare Web Analytics --><link rel="stylesheet" href="/_astro/about.5z2VlFFX.css"></head> <body class="min-h-screen flex flex-col"> <canvas id="particle-canvas" class="fixed inset-0 z-0 pointer-events-none"></canvas> <script type="module">const l=document.getElementById("particle-canvas"),e=l.getContext("2d");let s=l.width=window.innerWidth,h=l.height=window.innerHeight;const r=window.innerWidth<768,f=r?25:70,x=r?100:160,n=[];for(let t=0;t<f;t++)n.push({x:Math.random()*s,y:Math.random()*h,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,size:Math.random()*2+.5,alpha:Math.random()*.4+.2,pulse:Math.random()*Math.PI*2,pulseSpeed:Math.random()*.02+.005});for(let t=0;t<(r?3:8);t++)n.push({x:Math.random()*s,y:Math.random()*h,vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.15,size:Math.random()*1.5+2,alpha:.6,pulse:Math.random()*Math.PI*2,pulseSpeed:Math.random()*.03+.01});let m=-1e3,y=-1e3;r||document.addEventListener("mousemove",t=>{m=t.clientX,y=t.clientY});function M(){e.clearRect(0,0,s,h);for(const t of n){t.x+=t.vx,t.y+=t.vy,t.pulse+=t.pulseSpeed,t.x<-10&&(t.x=s+10),t.x>s+10&&(t.x=-10),t.y<-10&&(t.y=h+10),t.y>h+10&&(t.y=-10);const a=t.alpha*(.7+.3*Math.sin(t.pulse));t.size>2&&(e.beginPath(),e.arc(t.x,t.y,t.size*4,0,Math.PI*2),e.fillStyle=`rgba(74, 222, 128, ${a*.08})`,e.fill()),e.beginPath(),e.arc(t.x,t.y,t.size,0,Math.PI*2),e.fillStyle=`rgba(74, 222, 128, ${a})`,e.fill()}for(let t=0;t<n.length;t++){for(let a=t+1;a<n.length;a++){const i=n[t].x-n[a].x,o=n[t].y-n[a].y,d=Math.sqrt(i*i+o*o);if(d<x){const c=.1*(1-d/x);e.beginPath(),e.moveTo(n[t].x,n[t].y),e.lineTo(n[a].x,n[a].y),e.strokeStyle=`rgba(74, 222, 128, ${c})`,e.lineWidth=.5,e.stroke()}}if(!r){const a=n[t].x-m,i=n[t].y-y,o=Math.sqrt(a*a+i*i);if(o<220){const d=.15*(1-o/220);e.beginPath(),e.moveTo(n[t].x,n[t].y),e.lineTo(m,y),e.strokeStyle=`rgba(34, 211, 238, ${d})`,e.lineWidth=.6,e.stroke();const c=(220-o)*3e-5;n[t].vx+=a*c,n[t].vy+=i*c}}n[t].vx*=.999,n[t].vy*=.999}requestAnimationFrame(M)}window.addEventListener("resize",()=>{s=l.width=window.innerWidth,h=l.height=window.innerHeight});M();</script> <!-- Mouse-following green glow (desktop only) --><div id="mouse-glow" class="hidden md:block fixed w-64 h-64 rounded-full pointer-events-none z-0" style="background: radial-gradient(circle, rgba(74,222,128,0.06) 0%, transparent 70%); transform: translate(-50%, -50%);"></div> <script type="module">const e=document.getElementById("mouse-glow");e&&window.innerWidth>=768&&document.addEventListener("mousemove",t=>{e.style.left=t.clientX+"px",e.style.top=t.clientY+"px"});</script> <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[var(--color-bg-primary)]/80 border-b border-[var(--color-neon-green)]/20"> <div class="relative"> <!-- Bottom glow line --> <div class="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[var(--color-neon-green)] to-transparent opacity-60"></div> <div class="max-w-6xl mx-auto px-4 sm:px-6"> <div class="flex items-center justify-between h-16"> <!-- Logo --> <a href="/" class="font-mono text-xl font-bold text-[var(--color-neon-green)] hover:neon-glow transition-all duration-300">
+&lt;Chris /&gt;
+</a> <!-- Desktop nav --> <div class="hidden md:flex items-center gap-8"> <a href="/" class="nav-link font-mono text-sm tracking-wider transition-all duration-300 relative py-1 text-[var(--color-text-secondary)] hover:text-[var(--color-neon-green)]"> 首页 </a><a href="/blog" class="nav-link font-mono text-sm tracking-wider transition-all duration-300 relative py-1 text-[var(--color-neon-green)] neon-glow"> 文章 </a><a href="/tags" class="nav-link font-mono text-sm tracking-wider transition-all duration-300 relative py-1 text-[var(--color-text-secondary)] hover:text-[var(--color-neon-green)]"> 标签 </a><a href="/about" class="nav-link font-mono text-sm tracking-wider transition-all duration-300 relative py-1 text-[var(--color-text-secondary)] hover:text-[var(--color-neon-green)]"> 关于 </a> <a href="https://github.com/xvchris" target="_blank" rel="noopener noreferrer" class="text-[var(--color-text-secondary)] hover:text-[var(--color-neon-green)] transition-colors"> <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg> </a> </div> <!-- Mobile menu button --> <button id="mobile-menu-btn" class="md:hidden text-[var(--color-text-secondary)] hover:text-[var(--color-neon-green)] transition-colors"> <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg> </button> </div> </div> </div> <!-- Mobile menu --> <div id="mobile-menu" class="hidden md:hidden bg-[var(--color-bg-primary)]/95 backdrop-blur-md border-b border-[var(--color-neon-green)]/20"> <div class="px-4 py-4 space-y-3"> <a href="/" class="block font-mono text-sm tracking-wider py-2 text-[var(--color-text-secondary)]">
+&gt; 首页 </a><a href="/blog" class="block font-mono text-sm tracking-wider py-2 text-[var(--color-neon-green)]">
+&gt; 文章 </a><a href="/tags" class="block font-mono text-sm tracking-wider py-2 text-[var(--color-text-secondary)]">
+&gt; 标签 </a><a href="/about" class="block font-mono text-sm tracking-wider py-2 text-[var(--color-text-secondary)]">
+&gt; 关于 </a> </div> </div> </nav> <script type="module">const e=document.getElementById("mobile-menu-btn"),n=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{n?.classList.toggle("hidden")});</script> <main class="flex-1 relative z-10">   <div class="reading-progress" id="reading-progress"></div> <article class="pt-28 pb-20 px-4 sm:px-6 max-w-6xl mx-auto"> <div class="lg:flex lg:gap-14"> <!-- Main content --> <div class="flex-1 min-w-0"> <header class="fade-in-up mb-12"> <!-- Breadcrumb --> <nav class="flex items-center gap-2 text-xs font-mono text-[var(--color-text-dim)] mb-6"> <a href="/" class="hover:text-[var(--color-neon-green)] transition-colors">~</a> <span>/</span> <a href="/blog" class="hover:text-[var(--color-neon-green)] transition-colors">blog</a> <span>/</span> <span class="text-[var(--color-text-secondary)] truncate max-w-[200px]">Rust开发环境初始化</span> </nav> <h1 class="font-mono text-2xl sm:text-3xl lg:text-4xl font-bold text-[var(--color-text-primary)] mb-5 leading-tight"> Rust开发环境初始化 </h1> <div class="flex flex-wrap items-center gap-4 text-sm text-[var(--color-text-secondary)] font-mono mb-6"> <div class="flex items-center gap-2"> <span class="text-[var(--color-neon-green)]">⏱</span> <time datetime="2025-08-14T03:06:18.000Z">2025年8月14日</time> </div> <span class="text-[var(--color-text-dim)]">·</span> <span>53 分钟阅读</span> </div> <div class="flex flex-wrap gap-2"> <a href="/tags/技术分享" class="tag-pill">#技术分享</a><a href="/tags/Rust" class="tag-pill">#Rust</a><a href="/tags/开发工具" class="tag-pill">#开发工具</a> </div> </header> <div class="prose fade-in-up" id="article-content"> <h2 id="开发环境配置指南zsh--rust">开发环境配置指南（Zsh + Rust）</h2>
+<p>本文提供了一套完整的开发环境配置方案，涵盖 Zsh 终端配置和 Rust 开发环境的搭建，帮助快速打造高效的开发工作流。</p>
+<h2 id="一zsh-环境配置">一、Zsh 环境配置</h2>
+<h3 id="1-安装-zsh">1. 安装 Zsh</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> update</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> zsh</span><span style="color:#79B8FF"> -y</span></span></code></pre>
+<h3 id="2-设置-zsh-为默认-shell">2. 设置 Zsh 为默认 shell</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">chsh</span><span style="color:#79B8FF"> -s</span><span style="color:#E1E4E8"> $(</span><span style="color:#79B8FF">which</span><span style="color:#9ECBFF"> zsh</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<blockquote>
+<p>注：执行后需要注销或重启终端才能生效。</p>
+</blockquote>
+<h3 id="3-安装-oh-my-zsh">3. 安装 Oh My Zsh</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sh</span><span style="color:#79B8FF"> -c</span><span style="color:#9ECBFF"> "$(</span><span style="color:#B392F0">curl</span><span style="color:#79B8FF"> -fsSL</span><span style="color:#9ECBFF"> https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"</span></span></code></pre>
+<blockquote>
+<p>Oh My Zsh 是一个开源的 Zsh 配置管理框架，提供了丰富的主题和插件系统。</p>
+</blockquote>
+<h3 id="4-安装常用插件">4. 安装常用插件</h3>
+<h4 id="41-zsh-autosuggestions自动补全">4.1 zsh-autosuggestions（自动补全）</h4>
+<p>根据历史命令自动提示：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> clone</span><span style="color:#9ECBFF"> https://github.com/zsh-users/zsh-autosuggestions</span><span style="color:#E1E4E8"> ${ZSH_CUSTOM</span><span style="color:#F97583">:-</span><span style="color:#E1E4E8">~</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">.oh-my-zsh</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">custom}</span><span style="color:#9ECBFF">/plugins/zsh-autosuggestions</span></span></code></pre>
+<h4 id="42-zsh-syntax-highlighting语法高亮">4.2 zsh-syntax-highlighting（语法高亮）</h4>
+<p>为命令提供语法高亮：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> clone</span><span style="color:#9ECBFF"> https://github.com/zsh-users/zsh-syntax-highlighting.git</span><span style="color:#E1E4E8"> ${ZSH_CUSTOM</span><span style="color:#F97583">:-</span><span style="color:#E1E4E8">~</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">.oh-my-zsh</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">custom}</span><span style="color:#9ECBFF">/plugins/zsh-syntax-highlighting</span></span></code></pre>
+<h3 id="5-完整的-zshrc-配置文件">5. 完整的 .zshrc 配置文件</h3>
+<p>下面是一个经过优化的完整配置示例，你可以直接复制使用或根据需求修改：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># ============================================</span></span>
+<span class="line"><span style="color:#6A737D"># Oh My Zsh 基础配置</span></span>
+<span class="line"><span style="color:#6A737D"># ============================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 设置 Oh My Zsh 安装路径</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#E1E4E8"> ZSH</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">$HOME</span><span style="color:#9ECBFF">/.oh-my-zsh"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 主题设置</span></span>
+<span class="line"><span style="color:#6A737D"># 推荐主题: robbyrussell (默认)、agnoster、powerlevel10k、random</span></span>
+<span class="line"><span style="color:#E1E4E8">ZSH_THEME</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"robbyrussell"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># ============================================</span></span>
+<span class="line"><span style="color:#6A737D"># 插件配置</span></span>
+<span class="line"><span style="color:#6A737D"># ============================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 启用的插件列表</span></span>
+<span class="line"><span style="color:#6A737D"># 注意：插件太多会影响终端启动速度</span></span>
+<span class="line"><span style="color:#E1E4E8">plugins</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#9ECBFF">    git</span><span style="color:#6A737D">                      # Git 命令别名和提示</span></span>
+<span class="line"><span style="color:#9ECBFF">    z</span><span style="color:#6A737D">                        # 快速目录跳转</span></span>
+<span class="line"><span style="color:#9ECBFF">    zsh-autosuggestions</span><span style="color:#6A737D">      # 自动补全建议</span></span>
+<span class="line"><span style="color:#9ECBFF">    zsh-syntax-highlighting</span><span style="color:#6A737D">  # 语法高亮（必须放在最后）</span></span>
+<span class="line"><span style="color:#9ECBFF">    sudo</span><span style="color:#6A737D">                     # 按两次 ESC 在命令前添加 sudo</span></span>
+<span class="line"><span style="color:#9ECBFF">    extract</span><span style="color:#6A737D">                  # 一键解压各种格式</span></span>
+<span class="line"><span style="color:#9ECBFF">    colored-man-pages</span><span style="color:#6A737D">        # 彩色 man 手册</span></span>
+<span class="line"><span style="color:#9ECBFF">    command-not-found</span><span style="color:#6A737D">        # 命令未找到时提供安装建议</span></span>
+<span class="line"><span style="color:#9ECBFF">    history-substring-search</span><span style="color:#6A737D"> # 历史命令搜索</span></span>
+<span class="line"><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 加载 Oh My Zsh</span></span>
+<span class="line"><span style="color:#79B8FF">source</span><span style="color:#E1E4E8"> $ZSH</span><span style="color:#9ECBFF">/oh-my-zsh.sh</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># ============================================</span></span>
+<span class="line"><span style="color:#6A737D"># 个人环境变量配置</span></span>
+<span class="line"><span style="color:#6A737D"># ============================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 设置默认编辑器</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#E1E4E8"> EDITOR</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'vim'</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#E1E4E8"> VISUAL</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'vim'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 设置语言环境</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#E1E4E8"> LANG</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">en_US.UTF-8</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#E1E4E8"> LC_ALL</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">en_US.UTF-8</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 历史命令配置</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#E1E4E8"> HISTSIZE</span><span style="color:#F97583">=</span><span style="color:#79B8FF">10000</span><span style="color:#6A737D">                # 内存中保存的历史命令数量</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#E1E4E8"> SAVEHIST</span><span style="color:#F97583">=</span><span style="color:#79B8FF">10000</span><span style="color:#6A737D">                # 文件中保存的历史命令数量</span></span>
+<span class="line"><span style="color:#B392F0">setopt</span><span style="color:#9ECBFF"> HIST_IGNORE_ALL_DUPS</span><span style="color:#6A737D">          # 删除重复的历史记录</span></span>
+<span class="line"><span style="color:#B392F0">setopt</span><span style="color:#9ECBFF"> HIST_FIND_NO_DUPS</span><span style="color:#6A737D">             # 查找时忽略重复</span></span>
+<span class="line"><span style="color:#B392F0">setopt</span><span style="color:#9ECBFF"> HIST_REDUCE_BLANKS</span><span style="color:#6A737D">            # 删除多余空格</span></span>
+<span class="line"><span style="color:#B392F0">setopt</span><span style="color:#9ECBFF"> INC_APPEND_HISTORY</span><span style="color:#6A737D">            # 立即追加到历史文件</span></span>
+<span class="line"><span style="color:#B392F0">setopt</span><span style="color:#9ECBFF"> SHARE_HISTORY</span><span style="color:#6A737D">                 # 多个终端共享历史</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># ============================================</span></span>
+<span class="line"><span style="color:#6A737D"># Rust 开发环境</span></span>
+<span class="line"><span style="color:#6A737D"># ============================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Cargo 环境变量</span></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> [ </span><span style="color:#F97583">-f</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$HOME</span><span style="color:#9ECBFF">/.cargo/env"</span><span style="color:#E1E4E8"> ]; </span><span style="color:#F97583">then</span></span>
+<span class="line"><span style="color:#79B8FF">    source</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$HOME</span><span style="color:#9ECBFF">/.cargo/env"</span></span>
+<span class="line"><span style="color:#F97583">fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Rust 工具链路径</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#E1E4E8"> PATH</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">$HOME</span><span style="color:#9ECBFF">/.cargo/bin:</span><span style="color:#E1E4E8">$PATH</span><span style="color:#9ECBFF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Rust 编译优化选项（可选）</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#E1E4E8"> RUSTFLAGS</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"-C target-cpu=native"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># ============================================</span></span>
+<span class="line"><span style="color:#6A737D"># 自定义别名</span></span>
+<span class="line"><span style="color:#6A737D"># ============================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 系统操作</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> cls</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'clear'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> c</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'clear'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> h</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'history'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> q</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'exit'</span></span>
+<span class="line"><span style="color:#79B8FF">alias</span><span style="color:#9ECBFF"> ..='cd ..'</span></span>
+<span class="line"><span style="color:#79B8FF">alias</span><span style="color:#9ECBFF"> ...='cd ../..'</span></span>
+<span class="line"><span style="color:#79B8FF">alias</span><span style="color:#9ECBFF"> ....='cd ../../..'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># ls 增强</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> ls</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'ls --color=auto'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> ll</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'ls -lh'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> la</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'ls -lAh'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> l</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'ls -CF'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 安全操作</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> rm</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'rm -i'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> cp</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'cp -i'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> mv</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'mv -i'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Git 快捷命令</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> gs</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'git status'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> ga</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'git add'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> gc</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'git commit'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> gp</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'git push'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> gl</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'git pull'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> gd</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'git diff'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> gco</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'git checkout'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> gb</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'git branch'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> glog</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'git log --oneline --graph --decorate'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Rust 开发</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> cb</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'cargo build'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> cr</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'cargo run'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> ct</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'cargo test'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> cc</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'cargo check'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> cclean</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'cargo clean'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> cupdate</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'cargo update'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> cfmt</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'cargo fmt'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> clippy</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'cargo clippy'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 系统信息</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> ports</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'netstat -tulanp'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> meminfo</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'free -m -l -t'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> cpuinfo</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'lscpu'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> diskinfo</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'df -h'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 网络工具</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> myip</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'curl ifconfig.me'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> ping</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'ping -c 5'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> fastping</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'ping -c 100 -s.2'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># ============================================</span></span>
+<span class="line"><span style="color:#6A737D"># 自定义函数</span></span>
+<span class="line"><span style="color:#6A737D"># ============================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 创建并进入目录</span></span>
+<span class="line"><span style="color:#B392F0">mkcd</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#B392F0">    mkdir</span><span style="color:#79B8FF"> -p</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$1</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8"> &#x26;&#x26; </span><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$1</span><span style="color:#9ECBFF">"</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 快速搜索文件</span></span>
+<span class="line"><span style="color:#B392F0">ff</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#B392F0">    find</span><span style="color:#9ECBFF"> .</span><span style="color:#79B8FF"> -type</span><span style="color:#9ECBFF"> f</span><span style="color:#79B8FF"> -name</span><span style="color:#9ECBFF"> "*</span><span style="color:#79B8FF">$1</span><span style="color:#9ECBFF">*"</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 快速搜索目录</span></span>
+<span class="line"><span style="color:#B392F0">fd</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#B392F0">    find</span><span style="color:#9ECBFF"> .</span><span style="color:#79B8FF"> -type</span><span style="color:#9ECBFF"> d</span><span style="color:#79B8FF"> -name</span><span style="color:#9ECBFF"> "*</span><span style="color:#79B8FF">$1</span><span style="color:#9ECBFF">*"</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 解压所有常见格式</span></span>
+<span class="line"><span style="color:#B392F0">extract</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> [ </span><span style="color:#F97583">-f</span><span style="color:#FFAB70"> $1</span><span style="color:#E1E4E8"> ]; </span><span style="color:#F97583">then</span></span>
+<span class="line"><span style="color:#F97583">        case</span><span style="color:#FFAB70"> $1</span><span style="color:#F97583"> in</span></span>
+<span class="line"><span style="color:#F97583">            *</span><span style="color:#DBEDFF">.tar.bz2</span><span style="color:#F97583">)</span><span style="color:#B392F0">   tar</span><span style="color:#9ECBFF"> xjf</span><span style="color:#FFAB70"> $1</span><span style="color:#E1E4E8">     ;;</span></span>
+<span class="line"><span style="color:#F97583">            *</span><span style="color:#DBEDFF">.tar.gz</span><span style="color:#F97583">)</span><span style="color:#B392F0">    tar</span><span style="color:#9ECBFF"> xzf</span><span style="color:#FFAB70"> $1</span><span style="color:#E1E4E8">     ;;</span></span>
+<span class="line"><span style="color:#F97583">            *</span><span style="color:#DBEDFF">.bz2</span><span style="color:#F97583">)</span><span style="color:#B392F0">       bunzip2</span><span style="color:#FFAB70"> $1</span><span style="color:#E1E4E8">     ;;</span></span>
+<span class="line"><span style="color:#F97583">            *</span><span style="color:#DBEDFF">.rar</span><span style="color:#F97583">)</span><span style="color:#B392F0">       unrar</span><span style="color:#9ECBFF"> e</span><span style="color:#FFAB70"> $1</span><span style="color:#E1E4E8">     ;;</span></span>
+<span class="line"><span style="color:#F97583">            *</span><span style="color:#DBEDFF">.gz</span><span style="color:#F97583">)</span><span style="color:#B392F0">        gunzip</span><span style="color:#FFAB70"> $1</span><span style="color:#E1E4E8">      ;;</span></span>
+<span class="line"><span style="color:#F97583">            *</span><span style="color:#DBEDFF">.tar</span><span style="color:#F97583">)</span><span style="color:#B392F0">       tar</span><span style="color:#9ECBFF"> xf</span><span style="color:#FFAB70"> $1</span><span style="color:#E1E4E8">      ;;</span></span>
+<span class="line"><span style="color:#F97583">            *</span><span style="color:#DBEDFF">.tbz2</span><span style="color:#F97583">)</span><span style="color:#B392F0">      tar</span><span style="color:#9ECBFF"> xjf</span><span style="color:#FFAB70"> $1</span><span style="color:#E1E4E8">     ;;</span></span>
+<span class="line"><span style="color:#F97583">            *</span><span style="color:#DBEDFF">.tgz</span><span style="color:#F97583">)</span><span style="color:#B392F0">       tar</span><span style="color:#9ECBFF"> xzf</span><span style="color:#FFAB70"> $1</span><span style="color:#E1E4E8">     ;;</span></span>
+<span class="line"><span style="color:#F97583">            *</span><span style="color:#DBEDFF">.zip</span><span style="color:#F97583">)</span><span style="color:#B392F0">       unzip</span><span style="color:#FFAB70"> $1</span><span style="color:#E1E4E8">       ;;</span></span>
+<span class="line"><span style="color:#F97583">            *</span><span style="color:#DBEDFF">.Z</span><span style="color:#F97583">)</span><span style="color:#B392F0">         uncompress</span><span style="color:#FFAB70"> $1</span><span style="color:#E1E4E8">  ;;</span></span>
+<span class="line"><span style="color:#F97583">            *</span><span style="color:#DBEDFF">.7z</span><span style="color:#F97583">)</span><span style="color:#B392F0">        7z</span><span style="color:#9ECBFF"> x</span><span style="color:#FFAB70"> $1</span><span style="color:#E1E4E8">        ;;</span></span>
+<span class="line"><span style="color:#F97583">            *)</span><span style="color:#79B8FF">           echo</span><span style="color:#9ECBFF"> "'</span><span style="color:#79B8FF">$1</span><span style="color:#9ECBFF">' 无法被解压"</span><span style="color:#E1E4E8"> ;;</span></span>
+<span class="line"><span style="color:#F97583">        esac</span></span>
+<span class="line"><span style="color:#F97583">    else</span></span>
+<span class="line"><span style="color:#79B8FF">        echo</span><span style="color:#9ECBFF"> "'</span><span style="color:#79B8FF">$1</span><span style="color:#9ECBFF">' 不是有效的文件"</span></span>
+<span class="line"><span style="color:#F97583">    fi</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 创建新的 Rust 项目并进入</span></span>
+<span class="line"><span style="color:#B392F0">newrust</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#B392F0">    cargo</span><span style="color:#9ECBFF"> new</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$1</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8"> &#x26;&#x26; </span><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$1</span><span style="color:#9ECBFF">"</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># ============================================</span></span>
+<span class="line"><span style="color:#6A737D"># PATH 扩展（根据需要添加）</span></span>
+<span class="line"><span style="color:#6A737D"># ============================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 示例：添加本地 bin 目录</span></span>
+<span class="line"><span style="color:#6A737D"># export PATH="$HOME/.local/bin:$PATH"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 示例：添加自定义脚本目录</span></span>
+<span class="line"><span style="color:#6A737D"># export PATH="$HOME/scripts:$PATH"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># ============================================</span></span>
+<span class="line"><span style="color:#6A737D"># 终端优化</span></span>
+<span class="line"><span style="color:#6A737D"># ============================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 禁用终端控制流（Ctrl+S / Ctrl+Q）</span></span>
+<span class="line"><span style="color:#B392F0">stty</span><span style="color:#79B8FF"> -ixon</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 启用命令行颜色支持</span></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> [ </span><span style="color:#F97583">-x</span><span style="color:#E1E4E8"> /usr/bin/dircolors ]; </span><span style="color:#F97583">then</span></span>
+<span class="line"><span style="color:#79B8FF">    test</span><span style="color:#79B8FF"> -r</span><span style="color:#9ECBFF"> ~/.dircolors</span><span style="color:#E1E4E8"> &#x26;&#x26; </span><span style="color:#79B8FF">eval</span><span style="color:#9ECBFF"> "$(</span><span style="color:#B392F0">dircolors</span><span style="color:#79B8FF"> -b</span><span style="color:#9ECBFF"> ~/.dircolors)"</span><span style="color:#F97583"> ||</span><span style="color:#79B8FF"> eval</span><span style="color:#9ECBFF"> "$(</span><span style="color:#B392F0">dircolors</span><span style="color:#79B8FF"> -b</span><span style="color:#9ECBFF">)"</span></span>
+<span class="line"><span style="color:#F97583">fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># ============================================</span></span>
+<span class="line"><span style="color:#6A737D"># 欢迎信息（可选）</span></span>
+<span class="line"><span style="color:#6A737D"># ============================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 显示系统信息</span></span>
+<span class="line"><span style="color:#6A737D"># echo "欢迎回来！当前系统: $(uname -s)"</span></span>
+<span class="line"><span style="color:#6A737D"># echo "今天是: $(date '+%Y年%m月%d日 %A')"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># ============================================</span></span>
+<span class="line"><span style="color:#6A737D"># 加载本地私有配置（如果存在）</span></span>
+<span class="line"><span style="color:#6A737D"># ============================================</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> [ </span><span style="color:#F97583">-f</span><span style="color:#F97583"> ~</span><span style="color:#E1E4E8">/.zshrc.local ]; </span><span style="color:#F97583">then</span></span>
+<span class="line"><span style="color:#79B8FF">    source</span><span style="color:#9ECBFF"> ~/.zshrc.local</span></span>
+<span class="line"><span style="color:#F97583">fi</span></span></code></pre>
+<h3 id="6-应用配置">6. 应用配置</h3>
+<p>编辑配置文件：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">vim</span><span style="color:#9ECBFF"> ~/.zshrc</span></span></code></pre>
+<p>复制上面的配置内容，然后重新加载：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#79B8FF">source</span><span style="color:#9ECBFF"> ~/.zshrc</span></span></code></pre>
+<h3 id="7-配置说明">7. 配置说明</h3>
+<p><strong>主题选择：</strong></p>
+<ul>
+<li><code>robbyrussell</code>：简洁快速（推荐新手）</li>
+<li><code>agnoster</code>：美观但需要 Powerline 字体</li>
+<li><code>powerlevel10k</code>：功能强大，需要单独安装</li>
+</ul>
+<p><strong>插件说明：</strong></p>
+<ul>
+<li>插件加载会影响终端启动速度，根据实际需求启用</li>
+<li><code>zsh-syntax-highlighting</code> 必须放在插件列表最后</li>
+<li>可以用 <code>time zsh -i -c exit</code> 测试启动时间</li>
+</ul>
+<p><strong>个性化定制：</strong></p>
+<ul>
+<li>所有别名和函数都可以根据个人习惯修改</li>
+<li>建议将敏感配置（如密钥）放在 <code>~/.zshrc.local</code> 中</li>
+<li>该文件不会被 Git 跟踪，更加安全</li>
+</ul>
+<hr>
+<h2 id="二rust-开发环境">二、Rust 开发环境</h2>
+<h3 id="1-安装-c-编译器和开发依赖">1. 安装 C 编译器和开发依赖</h3>
+<p>Rust 需要 C 编译器来编译一些依赖包，首先安装必要的开发工具：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> update</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> build-essential</span><span style="color:#9ECBFF"> libssl-dev</span><span style="color:#9ECBFF"> pkg-config</span><span style="color:#79B8FF"> -y</span></span></code></pre>
+<p><strong>说明：</strong></p>
+<ul>
+<li><code>build-essential</code>：包含 gcc、g++、make 等编译工具</li>
+<li><code>libssl-dev</code>：OpenSSL 开发库，用于网络加密和 HTTPS 连接</li>
+<li><code>pkg-config</code>：帮助编译器找到库文件的工具</li>
+</ul>
+<h3 id="2-安装-rust">2. 安装 Rust</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">curl</span><span style="color:#79B8FF"> --proto</span><span style="color:#9ECBFF"> '=https'</span><span style="color:#79B8FF"> --tlsv1.2</span><span style="color:#79B8FF"> -sSf</span><span style="color:#9ECBFF"> https://sh.rustup.rs</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> sh</span></span>
+<span class="line"><span style="color:#79B8FF">.</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$HOME</span><span style="color:#9ECBFF">/.cargo/env"</span></span></code></pre>
+<h3 id="3-验证安装">3. 验证安装</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">rustc</span><span style="color:#79B8FF"> --version</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#79B8FF"> --version</span></span></code></pre>
+<h3 id="4-配置-cargo-镜像">4. 配置 Cargo 镜像</h3>
+<p>编辑 <code>~/.cargo/config.toml</code>：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="toml"><code><span class="line"><span style="color:#E1E4E8">[</span><span style="color:#B392F0">source</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">crates-io</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">replace-with = </span><span style="color:#9ECBFF">'ustc'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">[</span><span style="color:#B392F0">source</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">ustc</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">registry = </span><span style="color:#9ECBFF">"git://mirrors.ustc.edu.cn/crates.io-index"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">[</span><span style="color:#B392F0">net</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">git-fetch-with-cli = </span><span style="color:#79B8FF">true</span></span></code></pre>
+<h3 id="5-可选切换-rust-版本">5. 可选：切换 Rust 版本</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">rustup</span><span style="color:#9ECBFF"> default</span><span style="color:#9ECBFF"> nightly</span></span></code></pre>
+<hr>
+<h2 id="三一键管理脚本">三、一键管理脚本</h2>
+<p>如果你想跳过手动配置的步骤，可以使用统一的管理脚本来完成所有操作。</p>
+<h3 id="使用方法">使用方法</h3>
+<p><strong>方式一：交互式菜单（推荐新手）</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 下载并运行脚本</span></span>
+<span class="line"><span style="color:#B392F0">chmod</span><span style="color:#9ECBFF"> +x</span><span style="color:#9ECBFF"> dev-env.sh</span></span>
+<span class="line"><span style="color:#B392F0">./dev-env.sh</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 会显示交互式菜单，选择相应的操作即可</span></span></code></pre>
+<p><strong>方式二：命令行参数（推荐熟练用户）</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 安装完整开发环境</span></span>
+<span class="line"><span style="color:#B392F0">./dev-env.sh</span><span style="color:#9ECBFF"> install</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 安装 Rust 工具</span></span>
+<span class="line"><span style="color:#B392F0">./dev-env.sh</span><span style="color:#9ECBFF"> tools</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 更新环境</span></span>
+<span class="line"><span style="color:#B392F0">./dev-env.sh</span><span style="color:#9ECBFF"> update</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 验证环境</span></span>
+<span class="line"><span style="color:#B392F0">./dev-env.sh</span><span style="color:#9ECBFF"> verify</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 查看帮助</span></span>
+<span class="line"><span style="color:#B392F0">./dev-env.sh</span><span style="color:#9ECBFF"> help</span></span></code></pre>
+<p><strong>推荐使用流程：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 1. 首次安装</span></span>
+<span class="line"><span style="color:#B392F0">./dev-env.sh</span><span style="color:#9ECBFF"> install</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 2. 重新加载配置</span></span>
+<span class="line"><span style="color:#79B8FF">exec</span><span style="color:#9ECBFF"> zsh</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 3. 安装 Rust 工具（可选）</span></span>
+<span class="line"><span style="color:#B392F0">./dev-env.sh</span><span style="color:#9ECBFF"> tools</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 4. 验证环境</span></span>
+<span class="line"><span style="color:#B392F0">./dev-env.sh</span><span style="color:#9ECBFF"> verify</span></span></code></pre>
+<h3 id="脚本特性">脚本特性</h3>
+<p>这个统一脚本包含以下特性：</p>
+<ul>
+<li>✅ <strong>多功能合一</strong>：安装、更新、验证一个脚本搞定</li>
+<li>✅ <strong>交互式菜单</strong>：无参数运行时显示友好的菜单界面</li>
+<li>✅ <strong>命令行模式</strong>：支持直接命令行参数调用</li>
+<li>✅ <strong>跨平台支持</strong>：自动检测 Ubuntu/Debian 和 macOS</li>
+<li>✅ <strong>智能配置</strong>：根据操作系统自动调整配置</li>
+<li>✅ <strong>彩色输出</strong>：清晰的日志和状态提示</li>
+<li>✅ <strong>错误处理</strong>：完善的错误检查和提示</li>
+<li>✅ <strong>幂等设计</strong>：可重复运行，不会重复安装</li>
+</ul>
+<h3 id="脚本功能说明">脚本功能说明</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>命令</th><th>功能描述</th></tr></thead><tbody><tr><td><code>./dev-env.sh</code></td><td>显示交互式菜单</td></tr><tr><td><code>./dev-env.sh install</code></td><td>安装完整开发环境</td></tr><tr><td><code>./dev-env.sh tools</code></td><td>安装 Rust 开发工具</td></tr><tr><td><code>./dev-env.sh update</code></td><td>更新所有工具</td></tr><tr><td><code>./dev-env.sh verify</code></td><td>验证环境状态</td></tr><tr><td><code>./dev-env.sh help</code></td><td>显示帮助信息</td></tr></tbody></table>
+<h3 id="获取脚本">获取脚本</h3>
+<p>脚本文件位于本博客的 <code>static/dev-env.sh</code>，共 640+ 行代码，包含完整的功能实现。</p>
+<p><strong>下载方式：</strong></p>
+<ol>
+<li><strong>从博客下载</strong>：访问博客后直接下载 <code>/dev-env.sh</code></li>
+<li><strong>从源码获取</strong>：在博客源码的 <code>static/</code> 目录下</li>
+<li><strong>手动创建</strong>：复制以下核心代码结构</li>
+</ol>
+<p><strong>脚本核心结构：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D">#!/usr/bin/env bash</span></span>
+<span class="line"><span style="color:#6A737D"># Zsh + Rust 开发环境管理脚本</span></span>
+<span class="line"><span style="color:#6A737D"># 功能：安装、更新、验证开发环境</span></span>
+<span class="line"><span style="color:#6A737D"># 适用：Ubuntu/Debian/macOS</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 功能模块：</span></span>
+<span class="line"><span style="color:#6A737D"># - install_env()    : 安装完整开发环境</span></span>
+<span class="line"><span style="color:#6A737D"># - install_tools()  : 安装 Rust 开发工具</span></span>
+<span class="line"><span style="color:#6A737D"># - update_env()     : 更新所有工具</span></span>
+<span class="line"><span style="color:#6A737D"># - verify_env()     : 验证环境状态</span></span>
+<span class="line"><span style="color:#6A737D"># - show_menu()      : 交互式菜单</span></span>
+<span class="line"><span style="color:#6A737D"># - show_help()      : 帮助信息</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 详细实现请查看 static/dev-env.sh 文件</span></span>
+<span class="line"><span style="color:#6A737D"># 完整代码约 640 行，包含以下主要功能：</span></span>
+<span class="line"><span style="color:#6A737D">#</span></span>
+<span class="line"><span style="color:#6A737D"># 1. 系统检测和环境准备</span></span>
+<span class="line"><span style="color:#6A737D"># 2. Zsh 和 Oh My Zsh 安装</span></span>
+<span class="line"><span style="color:#6A737D"># 3. 插件安装和配置</span></span>
+<span class="line"><span style="color:#6A737D"># 4. Rust 工具链安装</span></span>
+<span class="line"><span style="color:#6A737D"># 5. Cargo 镜像配置</span></span>
+<span class="line"><span style="color:#6A737D"># 6. 环境验证</span></span>
+<span class="line"><span style="color:#6A737D"># 7. 交互式菜单</span></span>
+<span class="line"><span style="color:#6A737D"># 8. 帮助系统</span></span></code></pre>
+<blockquote>
+<p>💡 <strong>提示</strong>：完整的脚本代码可以从博客 <code>static/dev-env.sh</code> 文件获取，也可以访问博客源码仓库查看。</p>
+</blockquote>
+<h3 id="故障排除">故障排除</h3>
+<p><strong>常见问题：</strong></p>
+<ol>
+<li>
+<p><strong>脚本执行失败</strong></p>
+<ul>
+<li>检查网络连接（需要访问 GitHub）</li>
+<li>查看详细错误：<code>bash -x ./dev-env.sh install</code></li>
+<li>确保有足够的磁盘空间</li>
+</ul>
+</li>
+<li>
+<p><strong>Oh My Zsh 安装失败</strong></p>
+<ul>
+<li>网络问题，可以使用 GitHub 镜像</li>
+<li>或者手动下载安装包</li>
+</ul>
+</li>
+<li>
+<p><strong>Rust 安装慢</strong></p>
+<ul>
+<li>脚本已配置国内镜像加速</li>
+<li>可以尝试其他镜像源（tuna、sjtu 等）</li>
+</ul>
+</li>
+<li>
+<p><strong>权限问题</strong></p>
+<ul>
+<li>确保脚本有执行权限：<code>chmod +x dev-env.sh</code></li>
+<li>某些操作需要 sudo 权限</li>
+</ul>
+</li>
+<li>
+<p><strong>恢复原配置</strong></p>
+<ul>
+<li>所有配置都有自动备份</li>
+<li>恢复命令：<code>cp ~/.zshrc.backup.* ~/.zshrc</code></li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="四macos-系统适配">四、macOS 系统适配</h2>
+<p>上述配置主要针对 Ubuntu/Debian 系统，如果你使用 macOS，需要做以下调整：</p>
+<h3 id="1-安装-homebrew如果还没有">1. 安装 Homebrew（如果还没有）</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">/bin/bash</span><span style="color:#79B8FF"> -c</span><span style="color:#9ECBFF"> "$(</span><span style="color:#B392F0">curl</span><span style="color:#79B8FF"> -fsSL</span><span style="color:#9ECBFF"> https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</span></span></code></pre>
+<h3 id="2-安装-zshmacos-通常已预装">2. 安装 Zsh（macOS 通常已预装）</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># macOS 通常已经安装了 Zsh</span></span>
+<span class="line"><span style="color:#6A737D"># 如果需要最新版本：</span></span>
+<span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> zsh</span></span></code></pre>
+<h3 id="3-安装其他工具">3. 安装其他工具</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># macOS 不需要 build-essential，改用 Xcode Command Line Tools</span></span>
+<span class="line"><span style="color:#B392F0">xcode-select</span><span style="color:#79B8FF"> --install</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 其他依赖</span></span>
+<span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> openssl</span><span style="color:#9ECBFF"> pkg-config</span></span></code></pre>
+<h3 id="4-macos-专用别名调整">4. macOS 专用别名调整</h3>
+<p>在 <code>.zshrc</code> 中添加或修改这些别名：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># macOS 特定别名</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> ls</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'ls -G'</span><span style="color:#6A737D">  # macOS 使用 -G 而不是 --color=auto</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> ll</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'ls -lhG'</span></span>
+<span class="line"><span style="color:#F97583">alias</span><span style="color:#E1E4E8"> la</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'ls -lAhG'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 或者安装 GNU coreutils 使用 Linux 风格命令</span></span>
+<span class="line"><span style="color:#6A737D"># brew install coreutils</span></span>
+<span class="line"><span style="color:#6A737D"># alias ls='gls --color=auto'</span></span></code></pre>
+<h3 id="5-macos-下的脚本修改">5. macOS 下的脚本修改</h3>
+<p>如果你在 macOS 上使用初始化脚本，需要修改以下部分：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 检测系统类型</span></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> [[ </span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">$OSTYPE</span><span style="color:#9ECBFF">"</span><span style="color:#F97583"> ==</span><span style="color:#9ECBFF"> "darwin"</span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> ]]; </span><span style="color:#F97583">then</span></span>
+<span class="line"><span style="color:#6A737D">    # macOS</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#F97583"> !</span><span style="color:#79B8FF"> command</span><span style="color:#79B8FF"> -v</span><span style="color:#9ECBFF"> brew</span><span style="color:#E1E4E8"> &#x26;</span><span style="color:#F97583">></span><span style="color:#E1E4E8"> /dev/null; </span><span style="color:#F97583">then</span></span>
+<span class="line"><span style="color:#B392F0">        log_error</span><span style="color:#9ECBFF"> "请先安装 Homebrew"</span></span>
+<span class="line"><span style="color:#79B8FF">        exit</span><span style="color:#79B8FF"> 1</span></span>
+<span class="line"><span style="color:#F97583">    fi</span></span>
+<span class="line"><span style="color:#6A737D">    # 使用 brew 安装依赖</span></span>
+<span class="line"><span style="color:#B392F0">    brew</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> zsh</span><span style="color:#9ECBFF"> git</span><span style="color:#9ECBFF"> curl</span><span style="color:#9ECBFF"> wget</span></span>
+<span class="line"><span style="color:#B392F0">    xcode-select</span><span style="color:#79B8FF"> --install</span><span style="color:#F97583"> 2></span><span style="color:#9ECBFF">/dev/null</span><span style="color:#F97583"> ||</span><span style="color:#79B8FF"> true</span></span>
+<span class="line"><span style="color:#F97583">else</span></span>
+<span class="line"><span style="color:#6A737D">    # Linux</span></span>
+<span class="line"><span style="color:#B392F0">    sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> update</span></span>
+<span class="line"><span style="color:#B392F0">    sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> -y</span><span style="color:#9ECBFF"> zsh</span><span style="color:#9ECBFF"> git</span><span style="color:#9ECBFF"> curl</span><span style="color:#9ECBFF"> wget</span><span style="color:#9ECBFF"> build-essential</span></span>
+<span class="line"><span style="color:#F97583">fi</span></span></code></pre>
+<hr>
+<h2 id="五常用-rust-工具链">五、常用 Rust 工具链</h2>
+<p>安装完 Rust 后，建议安装这些常用工具来提升开发效率：</p>
+<h3 id="1-代码格式化和检查工具">1. 代码格式化和检查工具</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># rustfmt - 代码格式化（通常已包含在 rustup 中）</span></span>
+<span class="line"><span style="color:#B392F0">rustup</span><span style="color:#9ECBFF"> component</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> rustfmt</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># clippy - 代码静态分析工具</span></span>
+<span class="line"><span style="color:#B392F0">rustup</span><span style="color:#9ECBFF"> component</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> clippy</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 使用示例</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> fmt</span><span style="color:#6A737D">        # 格式化代码</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> clippy</span><span style="color:#6A737D">     # 运行 lint 检查</span></span></code></pre>
+<h3 id="2-cargo-edit管理依赖">2. cargo-edit（管理依赖）</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> cargo-edit</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 使用示例</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> tokio</span><span style="color:#6A737D">         # 添加依赖</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> rm</span><span style="color:#9ECBFF"> serde</span><span style="color:#6A737D">          # 移除依赖</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> upgrade</span><span style="color:#6A737D">           # 升级所有依赖</span></span></code></pre>
+<h3 id="3-cargo-watch自动重新编译">3. cargo-watch（自动重新编译）</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> cargo-watch</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 使用示例</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> watch</span><span style="color:#79B8FF"> -x</span><span style="color:#9ECBFF"> run</span><span style="color:#6A737D">      # 文件变化时自动运行</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> watch</span><span style="color:#79B8FF"> -x</span><span style="color:#9ECBFF"> test</span><span style="color:#6A737D">     # 文件变化时自动测试</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> watch</span><span style="color:#79B8FF"> -x</span><span style="color:#9ECBFF"> check</span><span style="color:#6A737D">    # 文件变化时自动检查</span></span></code></pre>
+<h3 id="4-cargo-tree依赖树">4. cargo-tree（依赖树）</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 查看依赖树（Rust 1.44+ 已内置）</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> tree</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 查看重复的依赖</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> tree</span><span style="color:#79B8FF"> --duplicates</span></span></code></pre>
+<h3 id="5-bacon快速后台编译检查">5. bacon（快速后台编译检查）</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> bacon</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 使用示例</span></span>
+<span class="line"><span style="color:#B392F0">bacon</span><span style="color:#6A737D">           # 启动后台检查</span></span>
+<span class="line"><span style="color:#B392F0">bacon</span><span style="color:#9ECBFF"> test</span><span style="color:#6A737D">      # 后台运行测试</span></span>
+<span class="line"><span style="color:#B392F0">bacon</span><span style="color:#9ECBFF"> clippy</span><span style="color:#6A737D">    # 后台运行 clippy</span></span></code></pre>
+<h3 id="6-cargo-expand宏展开">6. cargo-expand（宏展开）</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> cargo-expand</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 使用示例</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> expand</span><span style="color:#6A737D">                    # 展开所有宏</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> expand</span><span style="color:#9ECBFF"> module::function</span><span style="color:#6A737D">   # 展开特定函数的宏</span></span></code></pre>
+<h3 id="7-sccache编译缓存加速">7. sccache（编译缓存加速）</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> sccache</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 配置环境变量</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#E1E4E8"> RUSTC_WRAPPER</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">sccache</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 添加到 .zshrc</span></span>
+<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> 'export RUSTC_WRAPPER=sccache'</span><span style="color:#F97583"> >></span><span style="color:#9ECBFF"> ~/.zshrc</span></span></code></pre>
+<h3 id="8-其他实用工具">8. 其他实用工具</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># cargo-audit - 检查安全漏洞</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> cargo-audit</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> audit</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># cargo-outdated - 检查过期依赖</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> cargo-outdated</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> outdated</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># cargo-bloat - 分析二进制文件大小</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> cargo-bloat</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> bloat</span><span style="color:#79B8FF"> --release</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># tokei - 代码行数统计</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> tokei</span></span>
+<span class="line"><span style="color:#B392F0">tokei</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># hyperfine - 性能基准测试工具</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> hyperfine</span></span>
+<span class="line"><span style="color:#B392F0">hyperfine</span><span style="color:#9ECBFF"> 'cargo run'</span></span></code></pre>
+<h3 id="9-一键安装常用工具">9. 一键安装常用工具</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 将常用工具放到一个脚本中</span></span>
+<span class="line"><span style="color:#B392F0">cat</span><span style="color:#F97583"> ></span><span style="color:#9ECBFF"> install-rust-tools.sh</span><span style="color:#F97583"> &#x3C;&#x3C;</span><span style="color:#9ECBFF"> 'EOF'</span></span>
+<span class="line"><span style="color:#9ECBFF">#!/bin/bash</span></span>
+<span class="line"><span style="color:#9ECBFF">echo "安装 Rust 常用工具..."</span></span>
+<span class="line"><span style="color:#9ECBFF">cargo install cargo-edit cargo-watch bacon cargo-expand cargo-audit cargo-outdated tokei hyperfine</span></span>
+<span class="line"><span style="color:#9ECBFF">rustup component add rustfmt clippy</span></span>
+<span class="line"><span style="color:#9ECBFF">echo "安装完成！"</span></span>
+<span class="line"><span style="color:#9ECBFF">EOF</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">chmod</span><span style="color:#9ECBFF"> +x</span><span style="color:#9ECBFF"> install-rust-tools.sh</span></span>
+<span class="line"><span style="color:#B392F0">./install-rust-tools.sh</span></span></code></pre>
+<hr>
+<h2 id="六进阶主题配置">六、进阶主题配置</h2>
+<p>如果你想要更美观强大的终端主题，推荐使用 Powerlevel10k。</p>
+<h3 id="1-安装-powerlevel10k">1. 安装 Powerlevel10k</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> clone</span><span style="color:#79B8FF"> --depth=1</span><span style="color:#9ECBFF"> https://github.com/romkatv/powerlevel10k.git</span><span style="color:#E1E4E8"> ${ZSH_CUSTOM</span><span style="color:#F97583">:-</span><span style="color:#E1E4E8">$HOME</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">.oh-my-zsh</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">custom}</span><span style="color:#9ECBFF">/themes/powerlevel10k</span></span></code></pre>
+<h3 id="2-修改-zshrc">2. 修改 .zshrc</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 修改主题配置</span></span>
+<span class="line"><span style="color:#E1E4E8">ZSH_THEME</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"powerlevel10k/powerlevel10k"</span></span></code></pre>
+<h3 id="3-安装-nerd-font必需">3. 安装 Nerd Font（必需）</h3>
+<p>Powerlevel10k 需要特殊字体来显示图标：</p>
+<p><strong>macOS：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> tap</span><span style="color:#9ECBFF"> homebrew/cask-fonts</span></span>
+<span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> --cask</span><span style="color:#9ECBFF"> font-meslo-lg-nerd-font</span></span></code></pre>
+<p><strong>Ubuntu/Debian：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mkdir</span><span style="color:#79B8FF"> -p</span><span style="color:#9ECBFF"> ~/.local/share/fonts</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> ~/.local/share/fonts</span></span>
+<span class="line"><span style="color:#B392F0">wget</span><span style="color:#9ECBFF"> https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf</span></span>
+<span class="line"><span style="color:#B392F0">wget</span><span style="color:#9ECBFF"> https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf</span></span>
+<span class="line"><span style="color:#B392F0">wget</span><span style="color:#9ECBFF"> https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf</span></span>
+<span class="line"><span style="color:#B392F0">wget</span><span style="color:#9ECBFF"> https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf</span></span>
+<span class="line"><span style="color:#B392F0">fc-cache</span><span style="color:#79B8FF"> -f</span><span style="color:#79B8FF"> -v</span></span></code></pre>
+<h3 id="4-配置终端字体">4. 配置终端字体</h3>
+<p>在终端设置中将字体改为 <code>MesloLGS NF</code></p>
+<h3 id="5-运行配置向导">5. 运行配置向导</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 重新加载配置</span></span>
+<span class="line"><span style="color:#79B8FF">source</span><span style="color:#9ECBFF"> ~/.zshrc</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 会自动启动配置向导</span></span>
+<span class="line"><span style="color:#6A737D"># 或者手动运行</span></span>
+<span class="line"><span style="color:#B392F0">p10k</span><span style="color:#9ECBFF"> configure</span></span></code></pre>
+<h3 id="6-powerlevel10k-推荐配置">6. Powerlevel10k 推荐配置</h3>
+<p>在配置向导中的推荐选项：</p>
+<ul>
+<li>Prompt Style: Rainbow</li>
+<li>Character Set: Unicode</li>
+<li>Show current time: 24-hour format</li>
+<li>Prompt Separators: Angled</li>
+<li>Prompt Heads: Sharp</li>
+<li>Prompt Tails: Flat</li>
+<li>Prompt Height: Two lines</li>
+<li>Prompt Connection: Disconnected</li>
+<li>Prompt Frame: No frame</li>
+<li>Transient Prompt: Yes</li>
+</ul>
+<hr>
+<h2 id="七性能优化建议">七、性能优化建议</h2>
+<h3 id="1-减少启动时间">1. 减少启动时间</h3>
+<p><strong>检测启动耗时：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 测试 zsh 启动时间</span></span>
+<span class="line"><span style="color:#F97583">time</span><span style="color:#E1E4E8"> zsh -i -c exit</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 分析启动过程</span></span>
+<span class="line"><span style="color:#B392F0">zsh</span><span style="color:#79B8FF"> -i</span><span style="color:#79B8FF"> -c</span><span style="color:#9ECBFF"> 'zmodload zsh/zprof &#x26;&#x26; zprof'</span></span></code></pre>
+<p><strong>优化建议：</strong></p>
+<ul>
+<li>减少不必要的插件</li>
+<li>使用延迟加载</li>
+<li>避免在 <code>.zshrc</code> 中执行耗时操作</li>
+</ul>
+<h3 id="2-延迟加载-nvmpyenv-等工具">2. 延迟加载 nvm/pyenv 等工具</h3>
+<p>如果你使用 nvm、pyenv 等版本管理工具，可以延迟加载：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 在 .zshrc 中添加延迟加载函数</span></span>
+<span class="line"><span style="color:#6A737D"># nvm 延迟加载</span></span>
+<span class="line"><span style="color:#B392F0">lazy_load_nvm</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#79B8FF">    unset</span><span style="color:#79B8FF"> -f</span><span style="color:#9ECBFF"> node</span><span style="color:#9ECBFF"> npm</span><span style="color:#9ECBFF"> nvm</span></span>
+<span class="line"><span style="color:#F97583">    export</span><span style="color:#E1E4E8"> NVM_DIR</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">$HOME</span><span style="color:#9ECBFF">/.nvm"</span></span>
+<span class="line"><span style="color:#E1E4E8">    [ </span><span style="color:#F97583">-s</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$NVM_DIR</span><span style="color:#9ECBFF">/nvm.sh"</span><span style="color:#E1E4E8"> ] &#x26;&#x26; </span><span style="color:#B392F0">\.</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$NVM_DIR</span><span style="color:#9ECBFF">/nvm.sh"</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">node</span><span style="color:#E1E4E8">() { </span><span style="color:#B392F0">lazy_load_nvm</span><span style="color:#E1E4E8">; </span><span style="color:#B392F0">node</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$@</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">; }</span></span>
+<span class="line"><span style="color:#B392F0">npm</span><span style="color:#E1E4E8">() { </span><span style="color:#B392F0">lazy_load_nvm</span><span style="color:#E1E4E8">; </span><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$@</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">; }</span></span>
+<span class="line"><span style="color:#B392F0">nvm</span><span style="color:#E1E4E8">() { </span><span style="color:#B392F0">lazy_load_nvm</span><span style="color:#E1E4E8">; </span><span style="color:#B392F0">nvm</span><span style="color:#9ECBFF"> "</span><span style="color:#79B8FF">$@</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">; }</span></span></code></pre>
+<h3 id="3-使用-zinit-替代-oh-my-zsh进阶">3. 使用 zinit 替代 Oh My Zsh（进阶）</h3>
+<p>如果追求极致性能，可以考虑使用更轻量的 zinit：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 安装 zinit</span></span>
+<span class="line"><span style="color:#B392F0">bash</span><span style="color:#79B8FF"> -c</span><span style="color:#9ECBFF"> "$(</span><span style="color:#B392F0">curl</span><span style="color:#79B8FF"> --fail</span><span style="color:#79B8FF"> --show-error</span><span style="color:#79B8FF"> --silent</span><span style="color:#79B8FF"> --location</span><span style="color:#9ECBFF"> https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"</span></span></code></pre>
+<h3 id="4-rust-编译优化">4. Rust 编译优化</h3>
+<p>在 <code>~/.cargo/config.toml</code> 中添加：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="toml"><code><span class="line"><span style="color:#E1E4E8">[</span><span style="color:#B392F0">build</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#6A737D"># 增加并行编译任务数</span></span>
+<span class="line"><span style="color:#E1E4E8">jobs = </span><span style="color:#79B8FF">8</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">[</span><span style="color:#B392F0">target</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">x86_64-unknown-linux-gnu</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#6A737D"># 使用更快的链接器（需要安装 lld 或 mold）</span></span>
+<span class="line"><span style="color:#E1E4E8">linker = </span><span style="color:#9ECBFF">"clang"</span></span>
+<span class="line"><span style="color:#E1E4E8">rustflags = [</span><span style="color:#9ECBFF">"-C"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"link-arg=-fuse-ld=lld"</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">[</span><span style="color:#B392F0">profile</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">dev</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#6A737D"># 开发模式优化：减少调试信息以加快编译</span></span>
+<span class="line"><span style="color:#E1E4E8">debug = </span><span style="color:#79B8FF">1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">[</span><span style="color:#B392F0">profile</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">release</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#6A737D"># 发布模式优化</span></span>
+<span class="line"><span style="color:#E1E4E8">lto = </span><span style="color:#79B8FF">true</span><span style="color:#6A737D">          # 启用链接时优化</span></span>
+<span class="line"><span style="color:#E1E4E8">codegen-units = </span><span style="color:#79B8FF">1</span><span style="color:#6A737D">   # 减少代码生成单元以提高优化效果</span></span></code></pre>
+<p>安装更快的链接器：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Ubuntu/Debian</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> lld</span><span style="color:#9ECBFF"> clang</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># macOS</span></span>
+<span class="line"><span style="color:#B392F0">brew</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> llvm</span></span></code></pre>
+<hr>
+<h2 id="八快速参考">八、快速参考</h2>
+<h3 id="常用-zsh-快捷键">常用 Zsh 快捷键</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>快捷键</th><th>功能</th></tr></thead><tbody><tr><td><code>Ctrl + A</code></td><td>跳转到行首</td></tr><tr><td><code>Ctrl + E</code></td><td>跳转到行尾</td></tr><tr><td><code>Ctrl + U</code></td><td>删除光标前的所有内容</td></tr><tr><td><code>Ctrl + K</code></td><td>删除光标后的所有内容</td></tr><tr><td><code>Ctrl + W</code></td><td>删除光标前的一个单词</td></tr><tr><td><code>Ctrl + R</code></td><td>搜索历史命令</td></tr><tr><td><code>Ctrl + L</code></td><td>清屏</td></tr><tr><td><code>Alt + .</code></td><td>插入上一个命令的最后一个参数</td></tr><tr><td><code>!!</code></td><td>重复上一个命令</td></tr><tr><td><code>!$</code></td><td>上一个命令的最后一个参数</td></tr></tbody></table>
+<h3 id="常用-rust-命令">常用 Rust 命令</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>命令</th><th>功能</th></tr></thead><tbody><tr><td><code>cargo new project</code></td><td>创建新项目</td></tr><tr><td><code>cargo init</code></td><td>在当前目录初始化项目</td></tr><tr><td><code>cargo build</code></td><td>编译项目</td></tr><tr><td><code>cargo build --release</code></td><td>发布编译</td></tr><tr><td><code>cargo run</code></td><td>编译并运行</td></tr><tr><td><code>cargo test</code></td><td>运行测试</td></tr><tr><td><code>cargo check</code></td><td>快速检查（不生成二进制）</td></tr><tr><td><code>cargo doc --open</code></td><td>生成并打开文档</td></tr><tr><td><code>rustup update</code></td><td>更新 Rust 工具链</td></tr><tr><td><code>rustup default stable</code></td><td>切换到稳定版</td></tr></tbody></table>
+<h3 id="常用-git-别名">常用 Git 别名</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>别名</th><th>等价命令</th><th>功能</th></tr></thead><tbody><tr><td><code>gs</code></td><td><code>git status</code></td><td>查看状态</td></tr><tr><td><code>ga</code></td><td><code>git add</code></td><td>添加文件</td></tr><tr><td><code>gc</code></td><td><code>git commit</code></td><td>提交</td></tr><tr><td><code>gp</code></td><td><code>git push</code></td><td>推送</td></tr><tr><td><code>gl</code></td><td><code>git pull</code></td><td>拉取</td></tr><tr><td><code>gd</code></td><td><code>git diff</code></td><td>查看差异</td></tr><tr><td><code>gco</code></td><td><code>git checkout</code></td><td>切换分支</td></tr><tr><td><code>gb</code></td><td><code>git branch</code></td><td>查看分支</td></tr><tr><td><code>glog</code></td><td><code>git log --oneline --graph</code></td><td>图形化日志</td></tr></tbody></table>
+<hr>
+<h2 id="九常见问题扩展">九、常见问题扩展</h2>
+<h3 id="q1-如何在多台机器间同步配置">Q1: 如何在多台机器间同步配置？</h3>
+<p><strong>方案一：使用 Git 仓库</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 创建配置仓库</span></span>
+<span class="line"><span style="color:#B392F0">mkdir</span><span style="color:#9ECBFF"> ~/dotfiles</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> ~/dotfiles</span></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> init</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 移动配置文件</span></span>
+<span class="line"><span style="color:#B392F0">mv</span><span style="color:#9ECBFF"> ~/.zshrc</span><span style="color:#9ECBFF"> ~/dotfiles/zshrc</span></span>
+<span class="line"><span style="color:#B392F0">ln</span><span style="color:#79B8FF"> -s</span><span style="color:#9ECBFF"> ~/dotfiles/zshrc</span><span style="color:#9ECBFF"> ~/.zshrc</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 提交并推送</span></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> .</span></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> commit</span><span style="color:#79B8FF"> -m</span><span style="color:#9ECBFF"> "Initial dotfiles"</span></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> remote</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> origin</span><span style="color:#9ECBFF"> YOUR_REPO_URL</span></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> push</span><span style="color:#79B8FF"> -u</span><span style="color:#9ECBFF"> origin</span><span style="color:#9ECBFF"> main</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 在其他机器上</span></span>
+<span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> clone</span><span style="color:#9ECBFF"> YOUR_REPO_URL</span><span style="color:#9ECBFF"> ~/dotfiles</span></span>
+<span class="line"><span style="color:#B392F0">ln</span><span style="color:#79B8FF"> -s</span><span style="color:#9ECBFF"> ~/dotfiles/zshrc</span><span style="color:#9ECBFF"> ~/.zshrc</span></span></code></pre>
+<p><strong>方案二：使用专门的 dotfiles 管理工具</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 使用 chezmoi</span></span>
+<span class="line"><span style="color:#B392F0">sh</span><span style="color:#79B8FF"> -c</span><span style="color:#9ECBFF"> "$(</span><span style="color:#B392F0">curl</span><span style="color:#79B8FF"> -fsLS</span><span style="color:#9ECBFF"> get.chezmoi.io)"</span></span>
+<span class="line"><span style="color:#B392F0">chezmoi</span><span style="color:#9ECBFF"> init</span></span>
+<span class="line"><span style="color:#B392F0">chezmoi</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> ~/.zshrc</span></span>
+<span class="line"><span style="color:#B392F0">chezmoi</span><span style="color:#9ECBFF"> cd</span></span></code></pre>
+<h3 id="q2-插件太多导致启动慢怎么办">Q2: 插件太多导致启动慢怎么办？</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 1. 测量启动时间</span></span>
+<span class="line"><span style="color:#F97583">time</span><span style="color:#E1E4E8"> zsh -i -c exit</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 2. 禁用不常用的插件</span></span>
+<span class="line"><span style="color:#6A737D"># 在 .zshrc 中只保留必要插件：</span></span>
+<span class="line"><span style="color:#E1E4E8">plugins</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#9ECBFF">    git</span></span>
+<span class="line"><span style="color:#9ECBFF">    zsh-autosuggestions</span></span>
+<span class="line"><span style="color:#9ECBFF">    zsh-syntax-highlighting</span></span>
+<span class="line"><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 3. 使用条件加载</span></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> [[ </span><span style="color:#F97583">-d</span><span style="color:#9ECBFF"> "/path/to/heavy/plugin"</span><span style="color:#E1E4E8"> ]]; </span><span style="color:#F97583">then</span></span>
+<span class="line"><span style="color:#6A737D">    # 仅在需要时加载</span></span>
+<span class="line"><span style="color:#F97583">fi</span></span></code></pre>
+<h3 id="q3-rust-编译太慢怎么办">Q3: Rust 编译太慢怎么办？</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 1. 使用 cargo check 代替 cargo build（快 10 倍）</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> check</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 2. 使用 cargo-watch 自动检查</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> cargo-watch</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> watch</span><span style="color:#79B8FF"> -x</span><span style="color:#9ECBFF"> check</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 3. 使用 sccache 缓存编译结果</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> sccache</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#E1E4E8"> RUSTC_WRAPPER</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">sccache</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 4. 使用更快的链接器</span></span>
+<span class="line"><span style="color:#6A737D"># 安装 mold（最快的链接器）</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> mold</span></span>
+<span class="line"><span style="color:#6A737D"># 配置使用 mold（在 .cargo/config.toml 中）</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 5. 开启增量编译（默认已开启）</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#E1E4E8"> CARGO_INCREMENTAL</span><span style="color:#F97583">=</span><span style="color:#79B8FF">1</span></span></code></pre>
+<h3 id="q4-如何卸载并重新安装">Q4: 如何卸载并重新安装？</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 卸载 Rust</span></span>
+<span class="line"><span style="color:#B392F0">rustup</span><span style="color:#9ECBFF"> self</span><span style="color:#9ECBFF"> uninstall</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 卸载 Oh My Zsh</span></span>
+<span class="line"><span style="color:#B392F0">rm</span><span style="color:#79B8FF"> -rf</span><span style="color:#9ECBFF"> ~/.oh-my-zsh</span></span>
+<span class="line"><span style="color:#B392F0">rm</span><span style="color:#9ECBFF"> ~/.zshrc</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 恢复备份（如果有）</span></span>
+<span class="line"><span style="color:#B392F0">cp</span><span style="color:#9ECBFF"> ~/.zshrc.backup.</span><span style="color:#79B8FF">*</span><span style="color:#9ECBFF"> ~/.zshrc</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 更改回默认 shell</span></span>
+<span class="line"><span style="color:#B392F0">chsh</span><span style="color:#79B8FF"> -s</span><span style="color:#9ECBFF"> /bin/bash</span></span></code></pre>
+<h3 id="q5-如何更新所有工具">Q5: 如何更新所有工具？</h3>
+<p>创建一个更新脚本：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">cat</span><span style="color:#F97583"> ></span><span style="color:#9ECBFF"> ~/update-dev-env.sh</span><span style="color:#F97583"> &#x3C;&#x3C;</span><span style="color:#9ECBFF"> 'EOF'</span></span>
+<span class="line"><span style="color:#9ECBFF">#!/bin/bash</span></span>
+<span class="line"><span style="color:#9ECBFF">echo "更新 Rust..."</span></span>
+<span class="line"><span style="color:#9ECBFF">rustup update</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">echo "更新 Cargo 工具..."</span></span>
+<span class="line"><span style="color:#9ECBFF">cargo install-update -a</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">echo "更新 Oh My Zsh..."</span></span>
+<span class="line"><span style="color:#9ECBFF">cd ~/.oh-my-zsh &#x26;&#x26; git pull</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">echo "更新 Zsh 插件..."</span></span>
+<span class="line"><span style="color:#9ECBFF">cd ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions &#x26;&#x26; git pull</span></span>
+<span class="line"><span style="color:#9ECBFF">cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting &#x26;&#x26; git pull</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">echo "更新完成！"</span></span>
+<span class="line"><span style="color:#9ECBFF">EOF</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">chmod</span><span style="color:#9ECBFF"> +x</span><span style="color:#9ECBFF"> ~/update-dev-env.sh</span></span></code></pre>
+<p>注意：需要先安装 <code>cargo-update</code>：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> cargo-update</span></span></code></pre>
+<h3 id="q6-在服务器上如何配置无需-sudo-的环境">Q6: 在服务器上如何配置无需 sudo 的环境？</h3>
+<p>所有工具都可以安装到用户目录：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Rust 默认就安装在 ~/.cargo</span></span>
+<span class="line"><span style="color:#6A737D"># Oh My Zsh 默认就安装在 ~/.oh-my-zsh</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 如果无法 chsh，可以在 .bashrc 末尾添加</span></span>
+<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> 'exec zsh'</span><span style="color:#F97583"> >></span><span style="color:#9ECBFF"> ~/.bashrc</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 或者使用别名</span></span>
+<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> 'alias zsh="~/.local/bin/zsh"'</span><span style="color:#F97583"> >></span><span style="color:#9ECBFF"> ~/.bashrc</span></span></code></pre>
+<hr>
+<h2 id="十环境验证脚本">十、环境验证脚本</h2>
+<p>创建一个快速验证环境的脚本：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">cat</span><span style="color:#F97583"> ></span><span style="color:#9ECBFF"> ~/verify-dev-env.sh</span><span style="color:#F97583"> &#x3C;&#x3C;</span><span style="color:#9ECBFF"> 'EOF'</span></span>
+<span class="line"><span style="color:#9ECBFF">#!/bin/bash</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">GREEN='\033[0;32m'</span></span>
+<span class="line"><span style="color:#9ECBFF">RED='\033[0;31m'</span></span>
+<span class="line"><span style="color:#9ECBFF">NC='\033[0m'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">check_command() {</span></span>
+<span class="line"><span style="color:#9ECBFF">    if command -v $1 &#x26;> /dev/null; then</span></span>
+<span class="line"><span style="color:#9ECBFF">        echo -e "${GREEN}✓${NC} $1: $(command -v $1)"</span></span>
+<span class="line"><span style="color:#9ECBFF">        if [ ! -z "$2" ]; then</span></span>
+<span class="line"><span style="color:#9ECBFF">            echo "  版本: $($1 $2 2>&#x26;1 | head -n1)"</span></span>
+<span class="line"><span style="color:#9ECBFF">        fi</span></span>
+<span class="line"><span style="color:#9ECBFF">        return 0</span></span>
+<span class="line"><span style="color:#9ECBFF">    else</span></span>
+<span class="line"><span style="color:#9ECBFF">        echo -e "${RED}✗${NC} $1: 未安装"</span></span>
+<span class="line"><span style="color:#9ECBFF">        return 1</span></span>
+<span class="line"><span style="color:#9ECBFF">    fi</span></span>
+<span class="line"><span style="color:#9ECBFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">echo "=========================================="</span></span>
+<span class="line"><span style="color:#9ECBFF">echo "开发环境验证"</span></span>
+<span class="line"><span style="color:#9ECBFF">echo "=========================================="</span></span>
+<span class="line"><span style="color:#9ECBFF">echo ""</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">echo "Shell 环境："</span></span>
+<span class="line"><span style="color:#9ECBFF">check_command zsh --version</span></span>
+<span class="line"><span style="color:#9ECBFF">echo "当前 Shell: $SHELL"</span></span>
+<span class="line"><span style="color:#9ECBFF">echo ""</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">echo "Rust 工具链："</span></span>
+<span class="line"><span style="color:#9ECBFF">check_command rustc --version</span></span>
+<span class="line"><span style="color:#9ECBFF">check_command cargo --version</span></span>
+<span class="line"><span style="color:#9ECBFF">check_command rustup --version</span></span>
+<span class="line"><span style="color:#9ECBFF">echo ""</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">echo "Git："</span></span>
+<span class="line"><span style="color:#9ECBFF">check_command git --version</span></span>
+<span class="line"><span style="color:#9ECBFF">echo ""</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">echo "Cargo 工具："</span></span>
+<span class="line"><span style="color:#9ECBFF">check_command cargo-watch --version</span></span>
+<span class="line"><span style="color:#9ECBFF">check_command cargo-edit --version</span></span>
+<span class="line"><span style="color:#9ECBFF">check_command bacon --version</span></span>
+<span class="line"><span style="color:#9ECBFF">check_command sccache --version</span></span>
+<span class="line"><span style="color:#9ECBFF">echo ""</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">echo "配置文件："</span></span>
+<span class="line"><span style="color:#9ECBFF">if [ -f ~/.zshrc ]; then</span></span>
+<span class="line"><span style="color:#9ECBFF">    echo -e "${GREEN}✓${NC} ~/.zshrc 存在"</span></span>
+<span class="line"><span style="color:#9ECBFF">else</span></span>
+<span class="line"><span style="color:#9ECBFF">    echo -e "${RED}✗${NC} ~/.zshrc 不存在"</span></span>
+<span class="line"><span style="color:#9ECBFF">fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">if [ -d ~/.oh-my-zsh ]; then</span></span>
+<span class="line"><span style="color:#9ECBFF">    echo -e "${GREEN}✓${NC} Oh My Zsh 已安装"</span></span>
+<span class="line"><span style="color:#9ECBFF">else</span></span>
+<span class="line"><span style="color:#9ECBFF">    echo -e "${RED}✗${NC} Oh My Zsh 未安装"</span></span>
+<span class="line"><span style="color:#9ECBFF">fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">if [ -f ~/.cargo/config.toml ]; then</span></span>
+<span class="line"><span style="color:#9ECBFF">    echo -e "${GREEN}✓${NC} Cargo 配置存在"</span></span>
+<span class="line"><span style="color:#9ECBFF">else</span></span>
+<span class="line"><span style="color:#9ECBFF">    echo -e "${RED}✗${NC} Cargo 配置不存在"</span></span>
+<span class="line"><span style="color:#9ECBFF">fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">echo ""</span></span>
+<span class="line"><span style="color:#9ECBFF">echo "=========================================="</span></span>
+<span class="line"><span style="color:#9ECBFF">EOF</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">chmod</span><span style="color:#9ECBFF"> +x</span><span style="color:#9ECBFF"> ~/verify-dev-env.sh</span></span>
+<span class="line"><span style="color:#F97583">~</span><span style="color:#E1E4E8">/verify-dev-env.sh</span></span></code></pre>
+<hr>
+<h2 id="十一统一脚本说明">十一、统一脚本说明</h2>
+<p>本文档配套一个统一的管理脚本，位于 <code>/static/dev-env.sh</code>，包含所有功能。</p>
+<h3 id="-脚本信息">📦 脚本信息</h3>
+<p><strong>文件名</strong>: <code>dev-env.sh</code>
+<strong>行数</strong>: 640+ 行
+<strong>大小</strong>: 约 20KB</p>
+<h3 id="-主要功能">🎯 主要功能</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>命令</th><th>功能说明</th></tr></thead><tbody><tr><td>无参数/交互式</td><td>显示友好的菜单界面</td></tr><tr><td><code>install</code></td><td>一键安装完整开发环境</td></tr><tr><td><code>tools</code></td><td>安装 20+ 个 Rust 开发工具</td></tr><tr><td><code>update</code></td><td>更新所有已安装的工具</td></tr><tr><td><code>verify</code></td><td>验证环境配置状态</td></tr><tr><td><code>help</code></td><td>显示详细帮助信息</td></tr></tbody></table>
+<h3 id="-推荐使用流程">🚀 推荐使用流程</h3>
+<p><strong>初次安装：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 方式一：交互式菜单（推荐新手）</span></span>
+<span class="line"><span style="color:#B392F0">./dev-env.sh</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 方式二：命令行模式（推荐熟练用户）</span></span>
+<span class="line"><span style="color:#B392F0">./dev-env.sh</span><span style="color:#9ECBFF"> install</span><span style="color:#6A737D">    # 安装基础环境</span></span>
+<span class="line"><span style="color:#79B8FF">exec</span><span style="color:#9ECBFF"> zsh</span><span style="color:#6A737D">                # 重新加载</span></span>
+<span class="line"><span style="color:#B392F0">./dev-env.sh</span><span style="color:#9ECBFF"> tools</span><span style="color:#6A737D">      # 安装工具（可选）</span></span>
+<span class="line"><span style="color:#B392F0">./dev-env.sh</span><span style="color:#9ECBFF"> verify</span><span style="color:#6A737D">     # 验证环境</span></span></code></pre>
+<p><strong>定期维护：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 每月运行一次更新</span></span>
+<span class="line"><span style="color:#B392F0">./dev-env.sh</span><span style="color:#9ECBFF"> update</span></span></code></pre>
+<h3 id="-获取脚本">📥 获取脚本</h3>
+<p><strong>方式一：直接下载（推荐）</strong></p>
+<a href="/dev-env.sh" download="dev-env.sh" class="button">
+  <i class="fa-solid fa-download"></i> 下载 dev-env.sh
+</a>
+<p>或使用命令行：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 从本博客下载</span></span>
+<span class="line"><span style="color:#B392F0">wget</span><span style="color:#9ECBFF"> https://www.gameol.site/dev-env.sh</span></span>
+<span class="line"><span style="color:#6A737D"># 或使用 curl</span></span>
+<span class="line"><span style="color:#B392F0">curl</span><span style="color:#79B8FF"> -O</span><span style="color:#9ECBFF"> https://www.gameol.site/dev-env.sh</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 赋予执行权限</span></span>
+<span class="line"><span style="color:#B392F0">chmod</span><span style="color:#9ECBFF"> +x</span><span style="color:#9ECBFF"> dev-env.sh</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 运行脚本</span></span>
+<span class="line"><span style="color:#B392F0">./dev-env.sh</span></span></code></pre>
+<p><strong>方式二：从源码获取</strong></p>
+<ul>
+<li>查看源码：<a href="https://github.com/xvchris/blog">GitHub 仓库</a></li>
+<li>文件路径：<code>static/dev-env.sh</code></li>
+</ul>
+<hr>
+<h2 id="总结">总结</h2>
+<p>本文提供了一套完整的 Zsh + Rust 开发环境配置方案，涵盖以下内容：</p>
+<h3 id="-已完成配置">✅ 已完成配置</h3>
+<p><strong>基础环境：</strong></p>
+<ul>
+<li>✓ Zsh 终端安装与配置</li>
+<li>✓ Oh My Zsh 框架及插件</li>
+<li>✓ 完整的 .zshrc 配置模板</li>
+<li>✓ Rust 工具链安装</li>
+<li>✓ Cargo 镜像加速配置</li>
+</ul>
+<p><strong>进阶配置：</strong></p>
+<ul>
+<li>✓ macOS 系统适配指南</li>
+<li>✓ 20+ 个实用 Rust 工具</li>
+<li>✓ Powerlevel10k 美化主题</li>
+<li>✓ 性能优化建议</li>
+<li>✓ 快速参考卡片</li>
+</ul>
+<p><strong>自动化脚本：</strong></p>
+<ul>
+<li>✓ 统一管理脚本（安装、更新、验证一体化）</li>
+<li>✓ 交互式菜单和命令行双模式</li>
+<li>✓ 跨平台支持（Ubuntu/Debian/macOS）</li>
+</ul>
+<h3 id="-核心特性">🎯 核心特性</h3>
+<ol>
+<li><strong>开箱即用</strong>：所有配置和脚本都经过优化，可直接使用</li>
+<li><strong>跨平台支持</strong>：同时支持 Ubuntu/Debian 和 macOS</li>
+<li><strong>高度定制</strong>：所有配置都有详细注释，方便修改</li>
+<li><strong>自动化程度高</strong>：从安装到维护都有对应脚本</li>
+<li><strong>性能优化</strong>：包含启动速度优化和编译加速配置</li>
+</ol>
+<h3 id="-学习路径建议">📚 学习路径建议</h3>
+<p><strong>初学者：</strong></p>
+<ol>
+<li>从一键脚本开始，快速搭建环境</li>
+<li>逐步了解各个配置项的作用</li>
+<li>根据需要调整别名和函数</li>
+</ol>
+<p><strong>进阶用户：</strong></p>
+<ol>
+<li>尝试 Powerlevel10k 主题美化</li>
+<li>安装并使用 Rust 高级工具</li>
+<li>优化编译速度和启动性能</li>
+<li>搭建 dotfiles 仓库管理配置</li>
+</ol>
+<p><strong>专业开发者：</strong></p>
+<ol>
+<li>考虑使用 zinit 替代 Oh My Zsh</li>
+<li>配置 sccache 和快速链接器</li>
+<li>建立团队统一的开发环境配置</li>
+<li>定制适合项目的工具链</li>
+</ol>
+<h3 id="-最佳实践">💡 最佳实践</h3>
+<ol>
+<li><strong>定期更新</strong>：每月运行一次更新脚本</li>
+<li><strong>配置版本控制</strong>：使用 Git 管理 dotfiles</li>
+<li><strong>性能监控</strong>：定期检查终端启动时间</li>
+<li><strong>工具精简</strong>：只安装真正需要的工具</li>
+<li><strong>备份配置</strong>：重要配置定期备份</li>
+</ol>
+<h3 id="-参考资源">🔗 参考资源</h3>
+<ul>
+<li><a href="https://www.rust-lang.org/">Rust 官方文档</a></li>
+<li><a href="https://github.com/ohmyzsh/ohmyzsh">Oh My Zsh GitHub</a></li>
+<li><a href="https://github.com/romkatv/powerlevel10k">Powerlevel10k GitHub</a></li>
+<li><a href="https://rust-lang-nursery.github.io/rust-cookbook/">Rust Cookbook</a></li>
+</ul>
+<hr>
+<p>✅ 完成以上配置后，你将拥有一个完整、现代化、高性能的专业开发环境。这套配置经过实战验证，能够显著提升日常开发效率，让你专注于代码本身而不是环境配置。祝编码愉快！</p> </div> <!-- Post footer --> <footer class="mt-16 pt-8 border-t border-[var(--color-border)] scroll-animate"> <div class="flex items-center justify-between text-sm font-mono text-[var(--color-text-dim)]"> <a href="/blog" class="flex items-center gap-2 hover:text-[var(--color-neon-green)] transition-colors">
+← 返回文章列表
+</a> <button id="share-btn" class="flex items-center gap-2 hover:text-[var(--color-neon-cyan)] transition-colors cursor-pointer">
+📋 复制链接
+</button> </div> </footer> <!-- Giscus Comments --> <div class="mt-12 scroll-animate"> <h2 class="font-mono text-lg text-[var(--color-text-primary)] mb-6"> <span class="text-[var(--color-text-dim)]">// </span> <span class="text-[var(--color-neon-green)]">评论</span> </h2> <script src="https://giscus.app/client.js" data-repo="xvchris/blog" data-repo-id="R_kgDOPdqi-A" data-category="Announcements" data-category-id="DIC_kwDOPdqi-M4C2NLC" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="dark_dimmed" data-lang="zh-CN" crossorigin="anonymous" async></script> </div> </div> <!-- TOC Sidebar --> <aside class="hidden lg:block w-56 shrink-0"> <div class="sticky top-24" id="toc-container"> <div class="text-xs font-mono text-[var(--color-text-dim)] uppercase tracking-widest mb-4">
+目录
+</div> <nav class="border-l border-[var(--color-border)]" id="toc-nav"> <a href="#开发环境配置指南zsh--rust" class="toc-link" data-slug="开发环境配置指南zsh--rust"> 开发环境配置指南（Zsh + Rust） </a><a href="#一zsh-环境配置" class="toc-link" data-slug="一zsh-环境配置"> 一、Zsh 环境配置 </a><a href="#1-安装-zsh" class="toc-link pl-6 text-[0.75rem]" data-slug="1-安装-zsh"> 1. 安装 Zsh </a><a href="#2-设置-zsh-为默认-shell" class="toc-link pl-6 text-[0.75rem]" data-slug="2-设置-zsh-为默认-shell"> 2. 设置 Zsh 为默认 shell </a><a href="#3-安装-oh-my-zsh" class="toc-link pl-6 text-[0.75rem]" data-slug="3-安装-oh-my-zsh"> 3. 安装 Oh My Zsh </a><a href="#4-安装常用插件" class="toc-link pl-6 text-[0.75rem]" data-slug="4-安装常用插件"> 4. 安装常用插件 </a><a href="#5-完整的-zshrc-配置文件" class="toc-link pl-6 text-[0.75rem]" data-slug="5-完整的-zshrc-配置文件"> 5. 完整的 .zshrc 配置文件 </a><a href="#6-应用配置" class="toc-link pl-6 text-[0.75rem]" data-slug="6-应用配置"> 6. 应用配置 </a><a href="#7-配置说明" class="toc-link pl-6 text-[0.75rem]" data-slug="7-配置说明"> 7. 配置说明 </a><a href="#二rust-开发环境" class="toc-link" data-slug="二rust-开发环境"> 二、Rust 开发环境 </a><a href="#1-安装-c-编译器和开发依赖" class="toc-link pl-6 text-[0.75rem]" data-slug="1-安装-c-编译器和开发依赖"> 1. 安装 C 编译器和开发依赖 </a><a href="#2-安装-rust" class="toc-link pl-6 text-[0.75rem]" data-slug="2-安装-rust"> 2. 安装 Rust </a><a href="#3-验证安装" class="toc-link pl-6 text-[0.75rem]" data-slug="3-验证安装"> 3. 验证安装 </a><a href="#4-配置-cargo-镜像" class="toc-link pl-6 text-[0.75rem]" data-slug="4-配置-cargo-镜像"> 4. 配置 Cargo 镜像 </a><a href="#5-可选切换-rust-版本" class="toc-link pl-6 text-[0.75rem]" data-slug="5-可选切换-rust-版本"> 5. 可选：切换 Rust 版本 </a><a href="#三一键管理脚本" class="toc-link" data-slug="三一键管理脚本"> 三、一键管理脚本 </a><a href="#使用方法" class="toc-link pl-6 text-[0.75rem]" data-slug="使用方法"> 使用方法 </a><a href="#脚本特性" class="toc-link pl-6 text-[0.75rem]" data-slug="脚本特性"> 脚本特性 </a><a href="#脚本功能说明" class="toc-link pl-6 text-[0.75rem]" data-slug="脚本功能说明"> 脚本功能说明 </a><a href="#获取脚本" class="toc-link pl-6 text-[0.75rem]" data-slug="获取脚本"> 获取脚本 </a><a href="#故障排除" class="toc-link pl-6 text-[0.75rem]" data-slug="故障排除"> 故障排除 </a><a href="#四macos-系统适配" class="toc-link" data-slug="四macos-系统适配"> 四、macOS 系统适配 </a><a href="#1-安装-homebrew如果还没有" class="toc-link pl-6 text-[0.75rem]" data-slug="1-安装-homebrew如果还没有"> 1. 安装 Homebrew（如果还没有） </a><a href="#2-安装-zshmacos-通常已预装" class="toc-link pl-6 text-[0.75rem]" data-slug="2-安装-zshmacos-通常已预装"> 2. 安装 Zsh（macOS 通常已预装） </a><a href="#3-安装其他工具" class="toc-link pl-6 text-[0.75rem]" data-slug="3-安装其他工具"> 3. 安装其他工具 </a><a href="#4-macos-专用别名调整" class="toc-link pl-6 text-[0.75rem]" data-slug="4-macos-专用别名调整"> 4. macOS 专用别名调整 </a><a href="#5-macos-下的脚本修改" class="toc-link pl-6 text-[0.75rem]" data-slug="5-macos-下的脚本修改"> 5. macOS 下的脚本修改 </a><a href="#五常用-rust-工具链" class="toc-link" data-slug="五常用-rust-工具链"> 五、常用 Rust 工具链 </a><a href="#1-代码格式化和检查工具" class="toc-link pl-6 text-[0.75rem]" data-slug="1-代码格式化和检查工具"> 1. 代码格式化和检查工具 </a><a href="#2-cargo-edit管理依赖" class="toc-link pl-6 text-[0.75rem]" data-slug="2-cargo-edit管理依赖"> 2. cargo-edit（管理依赖） </a><a href="#3-cargo-watch自动重新编译" class="toc-link pl-6 text-[0.75rem]" data-slug="3-cargo-watch自动重新编译"> 3. cargo-watch（自动重新编译） </a><a href="#4-cargo-tree依赖树" class="toc-link pl-6 text-[0.75rem]" data-slug="4-cargo-tree依赖树"> 4. cargo-tree（依赖树） </a><a href="#5-bacon快速后台编译检查" class="toc-link pl-6 text-[0.75rem]" data-slug="5-bacon快速后台编译检查"> 5. bacon（快速后台编译检查） </a><a href="#6-cargo-expand宏展开" class="toc-link pl-6 text-[0.75rem]" data-slug="6-cargo-expand宏展开"> 6. cargo-expand（宏展开） </a><a href="#7-sccache编译缓存加速" class="toc-link pl-6 text-[0.75rem]" data-slug="7-sccache编译缓存加速"> 7. sccache（编译缓存加速） </a><a href="#8-其他实用工具" class="toc-link pl-6 text-[0.75rem]" data-slug="8-其他实用工具"> 8. 其他实用工具 </a><a href="#9-一键安装常用工具" class="toc-link pl-6 text-[0.75rem]" data-slug="9-一键安装常用工具"> 9. 一键安装常用工具 </a><a href="#六进阶主题配置" class="toc-link" data-slug="六进阶主题配置"> 六、进阶主题配置 </a><a href="#1-安装-powerlevel10k" class="toc-link pl-6 text-[0.75rem]" data-slug="1-安装-powerlevel10k"> 1. 安装 Powerlevel10k </a><a href="#2-修改-zshrc" class="toc-link pl-6 text-[0.75rem]" data-slug="2-修改-zshrc"> 2. 修改 .zshrc </a><a href="#3-安装-nerd-font必需" class="toc-link pl-6 text-[0.75rem]" data-slug="3-安装-nerd-font必需"> 3. 安装 Nerd Font（必需） </a><a href="#4-配置终端字体" class="toc-link pl-6 text-[0.75rem]" data-slug="4-配置终端字体"> 4. 配置终端字体 </a><a href="#5-运行配置向导" class="toc-link pl-6 text-[0.75rem]" data-slug="5-运行配置向导"> 5. 运行配置向导 </a><a href="#6-powerlevel10k-推荐配置" class="toc-link pl-6 text-[0.75rem]" data-slug="6-powerlevel10k-推荐配置"> 6. Powerlevel10k 推荐配置 </a><a href="#七性能优化建议" class="toc-link" data-slug="七性能优化建议"> 七、性能优化建议 </a><a href="#1-减少启动时间" class="toc-link pl-6 text-[0.75rem]" data-slug="1-减少启动时间"> 1. 减少启动时间 </a><a href="#2-延迟加载-nvmpyenv-等工具" class="toc-link pl-6 text-[0.75rem]" data-slug="2-延迟加载-nvmpyenv-等工具"> 2. 延迟加载 nvm/pyenv 等工具 </a><a href="#3-使用-zinit-替代-oh-my-zsh进阶" class="toc-link pl-6 text-[0.75rem]" data-slug="3-使用-zinit-替代-oh-my-zsh进阶"> 3. 使用 zinit 替代 Oh My Zsh（进阶） </a><a href="#4-rust-编译优化" class="toc-link pl-6 text-[0.75rem]" data-slug="4-rust-编译优化"> 4. Rust 编译优化 </a><a href="#八快速参考" class="toc-link" data-slug="八快速参考"> 八、快速参考 </a><a href="#常用-zsh-快捷键" class="toc-link pl-6 text-[0.75rem]" data-slug="常用-zsh-快捷键"> 常用 Zsh 快捷键 </a><a href="#常用-rust-命令" class="toc-link pl-6 text-[0.75rem]" data-slug="常用-rust-命令"> 常用 Rust 命令 </a><a href="#常用-git-别名" class="toc-link pl-6 text-[0.75rem]" data-slug="常用-git-别名"> 常用 Git 别名 </a><a href="#九常见问题扩展" class="toc-link" data-slug="九常见问题扩展"> 九、常见问题扩展 </a><a href="#q1-如何在多台机器间同步配置" class="toc-link pl-6 text-[0.75rem]" data-slug="q1-如何在多台机器间同步配置"> Q1: 如何在多台机器间同步配置？ </a><a href="#q2-插件太多导致启动慢怎么办" class="toc-link pl-6 text-[0.75rem]" data-slug="q2-插件太多导致启动慢怎么办"> Q2: 插件太多导致启动慢怎么办？ </a><a href="#q3-rust-编译太慢怎么办" class="toc-link pl-6 text-[0.75rem]" data-slug="q3-rust-编译太慢怎么办"> Q3: Rust 编译太慢怎么办？ </a><a href="#q4-如何卸载并重新安装" class="toc-link pl-6 text-[0.75rem]" data-slug="q4-如何卸载并重新安装"> Q4: 如何卸载并重新安装？ </a><a href="#q5-如何更新所有工具" class="toc-link pl-6 text-[0.75rem]" data-slug="q5-如何更新所有工具"> Q5: 如何更新所有工具？ </a><a href="#q6-在服务器上如何配置无需-sudo-的环境" class="toc-link pl-6 text-[0.75rem]" data-slug="q6-在服务器上如何配置无需-sudo-的环境"> Q6: 在服务器上如何配置无需 sudo 的环境？ </a><a href="#十环境验证脚本" class="toc-link" data-slug="十环境验证脚本"> 十、环境验证脚本 </a><a href="#十一统一脚本说明" class="toc-link" data-slug="十一统一脚本说明"> 十一、统一脚本说明 </a><a href="#-脚本信息" class="toc-link pl-6 text-[0.75rem]" data-slug="-脚本信息"> 📦 脚本信息 </a><a href="#-主要功能" class="toc-link pl-6 text-[0.75rem]" data-slug="-主要功能"> 🎯 主要功能 </a><a href="#-推荐使用流程" class="toc-link pl-6 text-[0.75rem]" data-slug="-推荐使用流程"> 🚀 推荐使用流程 </a><a href="#-获取脚本" class="toc-link pl-6 text-[0.75rem]" data-slug="-获取脚本"> 📥 获取脚本 </a><a href="#总结" class="toc-link" data-slug="总结"> 总结 </a><a href="#-已完成配置" class="toc-link pl-6 text-[0.75rem]" data-slug="-已完成配置"> ✅ 已完成配置 </a><a href="#-核心特性" class="toc-link pl-6 text-[0.75rem]" data-slug="-核心特性"> 🎯 核心特性 </a><a href="#-学习路径建议" class="toc-link pl-6 text-[0.75rem]" data-slug="-学习路径建议"> 📚 学习路径建议 </a><a href="#-最佳实践" class="toc-link pl-6 text-[0.75rem]" data-slug="-最佳实践"> 💡 最佳实践 </a><a href="#-参考资源" class="toc-link pl-6 text-[0.75rem]" data-slug="-参考资源"> 🔗 参考资源 </a> </nav> </div> </aside> </div> </article>  <button class="back-to-top" id="back-to-top" aria-label="返回顶部">↑</button>  </main> <footer class="relative z-10 border-t border-[var(--color-neon-green)]/10 mt-20"> <!-- Gradient divider --> <div class="h-[1px] bg-gradient-to-r from-transparent via-[var(--color-neon-green)]/50 to-transparent"></div> <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8"> <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-[var(--color-text-secondary)] font-mono"> <div class="flex items-center gap-4"> <span>&copy; 2025 Chris</span> <span class="hidden md:inline">|</span> <span>Powered by Astro</span> </div> <div class="flex items-center gap-4"> <span id="site-uptime" data-start="2025-08-01T00:00:00.000Z">运行中...</span> <span>|</span> <span>
+总访问 <span id="busuanzi_value_site_pv" class="text-[var(--color-neon-green)]">--</span> 次
+</span> </div> </div> </div> </footer> <script type="module">function o(){const e=document.getElementById("site-uptime");if(!e)return;const n=new Date(e.dataset.start),t=new Date().getTime()-n.getTime(),s=Math.floor(t/864e5),a=Math.floor(t%864e5/36e5),c=Math.floor(t%36e5/6e4),r=Math.floor(t%6e4/1e3);e.textContent=`已运行 ${s}d ${a}h ${c}m ${r}s`}o();setInterval(o,1e3);</script> <!-- Scroll animation observer --> <script type="module">const s=new IntersectionObserver(e=>{e.forEach(r=>{r.isIntersecting&&(r.target.classList.add("visible"),s.unobserve(r.target))})},{threshold:.1});document.querySelectorAll(".scroll-animate").forEach(e=>s.observe(e));</script> <!-- Busuanzi --> <script async src="https://cn.vercount.one/js"></script> </body> </html> <script type="module">document.querySelectorAll("pre").forEach(t=>{if(t.closest(".code-block-wrapper"))return;const e=t.querySelector("code"),n=e?.className?.match(/language-(\w+)/)?.[1]||"",o=document.createElement("div");o.className="code-block-wrapper relative";const s=document.createElement("div");s.className="code-dots",s.innerHTML="<span></span><span></span><span></span>";const a=document.createElement("span");a.className="code-lang",a.textContent=n;const c=document.createElement("button");c.className="code-copy",c.textContent="Copy",c.addEventListener("click",()=>{const u=e?.textContent||t.textContent||"";navigator.clipboard.writeText(u).then(()=>{c.textContent="✓ Copied",setTimeout(()=>{c.textContent="Copy"},2e3)})}),t.parentNode?.insertBefore(o,t),o.appendChild(s),o.appendChild(a),o.appendChild(c),o.appendChild(t)});const i=document.getElementById("reading-progress"),l=document.getElementById("article-content");function g(){if(!i||!l)return;const t=l.getBoundingClientRect(),e=l.scrollHeight,n=Math.max(0,-t.top),o=Math.min(100,n/(e-window.innerHeight)*100);i.style.width=o+"%"}window.addEventListener("scroll",g,{passive:!0});const r=document.querySelectorAll("#toc-nav .toc-link"),d=[];r.forEach(t=>{const e=t.dataset.slug;if(e){const n=document.getElementById(e);n&&d.push(n)}});function p(){let t=0;for(let e=0;e<d.length;e++)d[e].getBoundingClientRect().top<120&&(t=e);r.forEach((e,n)=>{e.classList.toggle("active",n===t)})}window.addEventListener("scroll",p,{passive:!0});p();const m=document.getElementById("back-to-top");window.addEventListener("scroll",()=>{m?.classList.toggle("show",window.scrollY>400)},{passive:!0});m?.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));document.getElementById("share-btn")?.addEventListener("click",()=>{navigator.clipboard.writeText(window.location.href).then(()=>{const t=document.getElementById("share-btn");t&&(t.textContent="✓ 已复制",setTimeout(()=>{t.textContent="📋 复制链接"},2e3))})});</script>
