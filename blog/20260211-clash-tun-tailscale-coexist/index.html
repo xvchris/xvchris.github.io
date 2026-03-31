@@ -1,0 +1,189 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="解决 mihomo TUN 模式下无法访问 Tailscale MagicDNS 的问题，深入分析 auto-detect-interface 与虚拟网卡冲突的根因"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="canonical" href="https://www.gameol.site/blog/20260211-clash-tun-tailscale-coexist/"><link rel="alternate" type="application/rss+xml" title="Chris's Blog" href="/rss.xml"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:url" content="https://www.gameol.site/blog/20260211-clash-tun-tailscale-coexist/"><meta property="og:title" content="Clash TUN 模式与 Tailscale 共存：完整排查与解决方案 — Chris's Blog"><meta property="og:description" content="解决 mihomo TUN 模式下无法访问 Tailscale MagicDNS 的问题，深入分析 auto-detect-interface 与虚拟网卡冲突的根因"><meta name="twitter:card" content="summary_large_image"><!-- Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"><title>Clash TUN 模式与 Tailscale 共存：完整排查与解决方案 — Chris&#39;s Blog</title><!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;e80c887cb6ff49a1a5a67b94ec60d367&quot;}"></script><!-- End Cloudflare Web Analytics --><link rel="stylesheet" href="/_astro/about.D6Zb5mTm.css"></head> <body class="min-h-screen flex flex-col"> <canvas id="particle-canvas" class="fixed inset-0 z-0 pointer-events-none"></canvas> <script type="module">const l=document.getElementById("particle-canvas"),e=l.getContext("2d");let s=l.width=window.innerWidth,h=l.height=window.innerHeight;const r=window.innerWidth<768,f=r?25:70,x=r?100:160,n=[];for(let t=0;t<f;t++)n.push({x:Math.random()*s,y:Math.random()*h,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,size:Math.random()*2+.5,alpha:Math.random()*.4+.2,pulse:Math.random()*Math.PI*2,pulseSpeed:Math.random()*.02+.005});for(let t=0;t<(r?3:8);t++)n.push({x:Math.random()*s,y:Math.random()*h,vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.15,size:Math.random()*1.5+2,alpha:.6,pulse:Math.random()*Math.PI*2,pulseSpeed:Math.random()*.03+.01});let m=-1e3,y=-1e3;r||document.addEventListener("mousemove",t=>{m=t.clientX,y=t.clientY});function M(){e.clearRect(0,0,s,h);for(const t of n){t.x+=t.vx,t.y+=t.vy,t.pulse+=t.pulseSpeed,t.x<-10&&(t.x=s+10),t.x>s+10&&(t.x=-10),t.y<-10&&(t.y=h+10),t.y>h+10&&(t.y=-10);const a=t.alpha*(.7+.3*Math.sin(t.pulse));t.size>2&&(e.beginPath(),e.arc(t.x,t.y,t.size*4,0,Math.PI*2),e.fillStyle=`rgba(74, 222, 128, ${a*.08})`,e.fill()),e.beginPath(),e.arc(t.x,t.y,t.size,0,Math.PI*2),e.fillStyle=`rgba(74, 222, 128, ${a})`,e.fill()}for(let t=0;t<n.length;t++){for(let a=t+1;a<n.length;a++){const i=n[t].x-n[a].x,o=n[t].y-n[a].y,d=Math.sqrt(i*i+o*o);if(d<x){const c=.1*(1-d/x);e.beginPath(),e.moveTo(n[t].x,n[t].y),e.lineTo(n[a].x,n[a].y),e.strokeStyle=`rgba(74, 222, 128, ${c})`,e.lineWidth=.5,e.stroke()}}if(!r){const a=n[t].x-m,i=n[t].y-y,o=Math.sqrt(a*a+i*i);if(o<220){const d=.15*(1-o/220);e.beginPath(),e.moveTo(n[t].x,n[t].y),e.lineTo(m,y),e.strokeStyle=`rgba(34, 211, 238, ${d})`,e.lineWidth=.6,e.stroke();const c=(220-o)*3e-5;n[t].vx+=a*c,n[t].vy+=i*c}}n[t].vx*=.999,n[t].vy*=.999}requestAnimationFrame(M)}window.addEventListener("resize",()=>{s=l.width=window.innerWidth,h=l.height=window.innerHeight});M();</script> <!-- Mouse-following green glow (desktop only) --><div id="mouse-glow" class="hidden md:block fixed w-64 h-64 rounded-full pointer-events-none z-0" style="background: radial-gradient(circle, rgba(74,222,128,0.06) 0%, transparent 70%); transform: translate(-50%, -50%);"></div> <script type="module">const e=document.getElementById("mouse-glow");e&&window.innerWidth>=768&&document.addEventListener("mousemove",t=>{e.style.left=t.clientX+"px",e.style.top=t.clientY+"px"});</script> <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[var(--color-bg-primary)]/80 border-b border-[var(--color-neon-green)]/20"> <div class="relative"> <!-- Bottom glow line --> <div class="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[var(--color-neon-green)] to-transparent opacity-60"></div> <div class="max-w-6xl mx-auto px-4 sm:px-6"> <div class="flex items-center justify-between h-16"> <!-- Logo --> <a href="/" class="font-mono text-xl font-bold text-[var(--color-neon-green)] hover:neon-glow transition-all duration-300">
+&lt;Chris /&gt;
+</a> <!-- Desktop nav --> <div class="hidden md:flex items-center gap-8"> <a href="/" class="nav-link font-mono text-sm tracking-wider transition-all duration-300 relative py-1 text-[var(--color-text-secondary)] hover:text-[var(--color-neon-green)]"> 首页 </a><a href="/blog" class="nav-link font-mono text-sm tracking-wider transition-all duration-300 relative py-1 text-[var(--color-neon-green)] neon-glow"> 文章 </a><a href="/tags" class="nav-link font-mono text-sm tracking-wider transition-all duration-300 relative py-1 text-[var(--color-text-secondary)] hover:text-[var(--color-neon-green)]"> 标签 </a><a href="/about" class="nav-link font-mono text-sm tracking-wider transition-all duration-300 relative py-1 text-[var(--color-text-secondary)] hover:text-[var(--color-neon-green)]"> 关于 </a> <a href="https://github.com/xvchris" target="_blank" rel="noopener noreferrer" class="text-[var(--color-text-secondary)] hover:text-[var(--color-neon-green)] transition-colors"> <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg> </a> </div> <!-- Mobile menu button --> <button id="mobile-menu-btn" class="md:hidden text-[var(--color-text-secondary)] hover:text-[var(--color-neon-green)] transition-colors"> <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg> </button> </div> </div> </div> <!-- Mobile menu --> <div id="mobile-menu" class="hidden md:hidden bg-[var(--color-bg-primary)]/95 backdrop-blur-md border-b border-[var(--color-neon-green)]/20"> <div class="px-4 py-4 space-y-3"> <a href="/" class="block font-mono text-sm tracking-wider py-2 text-[var(--color-text-secondary)]">
+&gt; 首页 </a><a href="/blog" class="block font-mono text-sm tracking-wider py-2 text-[var(--color-neon-green)]">
+&gt; 文章 </a><a href="/tags" class="block font-mono text-sm tracking-wider py-2 text-[var(--color-text-secondary)]">
+&gt; 标签 </a><a href="/about" class="block font-mono text-sm tracking-wider py-2 text-[var(--color-text-secondary)]">
+&gt; 关于 </a> </div> </div> </nav> <script type="module">const e=document.getElementById("mobile-menu-btn"),n=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{n?.classList.toggle("hidden")});</script> <main class="flex-1 relative z-10">   <div class="reading-progress" id="reading-progress"></div> <article class="pt-28 pb-20 px-4 sm:px-6 max-w-6xl mx-auto"> <div class="lg:flex lg:gap-14"> <!-- Main content --> <div class="flex-1 min-w-0"> <header class="fade-in-up mb-12"> <!-- Breadcrumb --> <nav class="flex items-center gap-2 text-xs font-mono text-[var(--color-text-dim)] mb-6"> <a href="/" class="hover:text-[var(--color-neon-green)] transition-colors">~</a> <span>/</span> <a href="/blog" class="hover:text-[var(--color-neon-green)] transition-colors">blog</a> <span>/</span> <span class="text-[var(--color-text-secondary)] truncate max-w-[200px]">Clash TUN 模式与 Tailscale 共存：完整排查与解决方案</span> </nav> <h1 class="font-mono text-2xl sm:text-3xl lg:text-4xl font-bold text-[var(--color-text-primary)] mb-5 leading-tight"> Clash TUN 模式与 Tailscale 共存：完整排查与解决方案 </h1> <div class="flex flex-wrap items-center gap-4 text-sm text-[var(--color-text-secondary)] font-mono mb-6"> <div class="flex items-center gap-2"> <span class="text-[var(--color-neon-green)]">⏱</span> <time datetime="2026-02-11T10:00:00.000Z">2026年2月11日</time> </div> <span class="text-[var(--color-text-dim)]">·</span> <span>15 分钟阅读</span> </div> <div class="flex flex-wrap gap-2"> <a href="/tags/Clash" class="tag-pill">#Clash</a><a href="/tags/Tailscale" class="tag-pill">#Tailscale</a><a href="/tags/网络" class="tag-pill">#网络</a><a href="/tags/macOS" class="tag-pill">#macOS</a><a href="/tags/mihomo" class="tag-pill">#mihomo</a> </div> </header> <div class="prose fade-in-up" id="article-content"> <h2 id="问题描述">问题描述</h2>
+<p>开启 Clash（mihomo 内核）的 TUN 模式后，无法访问 Tailscale 的 MagicDNS 域名（<code>*.ts.net</code>），Clash 日志报错：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>[TCP] dial DIRECT (match DomainSuffix/ts.net) 127.0.0.1:60140 --> studio.tail7f8eb.ts.net:443 error: dns resolve failed: context deadline exceeded</span></span></code></pre>
+<p>环境信息：</p>
+<ul>
+<li>macOS（Darwin）</li>
+<li>Clash Party（mihomo-party），内核为 mihomo</li>
+<li>Tailscale，使用 MagicDNS</li>
+</ul>
+<h2 id="根因分析">根因分析</h2>
+<p>这个问题的本质不是规则配置错误，而是 <strong>mihomo 的 <code>auto-detect-interface</code> 机制与 Tailscale 的虚拟网卡冲突</strong>。</p>
+<h3 id="mihomo-tun-模式的工作原理">mihomo TUN 模式的工作原理</h3>
+<p>mihomo 开启 TUN 后，会创建一个虚拟网卡（如 <code>utun1500</code>）接管系统所有流量。为了防止自身出站流量再次被 TUN 拦截（回环），mihomo 会”保护”自己的出站连接——通过 <code>auto-detect-interface</code> 自动检测出站接口，将自身流量直接发往物理网卡（如 <code>en0</code>）。</p>
+<h3 id="问题出在哪">问题出在哪</h3>
+<p>Tailscale 的设备通过虚拟网卡 <code>utun4</code>（编号可能不同）通信，IP 段为 <code>100.64.0.0/10</code>，MagicDNS 服务器地址为 <code>100.100.100.100</code>。这些地址<strong>只能通过 Tailscale 的虚拟网卡访问</strong>，物理网卡根本不可达。</p>
+<p>但 mihomo 的 <code>auto-detect-interface</code> 不认识 Tailscale 的路由，<strong>把所有出站流量（包括发往 <code>100.100.100.100</code> 的 DNS 查询）都检测到了 <code>en0</code></strong>：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>[DNS] resolve studio.tail7f8eb.ts.net A from udp://100.100.100.100:53</span></span>
+<span class="line"><span>[TUN] Auto detect interface for 100.100.100.100 --> en0  ← 错误！应该走 utun4</span></span></code></pre>
+<p>这导致了两个层面的故障：</p>
+<ol>
+<li><strong>DNS 解析失败</strong>：mihomo 通过 <code>en0</code> 向 <code>100.100.100.100</code> 发 DNS 查询 → 不可达 → 超时</li>
+<li><strong>TCP 连接失败</strong>：即使 DNS 解析成功，mihomo 通过 <code>en0</code> 向 Tailscale IP 发起 TCP 连接 → 同样不可达 → 超时</li>
+</ol>
+<h3 id="为什么系统命令正常但-clash-不行">为什么系统命令正常但 Clash 不行</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 正常！普通进程走系统路由表，100.100.100.100 路由到 utun4</span></span>
+<span class="line"><span style="color:#B392F0">$</span><span style="color:#9ECBFF"> ping</span><span style="color:#79B8FF"> 100.100.100.100</span></span>
+<span class="line"><span style="color:#B392F0">64</span><span style="color:#9ECBFF"> bytes</span><span style="color:#9ECBFF"> from</span><span style="color:#9ECBFF"> 100.100.100.100:</span><span style="color:#9ECBFF"> icmp_seq=</span><span style="color:#79B8FF">0</span><span style="color:#9ECBFF"> ttl=</span><span style="color:#79B8FF">64</span><span style="color:#9ECBFF"> time=</span><span style="color:#79B8FF">0.943</span><span style="color:#9ECBFF"> ms</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 正常！</span></span>
+<span class="line"><span style="color:#B392F0">$</span><span style="color:#9ECBFF"> nslookup</span><span style="color:#9ECBFF"> studio.tail7f8eb.ts.net</span><span style="color:#79B8FF"> 100.100.100.100</span></span>
+<span class="line"><span style="color:#B392F0">Name:</span><span style="color:#9ECBFF">    studio.tail7f8eb.ts.net</span></span>
+<span class="line"><span style="color:#B392F0">Address:</span><span style="color:#79B8FF"> 100.95.73.65</span></span></code></pre>
+<p>普通进程遵循系统路由表（<code>100.100.100.100/32 → utun4</code>），而 mihomo 为防 TUN 回环，绕过了路由表直接走 <code>en0</code>。</p>
+<h2 id="解决方案">解决方案</h2>
+<p>核心思路：<strong>不依赖 mihomo 的自动接口检测，显式指定 Tailscale 流量走 <code>utun4</code> 接口</strong>。</p>
+<h3 id="第一步确认-tailscale-使用的网卡接口">第一步：确认 Tailscale 使用的网卡接口</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">$</span><span style="color:#9ECBFF"> ifconfig</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> grep</span><span style="color:#79B8FF"> -E</span><span style="color:#9ECBFF"> "^utun|inet 100\."</span></span>
+<span class="line"><span style="color:#B392F0">utun4:</span><span style="color:#9ECBFF"> flags=</span><span style="color:#79B8FF">8051</span><span style="color:#F97583">&#x3C;</span><span style="color:#9ECBFF">UP,POINTOPOINT,RUNNING,MULTICAS</span><span style="color:#E1E4E8">T</span><span style="color:#F97583">></span><span style="color:#9ECBFF"> mtu</span><span style="color:#79B8FF"> 1280</span></span>
+<span class="line"><span style="color:#B392F0">	inet</span><span style="color:#79B8FF"> 100.70.0.1</span><span style="color:#79B8FF"> --</span><span style="color:#F97583">></span><span style="color:#79B8FF"> 100.70.0.1</span><span style="color:#9ECBFF"> netmask</span><span style="color:#79B8FF"> 0xffffffff</span></span></code></pre>
+<p>记住这个接口名（本例为 <code>utun4</code>），后续配置需要用到。</p>
+<blockquote>
+<p><strong>注意</strong>：macOS 上 Tailscale 的 utun 编号不固定，重启后可能变化。如果发现连接又断了，先检查接口编号是否变了。可以用以下命令自动获取：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#E1E4E8">tailscale_iface</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">$(</span><span style="color:#B392F0">ifconfig</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> grep</span><span style="color:#79B8FF"> -B1</span><span style="color:#9ECBFF"> "inet 100\."</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> head</span><span style="color:#79B8FF"> -1</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> cut</span><span style="color:#79B8FF"> -d:</span><span style="color:#79B8FF"> -f1</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#79B8FF">echo</span><span style="color:#9ECBFF"> "当前 Tailscale 接口: </span><span style="color:#E1E4E8">$tailscale_iface</span><span style="color:#9ECBFF">"</span></span></code></pre>
+</blockquote>
+<h3 id="第二步配置-mihomo">第二步：配置 mihomo</h3>
+<p>需要修改三个方面的配置：</p>
+<h4 id="1-dns强制通过-tailscale-接口查询">1. DNS：强制通过 Tailscale 接口查询</h4>
+<p>使用 <code>#interface</code> 语法绑定 DNS 出站接口：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">dns</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  nameserver-policy</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#9ECBFF">    "+.ts.net"</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#9ECBFF">"100.100.100.100#utun4"</span></span></code></pre>
+<p><code>100.100.100.100#utun4</code> 告诉 mihomo：向 <code>100.100.100.100</code> 发 DNS 查询时，强制走 <code>utun4</code> 接口，不要自动检测。</p>
+<blockquote>
+<p>不需要给 <code>tailscale.com</code> 配置 MagicDNS——它是普通互联网域名，用系统默认 DNS 解析即可。</p>
+</blockquote>
+<blockquote>
+<p><strong>踩坑提醒</strong>：不要用 <code>%utun4</code>，<code>%</code> 会被解析为 URL 编码导致报错。正确语法是 <code>#</code>。</p>
+</blockquote>
+<h4 id="2-代理创建绑定接口的-direct-代理">2. 代理：创建绑定接口的 direct 代理</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">proxies</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Tailscale</span></span>
+<span class="line"><span style="color:#85E89D">    type</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">direct</span></span>
+<span class="line"><span style="color:#85E89D">    interface-name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">utun4</span></span></code></pre>
+<p>这定义了一个名为 <code>Tailscale</code> 的代理，本质是直连，但强制所有流量通过 <code>utun4</code> 接口发出。</p>
+<h4 id="3-规则tailscale-流量使用绑定接口的代理">3. 规则：Tailscale 流量使用绑定接口的代理</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">rules</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#6A737D">  # Tailscale 域名和 IP 走绑定 utun4 的 direct 代理</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">DOMAIN-SUFFIX,tail7f8eb.ts.net,Tailscale</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">IP-CIDR,100.64.0.0/10,Tailscale</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">IP-CIDR,fd7a:115c:a1e0::/48,Tailscale</span></span>
+<span class="line"><span style="color:#6A737D">  # Tailscale 进程本身保持 DIRECT（它自己管理路由）</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">PROCESS-NAME,tailscale,DIRECT</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">PROCESS-NAME,tailscaled,DIRECT</span></span></code></pre>
+<blockquote>
+<p><strong>为什么不用 <code>DOMAIN-SUFFIX,ts.net</code>？</strong> <code>ts.net</code> 会匹配所有 Tailscale 用户的域名。更精确的做法是只匹配你自己的 tailnet 域名（如 <code>tail7f8eb.ts.net</code>），在 Tailscale 管理后台的 DNS 页面可以查到。</p>
+</blockquote>
+<blockquote>
+<p><strong>为什么不加 <code>DOMAIN-SUFFIX,tailscale.com</code>？</strong> <code>tailscale.com</code> 是普通互联网网站（文档、博客、管理后台），强制走 <code>utun4</code> 但没有配置出口节点会导致网站打不开。<code>tailscaled</code> 进程的控制面流量已经被 <code>PROCESS-NAME,tailscaled,DIRECT</code> 处理了，不需要域名规则兜底。</p>
+</blockquote>
+<p><strong>关键</strong>：域名和 IP 规则使用 <code>Tailscale</code>（绑定 utun4 的 direct 代理），而非 <code>DIRECT</code>。<code>DIRECT</code> 会触发 <code>auto-detect-interface</code>，又会错误地走 <code>en0</code>。</p>
+<h4 id="4-tun排除-tailscale-接口">4. TUN：排除 Tailscale 接口</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">tun</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  exclude-interface</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#9ECBFF">utun4</span></span></code></pre>
+<p>防止 Tailscale 自身的流量被 TUN 拦截。</p>
+<h3 id="完整配置示例">完整配置示例</h3>
+<p>以下是 Clash Party 覆写文件的完整示例：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">+proxies</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Tailscale</span></span>
+<span class="line"><span style="color:#85E89D">    type</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">direct</span></span>
+<span class="line"><span style="color:#85E89D">    interface-name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">utun4</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">+rules</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">DOMAIN-SUFFIX,tail7f8eb.ts.net,Tailscale</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">IP-CIDR,100.64.0.0/10,Tailscale</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">IP-CIDR,fd7a:115c:a1e0::/48,Tailscale</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">PROCESS-NAME,tailscale,DIRECT</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">PROCESS-NAME,tailscaled,DIRECT</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">dns</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  nameserver-policy</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    &#x3C;+.ts.net></span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#9ECBFF">"100.100.100.100#utun4"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">tun</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  exclude-interface</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#9ECBFF">utun4</span></span></code></pre>
+<blockquote>
+<p>注：<code>+rules:</code>、<code>+proxies:</code> 和 <code>&#x3C;key>:</code> 是 Clash Party 的覆写语法。如果你使用其他客户端或直接编辑 mihomo 配置文件，请将这些内容合并到对应字段中。</p>
+</blockquote>
+<h3 id="另一个坑route-exclude-address-不生效">另一个坑：<code>route-exclude-address</code> 不生效</h3>
+<p>你可能会想在 TUN 配置中添加 <code>route-exclude-address</code> 来排除 Tailscale 网段：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">tun</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  route-exclude-address</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#9ECBFF">100.64.0.0/10</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#9ECBFF">fd7a:115c:a1e0::/48</span></span></code></pre>
+<p><strong>但在 Clash Party 中这个配置大概率不生效。</strong> Clash Party 的内核设置（<code>mihomo.yaml</code>）中 <code>route-exclude-address: []</code> 会在合并时覆盖覆写文件的值。即使直接编辑 <code>mihomo.yaml</code>，Clash Party 重启时也可能从内部状态恢复为空数组。</p>
+<p>而且即使 <code>route-exclude-address</code> 生效，它只影响系统路由表，<strong>不影响 mihomo 自身的 <code>auto-detect-interface</code> 行为</strong>，所以并不能解决根本问题。真正的解决方案是上面的 <code>interface-name</code> + <code>#interface</code> 方案。推荐搭配 <code>tun.exclude-interface</code> 和 IP 规则来实现等效效果。</p>
+<h2 id="补充配合-peer-relay-使用">补充：配合 Peer Relay 使用</h2>
+<p>如果你有自建服务器（比如 VPS），可以配置 <a href="https://tailscale.com/kb/1478/peer-relay">Tailscale Peer Relay</a>。Peer Relay 和本文的 TUN 共存方案是互补的：</p>
+<ul>
+<li><strong>TUN 共存方案</strong>解决的是本地 Clash 和 Tailscale 流量路由冲突</li>
+<li><strong>Peer Relay</strong> 解决的是节点之间的连接质量问题——当两个节点无法直连（NAT 打洞失败）时，流量会走 Tailscale 官方的 DERP 中继服务器，延迟较高。配置 Peer Relay 后，流量会优先走你自己的中继服务器，比 DERP 快得多</li>
+</ul>
+<p>两者可以同时启用，互不冲突。</p>
+<h2 id="排查命令速查">排查命令速查</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 查看 Tailscale 使用的接口</span></span>
+<span class="line"><span style="color:#B392F0">ifconfig</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> grep</span><span style="color:#79B8FF"> -E</span><span style="color:#9ECBFF"> "^utun|inet 100\."</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 测试 Tailscale DNS 是否可达（系统级）</span></span>
+<span class="line"><span style="color:#B392F0">nslookup</span><span style="color:#9ECBFF"> studio.tail7f8eb.ts.net</span><span style="color:#79B8FF"> 100.100.100.100</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 测试 mihomo 内部 DNS 解析（通过 API）</span></span>
+<span class="line"><span style="color:#B392F0">curl</span><span style="color:#79B8FF"> --noproxy</span><span style="color:#9ECBFF"> '*'</span><span style="color:#79B8FF"> --unix-socket</span><span style="color:#9ECBFF"> /tmp/mihomo-party-</span><span style="color:#79B8FF">*</span><span style="color:#9ECBFF">.sock</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">  "http://localhost/dns/query?name=studio.tail7f8eb.ts.net&#x26;type=A"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 查看 mihomo 实时日志（含接口检测信息）</span></span>
+<span class="line"><span style="color:#B392F0">curl</span><span style="color:#79B8FF"> --noproxy</span><span style="color:#9ECBFF"> '*'</span><span style="color:#79B8FF"> --unix-socket</span><span style="color:#9ECBFF"> /tmp/mihomo-party-</span><span style="color:#79B8FF">*</span><span style="color:#9ECBFF">.sock</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">  "http://localhost/logs?level=debug"</span><span style="color:#79B8FF"> -N</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 查看系统路由表</span></span>
+<span class="line"><span style="color:#B392F0">netstat</span><span style="color:#79B8FF"> -rn</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> grep</span><span style="color:#79B8FF"> -E</span><span style="color:#9ECBFF"> "utun|100\."</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 查看系统 DNS 配置</span></span>
+<span class="line"><span style="color:#B392F0">scutil</span><span style="color:#79B8FF"> --dns</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> head</span><span style="color:#79B8FF"> -30</span></span></code></pre>
+<h2 id="总结">总结</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>层面</th><th>问题</th><th>解决</th></tr></thead><tbody><tr><td>DNS 解析</td><td>mihomo 向 <code>100.100.100.100</code> 查询时走了 <code>en0</code></td><td><code>nameserver-policy</code> 使用 <code>#utun4</code> 绑定接口</td></tr><tr><td>TCP 连接</td><td>mihomo 向 Tailscale IP 连接时走了 <code>en0</code></td><td><code>type: direct</code> + <code>interface-name: utun4</code> 代理</td></tr><tr><td>TUN 拦截</td><td>Tailscale 自身流量被 TUN 捕获</td><td><code>exclude-interface: utun4</code></td></tr></tbody></table>
+<p>一句话总结：<strong>mihomo TUN 的防回环机制会绕过系统路由表，导致 Tailscale 的虚拟网卡流量被错误地发往物理网卡。解决方案是在 DNS 和代理两个层面都显式指定 <code>utun4</code> 接口。</strong></p> </div> <!-- Post footer --> <footer class="mt-16 pt-8 border-t border-[var(--color-border)] scroll-animate"> <div class="flex items-center justify-between text-sm font-mono text-[var(--color-text-dim)]"> <a href="/blog" class="flex items-center gap-2 hover:text-[var(--color-neon-green)] transition-colors">
+← 返回文章列表
+</a> <button id="share-btn" class="flex items-center gap-2 hover:text-[var(--color-neon-cyan)] transition-colors cursor-pointer">
+📋 复制链接
+</button> </div> </footer> <!-- Giscus Comments --> <div class="mt-12 scroll-animate"> <h2 class="font-mono text-lg text-[var(--color-text-primary)] mb-6"> <span class="text-[var(--color-text-dim)]">// </span> <span class="text-[var(--color-neon-green)]">评论</span> </h2> <script src="https://giscus.app/client.js" data-repo="xvchris/blog" data-repo-id="R_kgDOPdqi-A" data-category="Announcements" data-category-id="DIC_kwDOPdqi-M4C2NLC" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="dark_dimmed" data-lang="zh-CN" crossorigin="anonymous" async></script> </div> </div> <!-- TOC Sidebar --> <aside class="hidden lg:block w-56 shrink-0"> <div class="sticky top-24" id="toc-container"> <div class="text-xs font-mono text-[var(--color-text-dim)] uppercase tracking-widest mb-4">
+目录
+</div> <nav class="border-l border-[var(--color-border)]" id="toc-nav"> <a href="#问题描述" class="toc-link" data-slug="问题描述"> 问题描述 </a><a href="#根因分析" class="toc-link" data-slug="根因分析"> 根因分析 </a><a href="#mihomo-tun-模式的工作原理" class="toc-link pl-6 text-[0.75rem]" data-slug="mihomo-tun-模式的工作原理"> mihomo TUN 模式的工作原理 </a><a href="#问题出在哪" class="toc-link pl-6 text-[0.75rem]" data-slug="问题出在哪"> 问题出在哪 </a><a href="#为什么系统命令正常但-clash-不行" class="toc-link pl-6 text-[0.75rem]" data-slug="为什么系统命令正常但-clash-不行"> 为什么系统命令正常但 Clash 不行 </a><a href="#解决方案" class="toc-link" data-slug="解决方案"> 解决方案 </a><a href="#第一步确认-tailscale-使用的网卡接口" class="toc-link pl-6 text-[0.75rem]" data-slug="第一步确认-tailscale-使用的网卡接口"> 第一步：确认 Tailscale 使用的网卡接口 </a><a href="#第二步配置-mihomo" class="toc-link pl-6 text-[0.75rem]" data-slug="第二步配置-mihomo"> 第二步：配置 mihomo </a><a href="#完整配置示例" class="toc-link pl-6 text-[0.75rem]" data-slug="完整配置示例"> 完整配置示例 </a><a href="#另一个坑route-exclude-address-不生效" class="toc-link pl-6 text-[0.75rem]" data-slug="另一个坑route-exclude-address-不生效"> 另一个坑：route-exclude-address 不生效 </a><a href="#补充配合-peer-relay-使用" class="toc-link" data-slug="补充配合-peer-relay-使用"> 补充：配合 Peer Relay 使用 </a><a href="#排查命令速查" class="toc-link" data-slug="排查命令速查"> 排查命令速查 </a><a href="#总结" class="toc-link" data-slug="总结"> 总结 </a> </nav> </div> </aside> </div> </article>  <button class="back-to-top" id="back-to-top" aria-label="返回顶部">↑</button>  </main> <footer class="relative z-10 border-t border-[var(--color-neon-green)]/10 mt-20"> <!-- Gradient divider --> <div class="h-[1px] bg-gradient-to-r from-transparent via-[var(--color-neon-green)]/50 to-transparent"></div> <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8"> <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-[var(--color-text-secondary)] font-mono"> <div class="flex items-center gap-4"> <span>&copy; 2025 Chris</span> <span class="hidden md:inline">|</span> <span>Powered by Astro</span> </div> <div class="flex items-center gap-4"> <span id="site-uptime" data-start="2025-08-01T00:00:00.000Z">运行中...</span> <span>|</span> <span>
+总访问 <span id="busuanzi_value_site_pv" class="text-[var(--color-neon-green)]">--</span> 次
+</span> </div> </div> </div> </footer> <script type="module">function o(){const e=document.getElementById("site-uptime");if(!e)return;const n=new Date(e.dataset.start),t=new Date().getTime()-n.getTime(),s=Math.floor(t/864e5),a=Math.floor(t%864e5/36e5),c=Math.floor(t%36e5/6e4),r=Math.floor(t%6e4/1e3);e.textContent=`已运行 ${s}d ${a}h ${c}m ${r}s`}o();setInterval(o,1e3);</script> <!-- Scroll animation observer --> <script type="module">const s=new IntersectionObserver(e=>{e.forEach(r=>{r.isIntersecting&&(r.target.classList.add("visible"),s.unobserve(r.target))})},{threshold:.1});document.querySelectorAll(".scroll-animate").forEach(e=>s.observe(e));</script> <!-- Busuanzi --> <script async src="https://cn.vercount.one/js"></script> </body> </html> <script type="module">document.querySelectorAll("pre").forEach(t=>{if(t.closest(".code-block-wrapper"))return;const e=t.querySelector("code"),n=e?.className?.match(/language-(\w+)/)?.[1]||"",o=document.createElement("div");o.className="code-block-wrapper relative";const s=document.createElement("div");s.className="code-dots",s.innerHTML="<span></span><span></span><span></span>";const a=document.createElement("span");a.className="code-lang",a.textContent=n;const c=document.createElement("button");c.className="code-copy",c.textContent="Copy",c.addEventListener("click",()=>{const u=e?.textContent||t.textContent||"";navigator.clipboard.writeText(u).then(()=>{c.textContent="✓ Copied",setTimeout(()=>{c.textContent="Copy"},2e3)})}),t.parentNode?.insertBefore(o,t),o.appendChild(s),o.appendChild(a),o.appendChild(c),o.appendChild(t)});const i=document.getElementById("reading-progress"),l=document.getElementById("article-content");function g(){if(!i||!l)return;const t=l.getBoundingClientRect(),e=l.scrollHeight,n=Math.max(0,-t.top),o=Math.min(100,n/(e-window.innerHeight)*100);i.style.width=o+"%"}window.addEventListener("scroll",g,{passive:!0});const r=document.querySelectorAll("#toc-nav .toc-link"),d=[];r.forEach(t=>{const e=t.dataset.slug;if(e){const n=document.getElementById(e);n&&d.push(n)}});function p(){let t=0;for(let e=0;e<d.length;e++)d[e].getBoundingClientRect().top<120&&(t=e);r.forEach((e,n)=>{e.classList.toggle("active",n===t)})}window.addEventListener("scroll",p,{passive:!0});p();const m=document.getElementById("back-to-top");window.addEventListener("scroll",()=>{m?.classList.toggle("show",window.scrollY>400)},{passive:!0});m?.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));document.getElementById("share-btn")?.addEventListener("click",()=>{navigator.clipboard.writeText(window.location.href).then(()=>{const t=document.getElementById("share-btn");t&&(t.textContent="✓ 已复制",setTimeout(()=>{t.textContent="📋 复制链接"},2e3))})});</script>
