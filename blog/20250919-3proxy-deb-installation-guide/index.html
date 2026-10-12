@@ -1,0 +1,201 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="详细介绍如何使用.deb包安装3proxy，并配置SOCKS5和HTTP代理，同时启用用户名密码认证。"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="canonical" href="https://www.gameol.site/blog/20250919-3proxy-deb-installation-guide/"><link rel="alternate" type="application/rss+xml" title="Chris's Blog" href="/rss.xml"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:url" content="https://www.gameol.site/blog/20250919-3proxy-deb-installation-guide/"><meta property="og:title" content="3proxy .deb包安装教程：Socks5 + HTTP + 用户名密码认证 — Chris's Blog"><meta property="og:description" content="详细介绍如何使用.deb包安装3proxy，并配置SOCKS5和HTTP代理，同时启用用户名密码认证。"><meta name="twitter:card" content="summary_large_image"><!-- Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"><title>3proxy .deb包安装教程：Socks5 + HTTP + 用户名密码认证 — Chris&#39;s Blog</title><!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;e80c887cb6ff49a1a5a67b94ec60d367&quot;}"></script><!-- End Cloudflare Web Analytics --><link rel="stylesheet" href="/_astro/about.D6Zb5mTm.css"></head> <body class="min-h-screen flex flex-col"> <canvas id="particle-canvas" class="fixed inset-0 z-0 pointer-events-none"></canvas> <script type="module">const l=document.getElementById("particle-canvas"),e=l.getContext("2d");let s=l.width=window.innerWidth,h=l.height=window.innerHeight;const r=window.innerWidth<768,f=r?25:70,x=r?100:160,n=[];for(let t=0;t<f;t++)n.push({x:Math.random()*s,y:Math.random()*h,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,size:Math.random()*2+.5,alpha:Math.random()*.4+.2,pulse:Math.random()*Math.PI*2,pulseSpeed:Math.random()*.02+.005});for(let t=0;t<(r?3:8);t++)n.push({x:Math.random()*s,y:Math.random()*h,vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.15,size:Math.random()*1.5+2,alpha:.6,pulse:Math.random()*Math.PI*2,pulseSpeed:Math.random()*.03+.01});let m=-1e3,y=-1e3;r||document.addEventListener("mousemove",t=>{m=t.clientX,y=t.clientY});function M(){e.clearRect(0,0,s,h);for(const t of n){t.x+=t.vx,t.y+=t.vy,t.pulse+=t.pulseSpeed,t.x<-10&&(t.x=s+10),t.x>s+10&&(t.x=-10),t.y<-10&&(t.y=h+10),t.y>h+10&&(t.y=-10);const a=t.alpha*(.7+.3*Math.sin(t.pulse));t.size>2&&(e.beginPath(),e.arc(t.x,t.y,t.size*4,0,Math.PI*2),e.fillStyle=`rgba(74, 222, 128, ${a*.08})`,e.fill()),e.beginPath(),e.arc(t.x,t.y,t.size,0,Math.PI*2),e.fillStyle=`rgba(74, 222, 128, ${a})`,e.fill()}for(let t=0;t<n.length;t++){for(let a=t+1;a<n.length;a++){const i=n[t].x-n[a].x,o=n[t].y-n[a].y,d=Math.sqrt(i*i+o*o);if(d<x){const c=.1*(1-d/x);e.beginPath(),e.moveTo(n[t].x,n[t].y),e.lineTo(n[a].x,n[a].y),e.strokeStyle=`rgba(74, 222, 128, ${c})`,e.lineWidth=.5,e.stroke()}}if(!r){const a=n[t].x-m,i=n[t].y-y,o=Math.sqrt(a*a+i*i);if(o<220){const d=.15*(1-o/220);e.beginPath(),e.moveTo(n[t].x,n[t].y),e.lineTo(m,y),e.strokeStyle=`rgba(34, 211, 238, ${d})`,e.lineWidth=.6,e.stroke();const c=(220-o)*3e-5;n[t].vx+=a*c,n[t].vy+=i*c}}n[t].vx*=.999,n[t].vy*=.999}requestAnimationFrame(M)}window.addEventListener("resize",()=>{s=l.width=window.innerWidth,h=l.height=window.innerHeight});M();</script> <!-- Mouse-following green glow (desktop only) --><div id="mouse-glow" class="hidden md:block fixed w-64 h-64 rounded-full pointer-events-none z-0" style="background: radial-gradient(circle, rgba(74,222,128,0.06) 0%, transparent 70%); transform: translate(-50%, -50%);"></div> <script type="module">const e=document.getElementById("mouse-glow");e&&window.innerWidth>=768&&document.addEventListener("mousemove",t=>{e.style.left=t.clientX+"px",e.style.top=t.clientY+"px"});</script> <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[var(--color-bg-primary)]/80 border-b border-[var(--color-neon-green)]/20"> <div class="relative"> <!-- Bottom glow line --> <div class="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[var(--color-neon-green)] to-transparent opacity-60"></div> <div class="max-w-6xl mx-auto px-4 sm:px-6"> <div class="flex items-center justify-between h-16"> <!-- Logo --> <a href="/" class="font-mono text-xl font-bold text-[var(--color-neon-green)] hover:neon-glow transition-all duration-300">
+&lt;Chris /&gt;
+</a> <!-- Desktop nav --> <div class="hidden md:flex items-center gap-8"> <a href="/" class="nav-link font-mono text-sm tracking-wider transition-all duration-300 relative py-1 text-[var(--color-text-secondary)] hover:text-[var(--color-neon-green)]"> 首页 </a><a href="/blog" class="nav-link font-mono text-sm tracking-wider transition-all duration-300 relative py-1 text-[var(--color-neon-green)] neon-glow"> 文章 </a><a href="/tags" class="nav-link font-mono text-sm tracking-wider transition-all duration-300 relative py-1 text-[var(--color-text-secondary)] hover:text-[var(--color-neon-green)]"> 标签 </a><a href="/about" class="nav-link font-mono text-sm tracking-wider transition-all duration-300 relative py-1 text-[var(--color-text-secondary)] hover:text-[var(--color-neon-green)]"> 关于 </a> <a href="https://github.com/xvchris" target="_blank" rel="noopener noreferrer" class="text-[var(--color-text-secondary)] hover:text-[var(--color-neon-green)] transition-colors"> <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg> </a> </div> <!-- Mobile menu button --> <button id="mobile-menu-btn" class="md:hidden text-[var(--color-text-secondary)] hover:text-[var(--color-neon-green)] transition-colors"> <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg> </button> </div> </div> </div> <!-- Mobile menu --> <div id="mobile-menu" class="hidden md:hidden bg-[var(--color-bg-primary)]/95 backdrop-blur-md border-b border-[var(--color-neon-green)]/20"> <div class="px-4 py-4 space-y-3"> <a href="/" class="block font-mono text-sm tracking-wider py-2 text-[var(--color-text-secondary)]">
+&gt; 首页 </a><a href="/blog" class="block font-mono text-sm tracking-wider py-2 text-[var(--color-neon-green)]">
+&gt; 文章 </a><a href="/tags" class="block font-mono text-sm tracking-wider py-2 text-[var(--color-text-secondary)]">
+&gt; 标签 </a><a href="/about" class="block font-mono text-sm tracking-wider py-2 text-[var(--color-text-secondary)]">
+&gt; 关于 </a> </div> </div> </nav> <script type="module">const e=document.getElementById("mobile-menu-btn"),n=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{n?.classList.toggle("hidden")});</script> <main class="flex-1 relative z-10">   <div class="reading-progress" id="reading-progress"></div> <article class="pt-28 pb-20 px-4 sm:px-6 max-w-6xl mx-auto"> <div class="lg:flex lg:gap-14"> <!-- Main content --> <div class="flex-1 min-w-0"> <header class="fade-in-up mb-12"> <!-- Breadcrumb --> <nav class="flex items-center gap-2 text-xs font-mono text-[var(--color-text-dim)] mb-6"> <a href="/" class="hover:text-[var(--color-neon-green)] transition-colors">~</a> <span>/</span> <a href="/blog" class="hover:text-[var(--color-neon-green)] transition-colors">blog</a> <span>/</span> <span class="text-[var(--color-text-secondary)] truncate max-w-[200px]">3proxy .deb包安装教程：Socks5 + HTTP + 用户名密码认证</span> </nav> <h1 class="font-mono text-2xl sm:text-3xl lg:text-4xl font-bold text-[var(--color-text-primary)] mb-5 leading-tight"> 3proxy .deb包安装教程：Socks5 + HTTP + 用户名密码认证 </h1> <div class="flex flex-wrap items-center gap-4 text-sm text-[var(--color-text-secondary)] font-mono mb-6"> <div class="flex items-center gap-2"> <span class="text-[var(--color-neon-green)]">⏱</span> <time datetime="2025-09-19T02:00:00.000Z">2025年9月19日</time> </div> <span class="text-[var(--color-text-dim)]">·</span> <span>11 分钟阅读</span> </div> <div class="flex flex-wrap gap-2"> <a href="/tags/技术分享" class="tag-pill">#技术分享</a><a href="/tags/代理服务器" class="tag-pill">#代理服务器</a><a href="/tags/网络工具" class="tag-pill">#网络工具</a><a href="/tags/系统配置" class="tag-pill">#系统配置</a> </div> </header> <div class="prose fade-in-up" id="article-content"> <h1 id="3proxy-deb包安装教程socks5--http--用户名密码认证">3proxy .deb包安装教程：Socks5 + HTTP + 用户名密码认证</h1>
+<h2 id="前言">前言</h2>
+<p>3proxy是一个轻量级的代理服务器，支持SOCKS5和HTTP代理协议。相比其他代理软件，3proxy配置简单，资源占用少，非常适合在VPS上部署。</p>
+<p>本文将详细介绍如何使用.deb包安装3proxy，并配置SOCKS5和HTTP代理，同时启用用户名密码认证。</p>
+<h2 id="一下载和安装3proxy">一、下载和安装3proxy</h2>
+<h3 id="11-下载deb包">1.1 下载.deb包</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">wget</span><span style="color:#9ECBFF"> https://github.com/3proxy/3proxy/releases/download/0.9.5/3proxy-0.9.5.x86_64.deb</span><span style="color:#79B8FF"> -O</span><span style="color:#9ECBFF"> 3proxy.deb</span></span></code></pre>
+<h3 id="12-安装3proxy">1.2 安装3proxy</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> dpkg</span><span style="color:#79B8FF"> -i</span><span style="color:#9ECBFF"> 3proxy.deb</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt-get</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> -f</span><span style="color:#79B8FF"> -y</span><span style="color:#6A737D">  # 修复依赖</span></span></code></pre>
+<p>安装完成后，3proxy会自动生成systemd服务文件：<code>/lib/systemd/system/3proxy.service</code></p>
+<h2 id="二停止默认服务并清理">二、停止默认服务并清理</h2>
+<h3 id="21-停止systemd服务">2.1 停止systemd服务</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> systemctl</span><span style="color:#9ECBFF"> stop</span><span style="color:#9ECBFF"> 3proxy.service</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> systemctl</span><span style="color:#9ECBFF"> disable</span><span style="color:#9ECBFF"> 3proxy.service</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> pkill</span><span style="color:#79B8FF"> -f</span><span style="color:#9ECBFF"> 3proxy</span></span></code></pre>
+<h3 id="22-确认端口已释放">2.2 确认端口已释放</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> ss</span><span style="color:#79B8FF"> -tulnp</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> grep</span><span style="color:#9ECBFF"> 3proxy</span></span></code></pre>
+<p>如果输出为空，说明没有残留进程，端口已释放。</p>
+<h2 id="三配置socks5--http代理">三、配置SOCKS5 + HTTP代理</h2>
+<h3 id="31-创建配置目录">3.1 创建配置目录</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> mkdir</span><span style="color:#79B8FF"> -p</span><span style="color:#9ECBFF"> /etc/3proxy/conf</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> nano</span><span style="color:#9ECBFF"> /etc/3proxy/conf/3proxy.cfg</span></span></code></pre>
+<h3 id="32-最小配置示例">3.2 最小配置示例</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">daemon</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 用户认证</span></span>
+<span class="line"><span style="color:#B392F0">auth</span><span style="color:#9ECBFF"> strong</span></span>
+<span class="line"><span style="color:#B392F0">users</span><span style="color:#9ECBFF"> test:CL:123456</span></span>
+<span class="line"><span style="color:#B392F0">allow</span><span style="color:#9ECBFF"> test</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># SOCKS5 代理端口</span></span>
+<span class="line"><span style="color:#B392F0">socks</span><span style="color:#79B8FF"> -p1081</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># HTTP 代理端口</span></span>
+<span class="line"><span style="color:#B392F0">proxy</span><span style="color:#79B8FF"> -p8080</span></span></code></pre>
+<p><strong>配置说明：</strong></p>
+<ul>
+<li><code>daemon</code>：以守护进程模式运行</li>
+<li><code>auth strong</code>：启用强认证</li>
+<li><code>users test:CL:123456</code>：创建用户test，密码123456</li>
+<li><code>allow test</code>：允许用户test访问</li>
+<li><code>socks -p1081</code>：SOCKS5代理监听1081端口</li>
+<li><code>proxy -p8080</code>：HTTP代理监听8080端口</li>
+</ul>
+<p>⚠️ <strong>注意</strong>：.deb安装的3proxy默认日志可能报错，如果不需要日志，可以直接删除log配置。</p>
+<h2 id="四手动启动测试">四、手动启动测试</h2>
+<h3 id="41-启动3proxy">4.1 启动3proxy</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> /usr/local/3proxy/3proxy</span><span style="color:#9ECBFF"> /etc/3proxy/conf/3proxy.cfg</span></span></code></pre>
+<h3 id="42-检查端口监听">4.2 检查端口监听</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> ss</span><span style="color:#79B8FF"> -tulnp</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> grep</span><span style="color:#9ECBFF"> 3proxy</span></span></code></pre>
+<p>应该看到1081（SOCKS5）和8080（HTTP）端口在监听。</p>
+<h2 id="五测试代理功能">五、测试代理功能</h2>
+<h3 id="51-linuxmacos测试">5.1 Linux/macOS测试</h3>
+<p><strong>SOCKS5代理测试：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">curl</span><span style="color:#79B8FF"> -x</span><span style="color:#9ECBFF"> socks5://test:123456@</span><span style="color:#F97583">&#x3C;</span><span style="color:#9ECBFF">服务器I</span><span style="color:#E1E4E8">P</span><span style="color:#F97583">></span><span style="color:#9ECBFF">:1081</span><span style="color:#9ECBFF"> http://httpbin.org/ip</span></span></code></pre>
+<p><strong>HTTP代理测试：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">curl</span><span style="color:#79B8FF"> -x</span><span style="color:#9ECBFF"> http://test:123456@</span><span style="color:#F97583">&#x3C;</span><span style="color:#9ECBFF">服务器I</span><span style="color:#E1E4E8">P</span><span style="color:#F97583">></span><span style="color:#9ECBFF">:8080</span><span style="color:#9ECBFF"> http://httpbin.org/ip</span></span></code></pre>
+<p>如果返回服务器的公网IP，说明代理配置成功。</p>
+<p><strong>注意事项：</strong></p>
+<ul>
+<li>macOS的curl如果<code>socks5h://</code>报错，使用<code>socks5://</code>即可</li>
+<li>将<code>&#x3C;服务器IP></code>替换为实际的服务器IP地址</li>
+</ul>
+<h3 id="52-windows测试">5.2 Windows测试</h3>
+<p><strong>使用curl for Windows：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="cmd"><code><span class="line"><span style="color:#E1E4E8">curl </span><span style="color:#F97583">-</span><span style="color:#E1E4E8">x socks5://test:</span><span style="color:#79B8FF">123456</span><span style="color:#E1E4E8">@</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">服务器IP</span><span style="color:#F97583">></span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">1081</span><span style="color:#E1E4E8"> http://httpbin.org/ip</span></span>
+<span class="line"><span style="color:#E1E4E8">curl </span><span style="color:#F97583">-</span><span style="color:#E1E4E8">x http://test:</span><span style="color:#79B8FF">123456</span><span style="color:#E1E4E8">@</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">服务器IP</span><span style="color:#F97583">></span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">8080</span><span style="color:#E1E4E8"> http://httpbin.org/ip</span></span></code></pre>
+<h2 id="六配置systemd自启动">六、配置systemd自启动</h2>
+<h3 id="61-创建自定义systemd服务">6.1 创建自定义systemd服务</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> nano</span><span style="color:#9ECBFF"> /etc/systemd/system/3proxy.service</span></span></code></pre>
+<h3 id="62-服务文件内容">6.2 服务文件内容</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ini"><code><span class="line"><span style="color:#B392F0">[Unit]</span></span>
+<span class="line"><span style="color:#F97583">Description</span><span style="color:#E1E4E8">=3proxy tiny proxy server</span></span>
+<span class="line"><span style="color:#F97583">After</span><span style="color:#E1E4E8">=network.target</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">[Service]</span></span>
+<span class="line"><span style="color:#F97583">ExecStart</span><span style="color:#E1E4E8">=/usr/local/3proxy/3proxy /etc/3proxy/conf/3proxy.cfg</span></span>
+<span class="line"><span style="color:#F97583">Restart</span><span style="color:#E1E4E8">=on-failure</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">[Install]</span></span>
+<span class="line"><span style="color:#F97583">WantedBy</span><span style="color:#E1E4E8">=multi-user.target</span></span></code></pre>
+<h3 id="63-启用并启动服务">6.3 启用并启动服务</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> systemctl</span><span style="color:#9ECBFF"> daemon-reload</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> systemctl</span><span style="color:#9ECBFF"> enable</span><span style="color:#9ECBFF"> 3proxy.service</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> systemctl</span><span style="color:#9ECBFF"> start</span><span style="color:#9ECBFF"> 3proxy.service</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> systemctl</span><span style="color:#9ECBFF"> status</span><span style="color:#9ECBFF"> 3proxy.service</span></span></code></pre>
+<h2 id="七防火墙配置">七、防火墙配置</h2>
+<h3 id="71-本地防火墙放行">7.1 本地防火墙放行</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> ufw</span><span style="color:#9ECBFF"> allow</span><span style="color:#9ECBFF"> 1081/tcp</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> ufw</span><span style="color:#9ECBFF"> allow</span><span style="color:#9ECBFF"> 8080/tcp</span></span></code></pre>
+<h3 id="72-vps提供商安全组配置">7.2 VPS提供商安全组配置</h3>
+<p><strong>重要提醒</strong>：除了本地防火墙，还需要在VPS提供商的控制面板中配置安全组，放行相应端口：</p>
+<ul>
+<li><strong>阿里云ECS</strong>：在安全组规则中添加1081和8080端口的入方向规则</li>
+<li><strong>腾讯云CVM</strong>：在安全组中添加1081和8080端口的入站规则</li>
+<li><strong>AWS EC2</strong>：在Security Groups中添加1081和8080端口的Inbound规则</li>
+<li><strong>DigitalOcean</strong>：在Firewalls中添加1081和8080端口的Inbound规则</li>
+</ul>
+<h2 id="八高级配置">八、高级配置</h2>
+<h3 id="81-多用户配置">8.1 多用户配置</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">daemon</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 多用户认证</span></span>
+<span class="line"><span style="color:#B392F0">auth</span><span style="color:#9ECBFF"> strong</span></span>
+<span class="line"><span style="color:#B392F0">users</span><span style="color:#9ECBFF"> user1:CL:password1</span></span>
+<span class="line"><span style="color:#B392F0">users</span><span style="color:#9ECBFF"> user2:CL:password2</span></span>
+<span class="line"><span style="color:#B392F0">users</span><span style="color:#9ECBFF"> user3:CL:password3</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 允许所有用户</span></span>
+<span class="line"><span style="color:#B392F0">allow</span><span style="color:#9ECBFF"> user1</span></span>
+<span class="line"><span style="color:#B392F0">allow</span><span style="color:#9ECBFF"> user2</span></span>
+<span class="line"><span style="color:#B392F0">allow</span><span style="color:#9ECBFF"> user3</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 代理端口</span></span>
+<span class="line"><span style="color:#B392F0">socks</span><span style="color:#79B8FF"> -p1081</span></span>
+<span class="line"><span style="color:#B392F0">proxy</span><span style="color:#79B8FF"> -p8080</span></span></code></pre>
+<h3 id="82-限制访问ip">8.2 限制访问IP</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">daemon</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 用户认证</span></span>
+<span class="line"><span style="color:#B392F0">auth</span><span style="color:#9ECBFF"> strong</span></span>
+<span class="line"><span style="color:#B392F0">users</span><span style="color:#9ECBFF"> test:CL:123456</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 只允许特定IP访问</span></span>
+<span class="line"><span style="color:#B392F0">allow</span><span style="color:#9ECBFF"> test</span><span style="color:#9ECBFF"> 192.168.1.0/24</span></span>
+<span class="line"><span style="color:#B392F0">allow</span><span style="color:#9ECBFF"> test</span><span style="color:#9ECBFF"> 10.0.0.0/8</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 代理端口</span></span>
+<span class="line"><span style="color:#B392F0">socks</span><span style="color:#79B8FF"> -p1081</span></span>
+<span class="line"><span style="color:#B392F0">proxy</span><span style="color:#79B8FF"> -p8080</span></span></code></pre>
+<h3 id="83-启用日志">8.3 启用日志</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">daemon</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 日志配置</span></span>
+<span class="line"><span style="color:#B392F0">log</span><span style="color:#9ECBFF"> /var/log/3proxy.log</span><span style="color:#9ECBFF"> D</span></span>
+<span class="line"><span style="color:#B392F0">rotate</span><span style="color:#79B8FF"> 30</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 用户认证</span></span>
+<span class="line"><span style="color:#B392F0">auth</span><span style="color:#9ECBFF"> strong</span></span>
+<span class="line"><span style="color:#B392F0">users</span><span style="color:#9ECBFF"> test:CL:123456</span></span>
+<span class="line"><span style="color:#B392F0">allow</span><span style="color:#9ECBFF"> test</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 代理端口</span></span>
+<span class="line"><span style="color:#B392F0">socks</span><span style="color:#79B8FF"> -p1081</span></span>
+<span class="line"><span style="color:#B392F0">proxy</span><span style="color:#79B8FF"> -p8080</span></span></code></pre>
+<h2 id="九常见问题排查">九、常见问题排查</h2>
+<h3 id="91-端口被占用">9.1 端口被占用</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 查看端口占用</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> ss</span><span style="color:#79B8FF"> -tulnp</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> grep</span><span style="color:#9ECBFF"> :1081</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> ss</span><span style="color:#79B8FF"> -tulnp</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> grep</span><span style="color:#9ECBFF"> :8080</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 杀死占用进程</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> kill</span><span style="color:#79B8FF"> -9</span><span style="color:#F97583"> &#x3C;</span><span style="color:#9ECBFF">PI</span><span style="color:#E1E4E8">D</span><span style="color:#F97583">></span></span></code></pre>
+<h3 id="92-服务启动失败">9.2 服务启动失败</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 查看服务状态</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> systemctl</span><span style="color:#9ECBFF"> status</span><span style="color:#9ECBFF"> 3proxy.service</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 查看详细日志</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> journalctl</span><span style="color:#79B8FF"> -u</span><span style="color:#9ECBFF"> 3proxy.service</span><span style="color:#79B8FF"> -f</span></span></code></pre>
+<h3 id="93-配置文件语法错误">9.3 配置文件语法错误</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 测试配置文件语法</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> /usr/local/3proxy/3proxy</span><span style="color:#79B8FF"> -c</span><span style="color:#9ECBFF"> /etc/3proxy/conf/3proxy.cfg</span></span></code></pre>
+<h2 id="十安全建议">十、安全建议</h2>
+<h3 id="101-密码安全">10.1 密码安全</h3>
+<ul>
+<li>使用强密码，包含大小写字母、数字和特殊字符</li>
+<li>定期更换密码</li>
+<li>避免使用常见密码</li>
+</ul>
+<h3 id="102-网络安全">10.2 网络安全</h3>
+<ul>
+<li>限制访问IP范围</li>
+<li>定期检查访问日志</li>
+<li>考虑使用VPN + 代理的组合方案</li>
+</ul>
+<h3 id="103-系统安全">10.3 系统安全</h3>
+<ul>
+<li>定期更新系统和软件包</li>
+<li>监控系统资源使用情况</li>
+<li>设置适当的文件权限</li>
+</ul>
+<h2 id="结语">结语</h2>
+<p>通过本文的详细步骤，您已经成功部署了一个功能完整的3proxy代理服务器。这个配置支持SOCKS5和HTTP两种代理协议，并启用了用户名密码认证，可以满足大部分代理需求。</p>
+<p>记住，代理服务器只是网络工具，请遵守当地法律法规，合理使用。同时，定期维护和更新配置，确保服务的安全性和稳定性。</p>
+<hr>
+<p><em>配置完成后，您就可以在客户端使用这个代理服务器了。如果遇到问题，可以参考常见问题排查部分，或者查看3proxy的官方文档。</em></p> </div> <!-- Post footer --> <footer class="mt-16 pt-8 border-t border-[var(--color-border)] scroll-animate"> <div class="flex items-center justify-between text-sm font-mono text-[var(--color-text-dim)]"> <a href="/blog" class="flex items-center gap-2 hover:text-[var(--color-neon-green)] transition-colors">
+← 返回文章列表
+</a> <button id="share-btn" class="flex items-center gap-2 hover:text-[var(--color-neon-cyan)] transition-colors cursor-pointer">
+📋 复制链接
+</button> </div> </footer> <!-- Giscus Comments --> <div class="mt-12 scroll-animate"> <h2 class="font-mono text-lg text-[var(--color-text-primary)] mb-6"> <span class="text-[var(--color-text-dim)]">// </span> <span class="text-[var(--color-neon-green)]">评论</span> </h2> <script src="https://giscus.app/client.js" data-repo="xvchris/blog" data-repo-id="R_kgDOPdqi-A" data-category="Announcements" data-category-id="DIC_kwDOPdqi-M4C2NLC" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="dark_dimmed" data-lang="zh-CN" crossorigin="anonymous" async></script> </div> </div> <!-- TOC Sidebar --> <aside class="hidden lg:block w-56 shrink-0"> <div class="sticky top-24" id="toc-container"> <div class="text-xs font-mono text-[var(--color-text-dim)] uppercase tracking-widest mb-4">
+目录
+</div> <nav class="border-l border-[var(--color-border)]" id="toc-nav"> <a href="#3proxy-deb包安装教程socks5--http--用户名密码认证" class="toc-link" data-slug="3proxy-deb包安装教程socks5--http--用户名密码认证"> 3proxy .deb包安装教程：Socks5 + HTTP + 用户名密码认证 </a><a href="#前言" class="toc-link" data-slug="前言"> 前言 </a><a href="#一下载和安装3proxy" class="toc-link" data-slug="一下载和安装3proxy"> 一、下载和安装3proxy </a><a href="#11-下载deb包" class="toc-link pl-6 text-[0.75rem]" data-slug="11-下载deb包"> 1.1 下载.deb包 </a><a href="#12-安装3proxy" class="toc-link pl-6 text-[0.75rem]" data-slug="12-安装3proxy"> 1.2 安装3proxy </a><a href="#二停止默认服务并清理" class="toc-link" data-slug="二停止默认服务并清理"> 二、停止默认服务并清理 </a><a href="#21-停止systemd服务" class="toc-link pl-6 text-[0.75rem]" data-slug="21-停止systemd服务"> 2.1 停止systemd服务 </a><a href="#22-确认端口已释放" class="toc-link pl-6 text-[0.75rem]" data-slug="22-确认端口已释放"> 2.2 确认端口已释放 </a><a href="#三配置socks5--http代理" class="toc-link" data-slug="三配置socks5--http代理"> 三、配置SOCKS5 + HTTP代理 </a><a href="#31-创建配置目录" class="toc-link pl-6 text-[0.75rem]" data-slug="31-创建配置目录"> 3.1 创建配置目录 </a><a href="#32-最小配置示例" class="toc-link pl-6 text-[0.75rem]" data-slug="32-最小配置示例"> 3.2 最小配置示例 </a><a href="#四手动启动测试" class="toc-link" data-slug="四手动启动测试"> 四、手动启动测试 </a><a href="#41-启动3proxy" class="toc-link pl-6 text-[0.75rem]" data-slug="41-启动3proxy"> 4.1 启动3proxy </a><a href="#42-检查端口监听" class="toc-link pl-6 text-[0.75rem]" data-slug="42-检查端口监听"> 4.2 检查端口监听 </a><a href="#五测试代理功能" class="toc-link" data-slug="五测试代理功能"> 五、测试代理功能 </a><a href="#51-linuxmacos测试" class="toc-link pl-6 text-[0.75rem]" data-slug="51-linuxmacos测试"> 5.1 Linux/macOS测试 </a><a href="#52-windows测试" class="toc-link pl-6 text-[0.75rem]" data-slug="52-windows测试"> 5.2 Windows测试 </a><a href="#六配置systemd自启动" class="toc-link" data-slug="六配置systemd自启动"> 六、配置systemd自启动 </a><a href="#61-创建自定义systemd服务" class="toc-link pl-6 text-[0.75rem]" data-slug="61-创建自定义systemd服务"> 6.1 创建自定义systemd服务 </a><a href="#62-服务文件内容" class="toc-link pl-6 text-[0.75rem]" data-slug="62-服务文件内容"> 6.2 服务文件内容 </a><a href="#63-启用并启动服务" class="toc-link pl-6 text-[0.75rem]" data-slug="63-启用并启动服务"> 6.3 启用并启动服务 </a><a href="#七防火墙配置" class="toc-link" data-slug="七防火墙配置"> 七、防火墙配置 </a><a href="#71-本地防火墙放行" class="toc-link pl-6 text-[0.75rem]" data-slug="71-本地防火墙放行"> 7.1 本地防火墙放行 </a><a href="#72-vps提供商安全组配置" class="toc-link pl-6 text-[0.75rem]" data-slug="72-vps提供商安全组配置"> 7.2 VPS提供商安全组配置 </a><a href="#八高级配置" class="toc-link" data-slug="八高级配置"> 八、高级配置 </a><a href="#81-多用户配置" class="toc-link pl-6 text-[0.75rem]" data-slug="81-多用户配置"> 8.1 多用户配置 </a><a href="#82-限制访问ip" class="toc-link pl-6 text-[0.75rem]" data-slug="82-限制访问ip"> 8.2 限制访问IP </a><a href="#83-启用日志" class="toc-link pl-6 text-[0.75rem]" data-slug="83-启用日志"> 8.3 启用日志 </a><a href="#九常见问题排查" class="toc-link" data-slug="九常见问题排查"> 九、常见问题排查 </a><a href="#91-端口被占用" class="toc-link pl-6 text-[0.75rem]" data-slug="91-端口被占用"> 9.1 端口被占用 </a><a href="#92-服务启动失败" class="toc-link pl-6 text-[0.75rem]" data-slug="92-服务启动失败"> 9.2 服务启动失败 </a><a href="#93-配置文件语法错误" class="toc-link pl-6 text-[0.75rem]" data-slug="93-配置文件语法错误"> 9.3 配置文件语法错误 </a><a href="#十安全建议" class="toc-link" data-slug="十安全建议"> 十、安全建议 </a><a href="#101-密码安全" class="toc-link pl-6 text-[0.75rem]" data-slug="101-密码安全"> 10.1 密码安全 </a><a href="#102-网络安全" class="toc-link pl-6 text-[0.75rem]" data-slug="102-网络安全"> 10.2 网络安全 </a><a href="#103-系统安全" class="toc-link pl-6 text-[0.75rem]" data-slug="103-系统安全"> 10.3 系统安全 </a><a href="#结语" class="toc-link" data-slug="结语"> 结语 </a> </nav> </div> </aside> </div> </article>  <button class="back-to-top" id="back-to-top" aria-label="返回顶部">↑</button>  </main> <footer class="relative z-10 border-t border-[var(--color-neon-green)]/10 mt-20"> <!-- Gradient divider --> <div class="h-[1px] bg-gradient-to-r from-transparent via-[var(--color-neon-green)]/50 to-transparent"></div> <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8"> <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-[var(--color-text-secondary)] font-mono"> <div class="flex items-center gap-4"> <span>&copy; 2025 Chris</span> <span class="hidden md:inline">|</span> <span>Powered by Astro</span> </div> <div class="flex items-center gap-4"> <span id="site-uptime" data-start="2025-08-01T00:00:00.000Z">运行中...</span> <span>|</span> <span>
+总访问 <span id="busuanzi_value_site_pv" class="text-[var(--color-neon-green)]">--</span> 次
+</span> </div> </div> </div> </footer> <script type="module">function o(){const e=document.getElementById("site-uptime");if(!e)return;const n=new Date(e.dataset.start),t=new Date().getTime()-n.getTime(),s=Math.floor(t/864e5),a=Math.floor(t%864e5/36e5),c=Math.floor(t%36e5/6e4),r=Math.floor(t%6e4/1e3);e.textContent=`已运行 ${s}d ${a}h ${c}m ${r}s`}o();setInterval(o,1e3);</script> <!-- Scroll animation observer --> <script type="module">const s=new IntersectionObserver(e=>{e.forEach(r=>{r.isIntersecting&&(r.target.classList.add("visible"),s.unobserve(r.target))})},{threshold:.1});document.querySelectorAll(".scroll-animate").forEach(e=>s.observe(e));</script> <!-- Busuanzi --> <script async src="https://cn.vercount.one/js"></script> </body> </html> <script type="module">document.querySelectorAll("pre").forEach(t=>{if(t.closest(".code-block-wrapper"))return;const e=t.querySelector("code"),n=e?.className?.match(/language-(\w+)/)?.[1]||"",o=document.createElement("div");o.className="code-block-wrapper relative";const s=document.createElement("div");s.className="code-dots",s.innerHTML="<span></span><span></span><span></span>";const a=document.createElement("span");a.className="code-lang",a.textContent=n;const c=document.createElement("button");c.className="code-copy",c.textContent="Copy",c.addEventListener("click",()=>{const u=e?.textContent||t.textContent||"";navigator.clipboard.writeText(u).then(()=>{c.textContent="✓ Copied",setTimeout(()=>{c.textContent="Copy"},2e3)})}),t.parentNode?.insertBefore(o,t),o.appendChild(s),o.appendChild(a),o.appendChild(c),o.appendChild(t)});const i=document.getElementById("reading-progress"),l=document.getElementById("article-content");function g(){if(!i||!l)return;const t=l.getBoundingClientRect(),e=l.scrollHeight,n=Math.max(0,-t.top),o=Math.min(100,n/(e-window.innerHeight)*100);i.style.width=o+"%"}window.addEventListener("scroll",g,{passive:!0});const r=document.querySelectorAll("#toc-nav .toc-link"),d=[];r.forEach(t=>{const e=t.dataset.slug;if(e){const n=document.getElementById(e);n&&d.push(n)}});function p(){let t=0;for(let e=0;e<d.length;e++)d[e].getBoundingClientRect().top<120&&(t=e);r.forEach((e,n)=>{e.classList.toggle("active",n===t)})}window.addEventListener("scroll",p,{passive:!0});p();const m=document.getElementById("back-to-top");window.addEventListener("scroll",()=>{m?.classList.toggle("show",window.scrollY>400)},{passive:!0});m?.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));document.getElementById("share-btn")?.addEventListener("click",()=>{navigator.clipboard.writeText(window.location.href).then(()=>{const t=document.getElementById("share-btn");t&&(t.textContent="✓ 已复制",setTimeout(()=>{t.textContent="📋 复制链接"},2e3))})});</script>
